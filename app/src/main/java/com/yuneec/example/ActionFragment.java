@@ -83,7 +83,7 @@ public class ActionFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.set_altitude:
                 try {
-                    Action.setAltitude(Double.parseDouble(setHeight.getText() + ""));
+                    Action.setAltitudeM(Double.parseDouble(setHeight.getText() + ""));
                     Toast.makeText(mView.getContext(),"Set success",Toast.LENGTH_LONG).show();
                 } catch (NumberFormatException e) {
                     Toast.makeText(mView.getContext(),"Input error",Toast.LENGTH_LONG).show();
