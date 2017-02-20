@@ -56,7 +56,7 @@ Instructions taken from [gazebosim.org](http://gazebosim.org/tutorials?tut=insta
 
 ### Get the SITL simulation
 
-Download the zip containing the SITL simulation for [Mac](https://drive.google.com/file/d/0B0wAU1HAbjLATXN2Yk85aGp1b00/view?usp=sharing) or [Linux](https://drive.google.com/file/d/0B0wAU1HAbjLAZkpZd09DcXc2LUU/view?usp=sharing).
+Download the zip containing the SITL simulation for [Mac](https://drive.google.com/file/d/0B0wAU1HAbjLAc3NOOGFNM2Z0RU0/view?usp=sharing) or [Linux](https://drive.google.com/file/d/0B0wAU1HAbjLAUzNYSWZuRVJKOUE/view?usp=sharing).
 
 ### Run the simulation
 
