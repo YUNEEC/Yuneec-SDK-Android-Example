@@ -140,3 +140,8 @@ then add the IP of the Android device in the local network with `-t`:
 ```
 mavlink start -u 14557 -r 4000000 -m custom -o 14540 -t 192.168.0.X
 ```
+
+## License
+
+This example app is published under the [BSD 3-Clause license](LICENSE).
+
