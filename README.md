@@ -115,7 +115,7 @@ By default, the SITL simulation will only try to connect on localhost but not to
 
 There are two options to connect to another IP:
 
-1. Use broadcasting: This has the advantage that you don't need to determine the IP of the Android device because it will pick it up automatically in the network. However, this will mean that any device listening for mavlink like QGroundControl could potentially connect before the Android device can.
+1. Use broadcasting: This has the advantage that you don't need to determine the IP of the iOS device because it will pick it up automatically in the network. However, this can be a race if to devices are listening on the network.
 
 2. Set the IP: This let's you choose the IP and avoid races for who gets to be the client.
 
