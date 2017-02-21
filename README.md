@@ -21,7 +21,7 @@ The app uses the submodule [Yuneec-SDK-Android](https://github.com/YUNEEC/Yuneec
 
 The C++ wrapper uses JNI to communicate with the C++ library.
 
-## Use the Yuneec software in the lopo (SITL) simulation for testing
+## Use the Yuneec software in the loop (SITL) simulation for testing
 
 The Android app can be tested against the software simulation.
 
