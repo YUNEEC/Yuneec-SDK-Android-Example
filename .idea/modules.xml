@@ -3,8 +3,12 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Yuneec-SDK-Android/Yuneec-SDK-Android.iml" filepath="$PROJECT_DIR$/Yuneec-SDK-Android/Yuneec-SDK-Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Yuneec-SDK-Android/Yuneec-SDK-Android.iml" filepath="$PROJECT_DIR$/Yuneec-SDK-Android/Yuneec-SDK-Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Yuneec-SDK-Android-Example-prerelease.iml" filepath="$PROJECT_DIR$/Yuneec-SDK-Android-Example-prerelease.iml" />
       <module fileurl="file://$PROJECT_DIR$/Yuneec-SDK-Android-Example-prerelease.iml" filepath="$PROJECT_DIR$/Yuneec-SDK-Android-Example-prerelease.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Yuneec-SDK-Android/yuneec_sdk/yuneec_sdk.iml" filepath="$PROJECT_DIR$/Yuneec-SDK-Android/yuneec_sdk/yuneec_sdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/Yuneec-SDK-Android/yuneec_sdk/yuneec_sdk.iml" filepath="$PROJECT_DIR$/Yuneec-SDK-Android/yuneec_sdk/yuneec_sdk.iml" />
     </modules>
   </component>
