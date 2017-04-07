@@ -37,6 +37,8 @@ public class MainActivity extends FragmentActivity {
                 ActionFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("mission").setIndicator("Mission"),
                 MissionFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("camera").setIndicator("Camera"),
+                CameraFragment.class, null);
 
         Connection.Listener listener = new Connection.Listener() {
 
