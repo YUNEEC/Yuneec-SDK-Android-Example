@@ -65,12 +65,13 @@ public class MissionFragment extends Fragment implements View.OnClickListener{
     }
 
     static public MissionItem makeMissionItem(double latitudeDeg, double longitudeM,
-                                              float relativeAltitudeM) {
+                                              float relativeAltitudeM,
+                                              MissionItem.CameraAction cameraAction) {
 
         MissionItem newItem = new MissionItem();
         newItem.setPosition(latitudeDeg, longitudeM);
         newItem.setRelativeAltitude(relativeAltitudeM);
-
+        newItem.setCameraAction(cameraAction);
         return newItem;
     }
 
@@ -81,12 +82,12 @@ public class MissionFragment extends Fragment implements View.OnClickListener{
             case R.id.mission_send_button:
 
                 ArrayList<MissionItem> missionItems = new ArrayList<MissionItem>();
-                missionItems.add(makeMissionItem(47.398243367, 8.545548536, 10.0f));
-                missionItems.add(makeMissionItem(47.398283893, 8.544984959, 10.0f));
-                missionItems.add(makeMissionItem(47.398053226, 8.544522415, 10.0f));
-                missionItems.add(makeMissionItem(47.397787369, 8.544570259, 10.0f));
-                missionItems.add(makeMissionItem(47.397768778, 8.545077389, 10.0f));
-                missionItems.add(makeMissionItem(47.397986475, 8.545551966, 10.0f));
+                missionItems.add(makeMissionItem(47.398243367, 8.545548536, 10.0f, MissionItem.CameraAction.NONE));
+                missionItems.add(makeMissionItem(47.398283893, 8.544984959, 10.0f, MissionItem.CameraAction.TAKE_PHOTO));
+                missionItems.add(makeMissionItem(47.398053226, 8.544522415, 10.0f, MissionItem.CameraAction.START_VIDEO));
+                missionItems.add(makeMissionItem(47.397787369, 8.544570259, 10.0f, MissionItem.CameraAction.STOP_VIDEO));
+                missionItems.add(makeMissionItem(47.397768778, 8.545077389, 10.0f, MissionItem.CameraAction.TAKE_PHOTO));
+                missionItems.add(makeMissionItem(47.397986475, 8.545551966, 10.0f, MissionItem.CameraAction.NONE));
 
                 Mission.subscribeProgress(progressListener);
                 Mission.sendMissionAsync(missionItems, resultListener);
