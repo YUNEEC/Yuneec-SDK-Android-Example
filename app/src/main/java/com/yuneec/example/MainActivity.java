@@ -71,7 +71,10 @@ public class MainActivity extends FragmentActivity {
         TextView ConnectionStateTV = (TextView) findViewById(R.id.connection_state_text);
         ConnectionStateTV.setText("Not connected");
 
-        Toast.makeText(this, "connect: " + Connection.connect(), Toast.LENGTH_SHORT).show();
+        Connection.Result result = Connection.addConnection();
+        if (result.resultID != Connection.Result.ResultID.SUCCESS) {
+            Toast.makeText(this, "addConnection failed: " + result.resultStr, Toast.LENGTH_SHORT).show();
+        }
 
         Connection.addListener(listener);
     }
