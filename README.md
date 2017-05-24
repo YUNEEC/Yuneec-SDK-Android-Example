@@ -25,7 +25,7 @@ The C++ wrapper uses JNI to communicate with the C++ library.
 
 The Android app can be tested against the software simulation.
 
-The SITL can be used on Linux or Mac. The use in a virtualization environment such as VirtualBox is possible but generally not recommended for performance reasons.
+The SITL can be used on Linux or Mac. The use in a virtualization environment such as VirtualBox is possible but generally not recommended for performance reasons. A headless instance can be run inside a Docker container, as explained [here](sitl).
 
 ### Installing Gazebo7
 
