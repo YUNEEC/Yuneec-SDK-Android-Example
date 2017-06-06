@@ -14,4 +14,4 @@ Run the following command:
 
     $ docker run -it yuneec-sitl
 
-More details on how to use the SITL simulation can be found [here](https://github.com/YUNEEC/Yuneec-SDK-iOS-Example-prerelease#run-the-simulation).
+More details on how to use the SITL simulation can be found [here](https://github.com/YUNEEC/Yuneec-SDK-Android-Example-prerelease#run-the-simulation).
