@@ -56,7 +56,7 @@ Instructions taken from [gazebosim.org](http://gazebosim.org/tutorials?tut=insta
 
 ### Get the SITL simulation
 
-Download the zip containing the SITL simulation for [Mac](https://drive.google.com/uc?export=download&id=0B0wAU1HAbjLAOFBEUXRXWE5xMnM) or [Linux](https://drive.google.com/uc?export=download&id=0B0wAU1HAbjLAQjQ0TkcwVExJblk).
+Download the zip containing the SITL simulation for [Mac](https://s3.eu-central-1.amazonaws.com/08f61bbd-8958-433e-8e83-5d79160fa0be/sitl/latest/Yuneec-SITL-Simulation-macOS.zip) or [Linux](https://s3.eu-central-1.amazonaws.com/08f61bbd-8958-433e-8e83-5d79160fa0be/sitl/latest/Yuneec-SITL-Simulation-Linux.zip).
 
 ### Run the simulation
 
