@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,7 +95,15 @@ public class CameraFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
             private String localPath(String title) {
                 // TODO: should check if there is a SD card inserted.
-                return "/storage/sdcard1/" + title;
+                File path = rootView.getContext().getExternalFilesDir(null);
+                //System.out.println("Download to: " + path);
+                // Create dir if not already existing
+                if (path.mkdirs()) {
+                    System.out.println("Created: " + path);
+                } else {
+                    System.out.println("Could not create: " + path);
+                }
+                return path + "/" + title;
             }
 
             private void downloadFile(final MediaInfoEntry entry) {
@@ -152,8 +161,16 @@ public class CameraFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 String fileExtension = fileExt(localPath);
                 String mimeType = myMime.getMimeTypeFromExtension(fileExtension);
 
-                newIntent.setDataAndType(Uri.fromFile(file), mimeType);
+                Context context = rootView.getContext();
+
+                // Taken from https://stackoverflow.com/questions/38200282#answer-38858040
+                newIntent.setDataAndType(FileProvider.getUriForFile(context,
+                    context.getApplicationContext().getPackageName() + ".yuneec.sdk.example.provider",
+                    file),
+                    mimeType);
                 newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                newIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
                 try {
                     rootView.getContext().startActivity(newIntent);
                 } catch (ActivityNotFoundException e) {
