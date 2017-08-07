@@ -108,7 +108,7 @@ public class CameraFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 downloadingMedia = true;
                 Camera.MediaListener mediaListener = new Camera.MediaListener() {
                     @Override
-                    public void getMediaCallback(final Camera.Result result, final long bytes, final long bytesTotal) {
+                    public void getMediaCallback(final Camera.Result result, final int progress) {
                         getActivity().runOnUiThread(new Runnable() {
                             public void run() {
                                 if (result.resultID != Camera.Result.ResultID.IN_PROGRESS) {
@@ -120,8 +120,7 @@ public class CameraFragment extends Fragment implements SwipeRefreshLayout.OnRef
                                         adapter.notifyDataSetChanged();
                                     }
                                 } else {
-                                    double percent = (double)bytes * 100.0 / (double)bytesTotal;
-                                    updateToast("Downloaded " + String.format("%d", (int)percent) + " %");
+                                    updateToast("Downloaded " + progress + " %");
                                 }
                             }
                         });
