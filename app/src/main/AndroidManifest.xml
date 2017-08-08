@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.yuneec.example.MainActivity"
+            android:name="com.yuneec.example.component.actitivty.MainActivity"
             android:label="@string/app_name"
             >
             <intent-filter>
