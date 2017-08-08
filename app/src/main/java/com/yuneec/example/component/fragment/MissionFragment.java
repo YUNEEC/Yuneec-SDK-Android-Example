@@ -5,7 +5,7 @@
  * Copyright @ 2016-2017 Yuneec.
  * All rights reserved.
  */
-package com.yuneec.example;
+package com.yuneec.example.component.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,10 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import java.util.ArrayList;
-
+import com.yuneec.example.R;
 import com.yuneec.sdk.Mission;
 import com.yuneec.sdk.MissionItem;
+
+import java.util.ArrayList;
 
 
 public class MissionFragment extends Fragment implements View.OnClickListener{
@@ -31,7 +32,7 @@ public class MissionFragment extends Fragment implements View.OnClickListener{
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        rootView = inflater.inflate(R.layout.mission_example, container, false);
+        rootView = inflater.inflate( R.layout.mission_example, container, false);
 
         resultListener = new Mission.ResultListener() {
             @Override

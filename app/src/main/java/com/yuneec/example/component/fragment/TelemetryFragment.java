@@ -5,7 +5,7 @@
  * Copyright @ 2016-2017 Yuneec.
  * All rights reserved.
  */
-package com.yuneec.example;
+package com.yuneec.example.component.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,10 +16,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import java.util.ArrayList;
-
-import com.yuneec.sdk.Telemetry;
+import com.yuneec.example.R;
 import com.yuneec.sdk.Connection;
+import com.yuneec.sdk.Telemetry;
+
+import java.util.ArrayList;
 
 
 public class TelemetryFragment extends Fragment {
@@ -240,7 +241,7 @@ public class TelemetryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.telemetry_example, container, false);
+        View rootView = inflater.inflate( R.layout.telemetry_example, container, false);
 
         ListView lv = (ListView)rootView.findViewById(R.id.telemetry_list);
         lv.setAdapter(adapter);
