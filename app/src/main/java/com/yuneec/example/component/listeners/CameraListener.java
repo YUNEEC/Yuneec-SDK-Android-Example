@@ -16,7 +16,7 @@ class CameraListener
 	 private static final String TAG = "CameraResultListener";
 
 	 public static
-	 void initCameraListener ( )
+	 void registerCameraListener ( )
 	 {
 
 			if ( cameraResultListener == null )
@@ -38,6 +38,16 @@ class CameraListener
 
 				 };
 				 Camera.setResultListener ( cameraResultListener );
+			}
+	 }
+
+	 public static
+	 void unRegisterCameraListener ( )
+	 {
+
+			if ( cameraResultListener != null )
+			{
+				 cameraResultListener = null;
 			}
 	 }
 }

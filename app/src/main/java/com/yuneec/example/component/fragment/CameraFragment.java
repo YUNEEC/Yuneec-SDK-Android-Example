@@ -61,9 +61,7 @@ class CameraFragment
 	 {
 
 			super.onCreate ( savedInstanceState );
-			CameraListener.initCameraListener ( );
-
-       /* mediaInfoslistener = new Camera.MediaInfosListener() {
+			 /* mediaInfoslistener = new Camera.MediaInfosListener() {
 						@Override
             public void getMediaInfosCallback(final Camera.Result result, final ArrayList<Camera.MediaInfo>
             mediaInfos) {
@@ -243,6 +241,39 @@ class CameraFragment
 			//refreshIndex ( );
 
 			return rootView;
+	 }
+
+	 @Override
+	 public
+	 void onStart ( )
+	 {
+
+			super.onStart ( );
+			registerListener ( );
+	 }
+
+	 @Override
+	 public
+	 void onStop ( )
+	 {
+
+			super.onStop ( );
+			unRegisterListener ( );
+	 }
+
+
+	 private
+	 void registerListener ( )
+	 {
+
+			CameraListener.registerCameraListener ( );
+	 }
+
+	 private
+	 void unRegisterListener ( )
+	 {
+
+			CameraListener.unRegisterCameraListener ( );
 	 }
 
 	 private
