@@ -49,18 +49,40 @@ class MainActivity
 			mTabHost.addTab ( mTabHost.newTabSpec ( "camera" )
 																.setIndicator ( "Camera" ), CameraFragment.class, null );
 
-			initListeners ( );
-
-
 			TextView ConnectionStateTV = ( TextView ) findViewById ( R.id.connection_state_text );
 			ConnectionStateTV.setText ( "Not connected" );
 	 }
 
-	 private
-	 void initListeners ( )
+	 @Override
+	 protected
+	 void onStart ( )
 	 {
 
-			ConnectionListener.initConnectionListener ( );
+			super.onStart ( );
+			registerListeners ( );
+	 }
+
+	 @Override
+	 protected
+	 void onStop ( )
+	 {
+
+			super.onStop ( );
+			unRegisterListeners ( );
+	 }
+
+	 private
+	 void registerListeners ( )
+	 {
+
+			ConnectionListener.registerConnectionListener ( );
+	 }
+
+	 private
+	 void unRegisterListeners ( )
+	 {
+
+			ConnectionListener.unRegisterConnectionListener ( );
 	 }
 
 

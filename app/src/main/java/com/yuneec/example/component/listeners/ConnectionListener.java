@@ -17,7 +17,7 @@ class ConnectionListener
 
 
 	 public static
-	 void initConnectionListener ( )
+	 void registerConnectionListener ( )
 	 {
 
 			if ( connectionListener == null )
@@ -77,6 +77,17 @@ class ConnectionListener
 				 }
 
 				 Connection.addListener ( connectionListener );
+			}
+	 }
+
+	 public static
+	 void unRegisterConnectionListener ( )
+	 {
+
+			Connection.removeConnection ( );
+			if ( connectionListener != null )
+			{
+				 connectionListener = null;
 			}
 	 }
 }
