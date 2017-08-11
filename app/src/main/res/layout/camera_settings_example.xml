@@ -34,7 +34,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cloudy" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <Button
+            android:id="@+id/picture_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Take Photo" />
     </LinearLayout>
 </LinearLayout>
