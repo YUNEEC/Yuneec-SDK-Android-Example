@@ -32,10 +32,10 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
 
         whiteBalanceListener = new Camera.WhiteBalanceListener() {
             @Override
-            public void callback(final Camera.Result result/*, final Camera.WhiteBalance whiteBalance*/) {
+            public void callback(final Camera.Result result, final Camera.WhiteBalance whiteBalance) {
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
-                        Toast.makeText(mView.getContext(), result.resultStr,
+                        Toast.makeText(mView.getContext(), result.resultStr + ", WB: " + whiteBalance,
                                        Toast.LENGTH_LONG).show();
                     }
                 });
@@ -55,6 +55,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
         };
         Camera.setResultListener(resultListener);
 
+        mView.findViewById(R.id.wb_get_button).setOnClickListener(this);
         mView.findViewById(R.id.auto_button).setOnClickListener(this);
         mView.findViewById(R.id.lock_button).setOnClickListener(this);
         mView.findViewById(R.id.sunny_button).setOnClickListener(this);
@@ -67,6 +68,9 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.wb_get_button:
+                Camera.getWhiteBalance(whiteBalanceListener);
+                break;
             case R.id.auto_button:
                 Camera.setWhiteBalance(Camera.WhiteBalance.AUTO, whiteBalanceListener);
                 break;
