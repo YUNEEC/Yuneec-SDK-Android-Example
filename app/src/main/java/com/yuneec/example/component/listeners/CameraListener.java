@@ -13,7 +13,7 @@ class CameraListener
 
 	 private static Camera.ResultListener cameraResultListener = null;
 
-	 private static final String TAG = "CameraResultListener";
+	 private static final String TAG = CameraListener.class.getCanonicalName ( );
 
 	 public static
 	 void registerCameraListener ( )
