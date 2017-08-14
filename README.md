@@ -36,9 +36,15 @@ Tested on macOS 10.11 and 10.12.
 Make sure to have [homebrew](http://brew.sh).
 
 ```
+brew cask install xquartz
 brew tap px4/simulation
 brew update
 brew install gazebo7
+```
+OpenCV is required to run the simulation.
+```
+brew tap homebrew/science
+brew install opencv
 ```
 
 #### Ubuntu
