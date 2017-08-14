@@ -11,15 +11,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.yuneec.example.R;
+import com.yuneec.example.component.custom_callback.VideoSurfaceHolderCallBack;
 import com.yuneec.example.component.listeners.CameraListener;
+import com.yuneec.rtvplayer.RTVPlayer;
 import com.yuneec.sdk.Camera;
 
 import java.util.ArrayList;
@@ -32,13 +32,23 @@ class CameraFragment
 
 	 private View rootView;
 
-	 //private Camera.MediaInfosListener mediaInfoslistener;
-	 //private ListviewMediaInfosAdapter adapter;
-	 //SwipeRefreshLayout swipeLayout;
-	 //private boolean downloadingMedia = false;
+	 private static final String TAG = CameraFragment.class.getCanonicalName ( );
+
 	 private Toast toast = null;
 
 	 Button capturePicture;
+
+	 SurfaceView videoStreamView;
+
+	 Surface videoStreamSurface;
+
+	 SurfaceHolder surfaceHolder;
+
+	 Surface videoSurface;
+
+	 RTVPlayer rtvPlayer;
+
+	 VideoSurfaceHolderCallBack videoSurfaceHolderCallBack;
 
 
 	 @Override
@@ -47,10 +57,6 @@ class CameraFragment
 	 {
 
 			super.onCreate ( savedInstanceState );
-			//ArrayList<MediaInfoEntry> emptyList = new ArrayList<MediaInfoEntry>();
-
-			//adapter = new ListviewMediaInfosAdapter(getActivity(), emptyList);
-
 	 }
 
 	 @Override
@@ -61,185 +67,9 @@ class CameraFragment
 	 {
 
 			super.onCreate ( savedInstanceState );
-			 /* mediaInfoslistener = new Camera.MediaInfosListener() {
-						@Override
-            public void getMediaInfosCallback(final Camera.Result result, final ArrayList<Camera.MediaInfo>
-            mediaInfos) {
-                getActivity().runOnUiThread(new Runnable() {
-                    public void run() {
-                        adapter.setEntries(mediaInfos);
-                        adapter.notifyDataSetChanged();
-                        updateToast(result.resultStr + ", found " + mediaInfos.size() + " media items");
-                        swipeLayout.setRefreshing(false);
-                    }
-                });
-            }
-        };*/
-
-			rootView = inflater.inflate ( R.layout.camera_example, container, false );
-			capturePicture = ( Button ) rootView.findViewById ( R.id.capturePicture );
-
+			setRetainInstance ( true );
+			initViews ( inflater, container );
 			addOnClickListeners ( );
-
-			//swipeLayout = ( SwipeRefreshLayout ) rootView.findViewById ( R.id.swiperefresh );
-			//swipeLayout.setOnRefreshListener ( this );
-
-			//ListView lv = ( ListView ) rootView.findViewById ( R.id.media_info_list );
-			//lv.setAdapter ( adapter );
-
-			//lv.setOnItemClickListener ( new AdapterView.OnItemClickListener ( )
-			/*{
-
-				 @Override
-				 public
-				 void onItemClick ( AdapterView adapterView,
-														View view,
-														int i,
-														long l )
-				 {
-
-						final MediaInfoEntry entry = adapter.getItem ( i );
-
-						if ( entry.downloaded )
-						{
-							 openFile ( entry );
-						}
-						else
-						{
-							 downloadFile ( entry );
-						}
-				 }
-
-				 private
-				 String localPath ( String title )
-				 {
-						// TODO: should check if there is a SD card inserted.
-						return "/storage/sdcard1/" + title;
-				 }
-
-				 private
-				 void downloadFile ( final MediaInfoEntry entry )
-				 {
-
-						// Ignore clicks while downloading something else, this is because we can
-						// only have one listener at a time.
-						if ( downloadingMedia )
-						{
-							 return;
-						}
-
-						downloadingMedia = true;
-						Camera.MediaListener mediaListener = new Camera.MediaListener ( )
-						{
-
-							 @Override
-							 public
-							 void getMediaCallback ( final Camera.Result result,
-																			 final long bytes,
-																			 final long bytesTotal )
-							 {
-
-									getActivity ( ).runOnUiThread ( new Runnable ( )
-									{
-
-										 public
-										 void run ( )
-										 {
-
-												if ( result.resultID != Camera.Result.ResultID.IN_PROGRESS )
-												{
-
-													 updateToast ( "Download: " + result.resultStr );
-
-													 if ( result.resultID == Camera.Result.ResultID.SUCCESS )
-													 {
-															entry.downloaded = true;
-															adapter.notifyDataSetChanged ( );
-													 }
-												}
-												else
-												{
-													 double percent = ( double ) bytes * 100.0 / ( double ) bytesTotal;
-													 updateToast ( "Downloaded " + String.format ( "%d", ( int ) percent ) + " %" );
-												}
-										 }
-									} );
-									downloadingMedia = false;
-							 }
-
-						};
-
-						String localPath = localPath ( entry.title );
-
-						System.out.println ( "Fetching " + entry.path + " to " + localPath );
-
-						// FIXME: Note that we overwrite the mediaListener here, so the old one will
-						//        now be the same as the new one.
-						Camera.getMediaAsync ( localPath, entry.path, mediaListener );
-				 }
-
-				 private
-				 void openFile ( MediaInfoEntry entry )
-				 {
-
-						// Some file open magic taken from:
-						//http://stackoverflow.com/questions/6265298#answer-6381479
-
-						String localPath = localPath ( entry.title );
-						File   file      = new File ( localPath );
-
-						MimeTypeMap myMime    = MimeTypeMap.getSingleton ( );
-						Intent      newIntent = new Intent ( Intent.ACTION_VIEW );
-
-						String fileExtension = fileExt ( localPath );
-						String mimeType      = myMime.getMimeTypeFromExtension ( fileExtension );
-
-						newIntent.setDataAndType ( Uri.fromFile ( file ), mimeType );
-						newIntent.setFlags ( Intent.FLAG_ACTIVITY_NEW_TASK );
-						try
-						{
-							 rootView.getContext ( )
-											 .startActivity ( newIntent );
-						}
-						catch ( ActivityNotFoundException e )
-						{
-							 updateToast ( "No handler for this type of file." );
-						}
-				 }
-
-				 private
-				 String fileExt ( String url )
-				 {
-
-						if ( url.indexOf ( "?" ) > -1 )
-						{
-							 url = url.substring ( 0, url.indexOf ( "?" ) );
-						}
-						if ( url.lastIndexOf ( "." ) == -1 )
-						{
-							 return null;
-						}
-						else
-						{
-							 String ext = url.substring ( url.lastIndexOf ( "." ) + 1 );
-							 if ( ext.indexOf ( "%" ) > -1 )
-							 {
-									ext = ext.substring ( 0, ext.indexOf ( "%" ) );
-							 }
-							 if ( ext.indexOf ( "/" ) > -1 )
-							 {
-									ext = ext.substring ( 0, ext.indexOf ( "/" ) );
-							 }
-							 return ext.toLowerCase ( );
-						}
-				 }
-			} );*/
-
-
-			// Trigger a manual refresh when the view is created.
-			//swipeLayout.setRefreshing ( true );
-			//refreshIndex ( );
-
 			return rootView;
 	 }
 
@@ -259,6 +89,44 @@ class CameraFragment
 
 			super.onStop ( );
 			unRegisterListener ( );
+			rtvPlayer.deinit ( );
+			if ( videoSurfaceHolderCallBack != null )
+			{
+				 videoSurfaceHolderCallBack = null;
+			}
+	 }
+
+	 @Override
+	 public
+	 void onPause ( )
+	 {
+
+			super.onPause ( );
+			rtvPlayer.stop ( );
+	 }
+
+	 @Override
+	 public
+	 void onResume ( )
+	 {
+
+			super.onResume ( );
+
+	 }
+
+	 private
+	 void initViews ( LayoutInflater inflater,
+										ViewGroup container )
+	 {
+
+			rootView = inflater.inflate ( R.layout.camera_layout, container, false );
+			capturePicture = ( Button ) rootView.findViewById ( R.id.capturePicture );
+			videoStreamView = ( SurfaceView ) rootView.findViewById ( R.id.video_live_stream_view );
+			surfaceHolder = videoStreamView.getHolder ( );
+			rtvPlayer = RTVPlayer.getPlayer ( RTVPlayer.PLAYER_FFMPEG );
+			rtvPlayer.init ( getActivity ( ), RTVPlayer.IMAGE_FORMAT_YV12, false );
+			videoSurfaceHolderCallBack = new VideoSurfaceHolderCallBack ( getActivity ( ), videoSurface, rtvPlayer );
+			surfaceHolder.addCallback ( videoSurfaceHolderCallBack );
 	 }
 
 
@@ -275,6 +143,7 @@ class CameraFragment
 
 			CameraListener.unRegisterCameraListener ( );
 	 }
+
 
 	 private
 	 void addOnClickListeners ( )

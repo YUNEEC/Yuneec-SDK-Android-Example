@@ -9,8 +9,10 @@ package com.yuneec.example.component.actitivty;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.util.Log;
 import android.widget.TextView;
 import com.yuneec.example.R;
+import com.yuneec.example.component.custom_callback.OnConnectionChangeListener;
 import com.yuneec.example.component.fragment.ActionFragment;
 import com.yuneec.example.component.fragment.CameraFragment;
 import com.yuneec.example.component.fragment.MissionFragment;
@@ -25,9 +27,14 @@ import com.yuneec.example.component.listeners.ConnectionListener;
 public
 class MainActivity
 				extends FragmentActivity
+				implements OnConnectionChangeListener
 {
 
 	 private FragmentTabHost mTabHost;
+
+	 TextView connectionStateText;
+
+	 private static final String TAG = MainActivity.class.getCanonicalName ( );
 
 	 @Override
 	 protected
@@ -49,8 +56,8 @@ class MainActivity
 			mTabHost.addTab ( mTabHost.newTabSpec ( "camera" )
 																.setIndicator ( "Camera" ), CameraFragment.class, null );
 
-			TextView ConnectionStateTV = ( TextView ) findViewById ( R.id.connection_state_text );
-			ConnectionStateTV.setText ( "Not connected" );
+			connectionStateText = ( TextView ) findViewById ( R.id.connection_state_text );
+			connectionStateText.setText ( "Not connected" );
 	 }
 
 	 @Override
@@ -75,7 +82,7 @@ class MainActivity
 	 void registerListeners ( )
 	 {
 
-			ConnectionListener.registerConnectionListener ( );
+			ConnectionListener.registerConnectionListener ( this );
 	 }
 
 	 private
@@ -86,6 +93,24 @@ class MainActivity
 	 }
 
 
+	 @Override
+	 public
+	 void publishConnectionStatus ( final String connectionStatus )
+	 {
+
+			runOnUiThread ( new Runnable ( )
+			{
+
+				 @Override
+				 public
+				 void run ( )
+				 {
+
+						Log.d ( TAG, connectionStatus );
+						connectionStateText.setText ( connectionStatus );
+				 }
+			} );
+	 }
 }
 
 
