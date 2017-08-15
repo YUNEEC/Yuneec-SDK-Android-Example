@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">YuneecAndroidExample</string>
+    <string name = "app_name">YuneecAndroidExample</string>
+    <string name = "rotate_clockwise">Rotate camera clockwise</string>
+    <string name = "rotate_anticlockwise">Rotate camera anti-clockwise</string>
+    <string name = "rotate_to_initial">Bring to the initial position</string>
+
 </resources>

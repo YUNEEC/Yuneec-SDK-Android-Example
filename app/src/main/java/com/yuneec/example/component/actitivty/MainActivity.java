@@ -13,10 +13,7 @@ import android.util.Log;
 import android.widget.TextView;
 import com.yuneec.example.R;
 import com.yuneec.example.component.custom_callback.OnConnectionChangeListener;
-import com.yuneec.example.component.fragment.ActionFragment;
-import com.yuneec.example.component.fragment.CameraFragment;
-import com.yuneec.example.component.fragment.MissionFragment;
-import com.yuneec.example.component.fragment.TelemetryFragment;
+import com.yuneec.example.component.fragment.*;
 import com.yuneec.example.component.listeners.ConnectionListener;
 
 /**
@@ -55,6 +52,8 @@ class MainActivity
 																.setIndicator ( "Mission" ), MissionFragment.class, null );
 			mTabHost.addTab ( mTabHost.newTabSpec ( "camera" )
 																.setIndicator ( "Camera" ), CameraFragment.class, null );
+			mTabHost.addTab ( mTabHost.newTabSpec ( "gimbal" )
+																.setIndicator ( "Gimbal" ), GimbalFragment.class, null );
 
 			connectionStateText = ( TextView ) findViewById ( R.id.connection_state_text );
 			connectionStateText.setText ( "Not connected" );
