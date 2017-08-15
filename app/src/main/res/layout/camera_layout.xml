@@ -17,12 +17,10 @@
             android:layout_height = "wrap_content"
             android:id = "@+id/capturePicture"
             android:layout_marginTop = "@dimen/activity_vertical_margin"
+            style = "@style/button"
             android:text = "Capture Picture"
             android:layout_below = "@+id/video_live_stream_view"
             android:gravity = "center"
     />
-
-
-
 
 </RelativeLayout>

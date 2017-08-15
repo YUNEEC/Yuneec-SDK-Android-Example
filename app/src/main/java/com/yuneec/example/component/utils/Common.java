@@ -9,4 +9,8 @@ class Common
 {
 
 	 public static final String VideoStreamUrl = "rtsp://192.168.42.1/live";
+
+	 public static final int fixedRotationAngle = 20;
+
+	 public static int currentRotation = 0;
 }
