@@ -13,4 +13,9 @@ class Common
 	 public static final int fixedRotationAngle = 20;
 
 	 public static int currentRotation = 0;
+
+	 public static final String connectionStatusDefault = "Not connected to the drone";
+
+	 public static String connectionStatus = connectionStatusDefault;
+
 }
