@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
-import android.widget.TextView;
 import com.yuneec.example.R;
 import com.yuneec.example.component.custom_callback.OnConnectionChangeListener;
 import com.yuneec.example.component.fragment.*;
@@ -29,7 +28,7 @@ class MainActivity
 
 	 private FragmentTabHost mTabHost;
 
-	 TextView connectionStateText;
+	 //TextView connectionStateText;
 
 	 private static final String TAG = MainActivity.class.getCanonicalName ( );
 
@@ -43,7 +42,8 @@ class MainActivity
 
 			mTabHost = ( FragmentTabHost ) findViewById ( android.R.id.tabhost );
 			mTabHost.setup ( this, getSupportFragmentManager ( ), R.id.tabcontent );
-
+			mTabHost.addTab ( mTabHost.newTabSpec ( "connection" )
+																.setIndicator ( "Connection Info" ), ConnectionFragment.class, null );
 			mTabHost.addTab ( mTabHost.newTabSpec ( "telemetry" )
 																.setIndicator ( "Telemetry" ), TelemetryFragment.class, null );
 			mTabHost.addTab ( mTabHost.newTabSpec ( "action" )
@@ -55,8 +55,8 @@ class MainActivity
 			mTabHost.addTab ( mTabHost.newTabSpec ( "gimbal" )
 																.setIndicator ( "Gimbal" ), GimbalFragment.class, null );
 
-			connectionStateText = ( TextView ) findViewById ( R.id.connection_state_text );
-			connectionStateText.setText ( "Not connected" );
+			//connectionStateText = ( TextView ) findViewById ( R.id.connection_state_text );
+			//connectionStateText.setText ( "Not connected" );
 	 }
 
 	 @Override
@@ -75,6 +75,7 @@ class MainActivity
 
 			super.onStop ( );
 			unRegisterListeners ( );
+
 	 }
 
 	 private
@@ -91,7 +92,6 @@ class MainActivity
 			ConnectionListener.unRegisterConnectionListener ( );
 	 }
 
-
 	 @Override
 	 public
 	 void publishConnectionStatus ( final String connectionStatus )
@@ -106,10 +106,14 @@ class MainActivity
 				 {
 
 						Log.d ( TAG, connectionStatus );
-						connectionStateText.setText ( connectionStatus );
+						ConnectionFragment fragment = ( ConnectionFragment ) getSupportFragmentManager ( ).findFragmentByTag (
+										"connection" );
+						fragment.setConnectionStateView ( connectionStatus );
+
 				 }
 			} );
 	 }
+
 }
 
 

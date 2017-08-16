@@ -3,6 +3,7 @@ package com.yuneec.example.component.listeners;
 import android.content.Context;
 import android.util.Log;
 import com.yuneec.example.component.custom_callback.OnConnectionChangeListener;
+import com.yuneec.example.component.utils.Common;
 import com.yuneec.sdk.Connection;
 
 /**
@@ -34,7 +35,7 @@ class ConnectionListener
 						void onDiscoverCallback ( )
 						{
 
-							 onConnectionChange.publishConnectionStatus ( "Discovered" );
+							 onConnectionChange.publishConnectionStatus ( "Discovered Drone" );
 							 Log.d ( TAG, "Connected" );
 
 						}
@@ -44,7 +45,7 @@ class ConnectionListener
 						void onTimeoutCallback ( )
 						{
 
-							 onConnectionChange.publishConnectionStatus ( "Connection time out" );
+							 onConnectionChange.publishConnectionStatus ( "Connection Timed Out! Please try to reconnect" );
 							 Log.d ( TAG, " Not Connected" );
 						}
 				 };
@@ -65,6 +66,7 @@ class ConnectionListener
 	 {
 
 			Connection.removeConnection ( );
+			Common.connectionStatus = Common.connectionStatusDefault;
 			if ( connectionListener != null )
 			{
 				 connectionListener = null;

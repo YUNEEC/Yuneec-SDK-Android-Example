@@ -8,7 +8,6 @@ public
 interface OnConnectionChangeListener
 {
 
-	 public
 	 void publishConnectionStatus ( String connectionStatus );
 }
 

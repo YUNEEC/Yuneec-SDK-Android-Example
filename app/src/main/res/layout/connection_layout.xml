@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+              android:orientation = "horizontal"
+              android:layout_width = "match_parent"
+              android:layout_height = "match_parent"
+              android:layout_margin = "@dimen/activity_horizontal_margin">
+
+	<TextView android:layout_width = "wrap_content"
+	          android:layout_height = "wrap_content"
+	          android:id = "@+id/connection_state_label"
+	          android:text = "@string/connection_status"
+	          style = "@style/text" />
+
+	<TextView android:layout_width = "wrap_content"
+	          android:layout_height = "wrap_content"
+	          android:id = "@+id/connection_state"
+	          android:layout_marginLeft = "@dimen/activity_horizontal_margin"
+	          android:text = "@string/not_connected_status"
+	          style = "@style/text" />
+
+
+</LinearLayout>

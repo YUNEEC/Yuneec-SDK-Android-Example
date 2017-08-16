@@ -89,11 +89,6 @@ class CameraFragment
 
 			super.onStop ( );
 			unRegisterListener ( );
-			rtvPlayer.deinit ( );
-			if ( videoSurfaceHolderCallBack != null )
-			{
-				 videoSurfaceHolderCallBack = null;
-			}
 	 }
 
 	 @Override
@@ -112,6 +107,26 @@ class CameraFragment
 
 			super.onResume ( );
 
+	 }
+
+	 @Override
+	 public
+	 void onDestroyView ( )
+	 {
+
+			super.onDestroyView ( );
+			deInitPlayer ( );
+	 }
+
+	 public
+	 void deInitPlayer ( )
+	 {
+
+			rtvPlayer.deinit ( );
+			if ( videoSurfaceHolderCallBack != null )
+			{
+				 videoSurfaceHolderCallBack = null;
+			}
 	 }
 
 	 private

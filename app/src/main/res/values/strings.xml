@@ -3,5 +3,7 @@
     <string name = "rotate_clockwise">Rotate camera clockwise</string>
     <string name = "rotate_anticlockwise">Rotate camera anti-clockwise</string>
     <string name = "rotate_to_initial">Bring to the initial position</string>
+    <string name = "connection_status">Connection Status: </string>
+    <string name = "not_connected_status"> Not connected to the drone </string>
 
 </resources>
