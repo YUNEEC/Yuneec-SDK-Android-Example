@@ -11,8 +11,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
 import com.yuneec.example.R;
-import com.yuneec.example.component.custom_callback.OnConnectionChangeListener;
-import com.yuneec.example.component.fragment.*;
+import com.yuneec.example.component.custom_callback.OnChangeListener;
+import com.yuneec.example.component.fragment.CameraFragment;
+import com.yuneec.example.component.fragment.ConnectionFragment;
+import com.yuneec.example.component.fragment.GimbalFragment;
 import com.yuneec.example.component.listeners.ConnectionListener;
 
 /**
@@ -23,7 +25,7 @@ import com.yuneec.example.component.listeners.ConnectionListener;
 public
 class MainActivity
         extends FragmentActivity
-        implements OnConnectionChangeListener
+        implements OnChangeListener
 {
 
    private FragmentTabHost mTabHost;
@@ -103,6 +105,50 @@ class MainActivity
             ConnectionFragment fragment = ( ConnectionFragment ) getSupportFragmentManager ( ).findFragmentByTag (
                     "connection" );
             fragment.setConnectionStateView ( connectionStatus );
+
+         }
+      } );
+   }
+
+   @Override
+   public
+   void publishBatteryChangeStatus ( final String batteryStatus )
+   {
+
+      runOnUiThread ( new Runnable ( )
+      {
+
+         @Override
+         public
+         void run ( )
+         {
+
+            Log.d ( TAG, batteryStatus );
+            ConnectionFragment fragment = ( ConnectionFragment ) getSupportFragmentManager ( ).findFragmentByTag (
+                    "connection" );
+            fragment.setBatterStateView ( batteryStatus );
+
+         }
+      } );
+   }
+
+   @Override
+   public
+   void publishHealthChangeStatus ( final String healthStatus )
+   {
+
+      runOnUiThread ( new Runnable ( )
+      {
+
+         @Override
+         public
+         void run ( )
+         {
+
+            Log.d ( TAG, healthStatus );
+            ConnectionFragment fragment = ( ConnectionFragment ) getSupportFragmentManager ( ).findFragmentByTag (
+                    "connection" );
+            fragment.setDroneHealthView ( healthStatus );
 
          }
       } );
