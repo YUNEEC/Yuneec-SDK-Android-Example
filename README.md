@@ -1,5 +1,7 @@
 # Yuneec SDK Android example
 
+[![Build Status](https://travis-ci.com/YUNEEC/Yuneec-SDK-Android-Example.svg?token=5772mkLLvKwYKBhk4s9n&branch=master)](https://travis-ci.com/YUNEEC/Yuneec-SDK-Android-Example)
+
 ## Overview
 
 This is a proof-of-concept Android app built on the of the Yuneec SDK.
