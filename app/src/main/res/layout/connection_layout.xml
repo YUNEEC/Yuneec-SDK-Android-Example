@@ -1,22 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-              android:orientation = "horizontal"
+              android:orientation = "vertical"
               android:layout_width = "match_parent"
               android:layout_height = "match_parent"
               android:layout_margin = "@dimen/activity_horizontal_margin">
 
-	<TextView android:layout_width = "wrap_content"
-	          android:layout_height = "wrap_content"
-	          android:id = "@+id/connection_state_label"
-	          android:text = "@string/connection_status"
-	          style = "@style/text" />
+	<LinearLayout android:layout_width = "wrap_content"
+	              android:orientation = "horizontal"
+	              android:layout_height = "wrap_content"
+	              android:layout_marginBottom = "@dimen/activity_horizontal_margin">
 
-	<TextView android:layout_width = "wrap_content"
-	          android:layout_height = "wrap_content"
-	          android:id = "@+id/connection_state"
-	          android:layout_marginLeft = "@dimen/activity_horizontal_margin"
-	          android:text = "@string/not_connected_status"
-	          style = "@style/text" />
 
+		<TextView android:layout_width = "wrap_content"
+		          android:layout_height = "wrap_content"
+		          android:id = "@+id/connection_state_label"
+		          android:text = "@string/connection_status"
+		          style = "@style/text" />
+
+		<TextView android:layout_width = "wrap_content"
+		          android:layout_height = "wrap_content"
+		          android:id = "@+id/connection_state"
+		          android:layout_marginLeft = "@dimen/activity_horizontal_margin"
+		          android:text = "@string/not_connected_status"
+		          style = "@style/text" />
+
+		</LinearLayout>
+
+	<LinearLayout android:layout_width = "wrap_content"
+	              android:orientation = "horizontal"
+	              android:layout_height = "wrap_content"
+	              android:layout_marginBottom = "@dimen/activity_horizontal_margin">
+
+
+		<TextView android:layout_width = "wrap_content"
+		          android:layout_height = "wrap_content"
+		          android:id = "@+id/battery_status_label"
+		          android:text = "@string/battery_status"
+		          style = "@style/text" />
+
+		<TextView android:layout_width = "wrap_content"
+		          android:layout_height = "wrap_content"
+		          android:id = "@+id/battery_status"
+		          android:layout_marginLeft = "@dimen/activity_horizontal_margin"
+		          android:text = "@string/no_status"
+		          style = "@style/text" />
+
+		</LinearLayout>
+
+	<LinearLayout android:layout_width = "wrap_content"
+	              android:orientation = "horizontal"
+	              android:layout_height = "wrap_content"
+	              android:layout_marginBottom = "@dimen/activity_horizontal_margin">
+
+
+		<TextView android:layout_width = "wrap_content"
+		          android:layout_height = "wrap_content"
+		          android:id = "@+id/health_status_label"
+		          style = "@style/text"
+		          android:text = "@string/health_status"/>
+
+		<TextView android:layout_width = "wrap_content"
+		          android:layout_height = "wrap_content"
+		          android:id = "@+id/health_status"
+		          android:layout_marginLeft = "@dimen/activity_horizontal_margin"
+		          android:text = "@string/no_status"
+		          style = "@style/text" />
+
+		</LinearLayout>
 
 </LinearLayout>

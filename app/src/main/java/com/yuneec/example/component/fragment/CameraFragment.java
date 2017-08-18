@@ -8,6 +8,9 @@ package com.yuneec.example.component.fragment;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -26,305 +29,329 @@ import java.util.ArrayList;
 
 public
 class CameraFragment
-				extends Fragment
-				implements SwipeRefreshLayout.OnRefreshListener
+        extends Fragment
+        implements SwipeRefreshLayout.OnRefreshListener,
+                   View.OnClickListener
 {
 
-	 private View rootView;
+   private View rootView;
 
-	 private static final String TAG = CameraFragment.class.getCanonicalName ( );
+   private static final String TAG = CameraFragment.class.getCanonicalName ( );
 
-	 private Toast toast = null;
+   private Toast toast = null;
 
-	 Button capturePicture;
+   Button capturePicture;
 
-	 SurfaceView videoStreamView;
+   Button captureVideo;
 
-	 Surface videoStreamSurface;
+   SurfaceView videoStreamView;
 
-	 SurfaceHolder surfaceHolder;
+   Surface videoStreamSurface;
 
-	 Surface videoSurface;
+   SurfaceHolder surfaceHolder;
 
-	 RTVPlayer rtvPlayer;
+   Surface videoSurface;
 
-	 VideoSurfaceHolderCallBack videoSurfaceHolderCallBack;
+   RTVPlayer rtvPlayer;
 
+   VideoSurfaceHolderCallBack videoSurfaceHolderCallBack;
 
-	 @Override
-	 public
-	 void onCreate ( Bundle savedInstanceState )
-	 {
 
-			super.onCreate ( savedInstanceState );
-	 }
+   @Override
+   public
+   void onCreate ( Bundle savedInstanceState )
+   {
 
-	 @Override
-	 public
-	 View onCreateView ( LayoutInflater inflater,
-											 ViewGroup container,
-											 Bundle savedInstanceState )
-	 {
+      super.onCreate ( savedInstanceState );
+   }
 
-			super.onCreate ( savedInstanceState );
-			setRetainInstance ( true );
-			initViews ( inflater, container );
-			addOnClickListeners ( );
-			return rootView;
-	 }
+   @Override
+   public
+   View onCreateView ( LayoutInflater inflater,
+                       ViewGroup container,
+                       Bundle savedInstanceState )
+   {
 
-	 @Override
-	 public
-	 void onStart ( )
-	 {
+      super.onCreate ( savedInstanceState );
+      setRetainInstance ( true );
+      initViews ( inflater, container );
+      addOnClickListeners ( );
+      return rootView;
+   }
 
-			super.onStart ( );
-			registerListener ( );
-	 }
+   @Override
+   public
+   void onStart ( )
+   {
 
-	 @Override
-	 public
-	 void onStop ( )
-	 {
+      super.onStart ( );
+      registerListener ( );
+   }
 
-			super.onStop ( );
-			unRegisterListener ( );
-	 }
+   @Override
+   public
+   void onStop ( )
+   {
 
-	 @Override
-	 public
-	 void onPause ( )
-	 {
+      super.onStop ( );
+      unRegisterListener ( );
+   }
+
+   @Override
+   public
+   void onPause ( )
+   {
+
+      super.onPause ( );
+      rtvPlayer.stop ( );
+   }
+
+   @Override
+   public
+   void onResume ( )
+   {
 
-			super.onPause ( );
-			rtvPlayer.stop ( );
-	 }
+      super.onResume ( );
 
-	 @Override
-	 public
-	 void onResume ( )
-	 {
+   }
 
-			super.onResume ( );
+   @Override
+   public
+   void onDestroyView ( )
+   {
 
-	 }
+      super.onDestroyView ( );
+      deInitPlayer ( );
+   }
 
-	 @Override
-	 public
-	 void onDestroyView ( )
-	 {
+   public
+   void deInitPlayer ( )
+   {
 
-			super.onDestroyView ( );
-			deInitPlayer ( );
-	 }
+      rtvPlayer.deinit ( );
+      if ( videoSurfaceHolderCallBack != null )
+      {
+         videoSurfaceHolderCallBack = null;
+      }
+   }
 
-	 public
-	 void deInitPlayer ( )
-	 {
-
-			rtvPlayer.deinit ( );
-			if ( videoSurfaceHolderCallBack != null )
-			{
-				 videoSurfaceHolderCallBack = null;
-			}
-	 }
-
-	 private
-	 void initViews ( LayoutInflater inflater,
-										ViewGroup container )
-	 {
-
-			rootView = inflater.inflate ( R.layout.camera_layout, container, false );
-			capturePicture = ( Button ) rootView.findViewById ( R.id.capturePicture );
-			videoStreamView = ( SurfaceView ) rootView.findViewById ( R.id.video_live_stream_view );
-			surfaceHolder = videoStreamView.getHolder ( );
-			rtvPlayer = RTVPlayer.getPlayer ( RTVPlayer.PLAYER_FFMPEG );
-			rtvPlayer.init ( getActivity ( ), RTVPlayer.IMAGE_FORMAT_YV12, false );
-			videoSurfaceHolderCallBack = new VideoSurfaceHolderCallBack ( getActivity ( ), videoSurface, rtvPlayer );
-			surfaceHolder.addCallback ( videoSurfaceHolderCallBack );
-	 }
-
-
-	 private
-	 void registerListener ( )
-	 {
-
-			CameraListener.registerCameraListener ( );
-	 }
-
-	 private
-	 void unRegisterListener ( )
-	 {
-
-			CameraListener.unRegisterCameraListener ( );
-	 }
-
-
-	 private
-	 void addOnClickListeners ( )
-	 {
-
-			capturePicture.setOnClickListener ( new View.OnClickListener ( )
-			{
-
-				 @Override
-				 public
-				 void onClick ( View v )
-				 {
-
-						Camera.asyncTakePhoto ( );
-				 }
-			} );
-	 }
-
-	 public static
-	 class MediaInfoEntry
-	 {
-
-			public String path;
-
-			public String title;
-
-			public String description;
-
-			public boolean downloaded = false;
-	 }
-
-	 public
-	 class ListviewMediaInfosAdapter
-					 extends BaseAdapter
-	 {
-
-			private ArrayList< MediaInfoEntry > entries;
-
-			private LayoutInflater inflater;
-
-			public
-			ListviewMediaInfosAdapter ( Context context,
-																	ArrayList< MediaInfoEntry > list )
-			{
-
-				 entries = list;
-				 inflater = LayoutInflater.from ( context );
-			}
-
-			public
-			MediaInfoEntry entryFromMediaInfo ( Camera.MediaInfo mediaInfo )
-			{
-
-				 MediaInfoEntry entry = new MediaInfoEntry ( );
-				 entry.path = mediaInfo.path;
-				 entry.description = String.format ( "%.1f MiB", mediaInfo.size_mib );
-				 // We want to split "100MEDIA/YUN00001.jpg" to "YUN00001.jpg"
-				 String[] parts = entry.path.split ( "/" );
-				 entry.title = parts[ 1 ];
-
-				 return entry;
-			}
-
-			public
-			void setEntries ( ArrayList< Camera.MediaInfo > list )
-			{
-
-				 entries.clear ( );
-				 for ( Camera.MediaInfo item : list )
-				 {
-						entries.add ( entryFromMediaInfo ( item ) );
-				 }
-			}
-
-			@Override
-			public
-			int getCount ( )
-			{
-
-				 return entries.size ( );
-			}
-
-			@Override
-			public
-			MediaInfoEntry getItem ( int index )
-			{
-
-				 return entries.get ( index );
-			}
-
-			@Override
-			public
-			long getItemId ( int index )
-			{
-
-				 return index;
-			}
-
-			public
-			View getView ( int index,
-										 View convertView,
-										 ViewGroup parent )
-			{
-
-				 ViewHolder holder;
-				 if ( convertView == null )
-				 {
-						convertView = inflater.inflate ( android.R.layout.simple_list_item_2, null );
-						holder = new ViewHolder ( );
-						holder.text1 = ( TextView ) convertView.findViewById ( android.R.id.text1 );
-						holder.text2 = ( TextView ) convertView.findViewById ( android.R.id.text2 );
-
-						convertView.setTag ( holder );
-				 }
-				 else
-				 {
-						holder = ( ViewHolder ) convertView.getTag ( );
-				 }
-
-				 MediaInfoEntry entry = entries.get ( index );
-				 holder.text1.setText ( entry.title );
-				 holder.text2.setText ( entry.description );
-
-				 if ( entry.downloaded )
-				 {
-						convertView.setBackgroundColor ( Color.argb ( 20, 0, 0, 255 ) );
-				 }
-				 else
-				 {
-						convertView.setBackgroundColor ( Color.WHITE );
-				 }
-
-				 return convertView;
-			}
-
-			class ViewHolder
-			{
-
-				 TextView text1, text2;
-			}
-	 }
-
-	 @Override
-	 public
-	 void onRefresh ( )
-	 {
-
-			refreshIndex ( );
-	 }
-
-	 public
-	 void refreshIndex ( )
-	 {
-
-			//Camera.getMediaInfosAsync ( mediaInfoslistener );
-	 }
-
-	 private
-	 void updateToast ( String text )
-	 {
-
-			if ( toast != null )
-			{
-				 toast.cancel ( );
-			}
-			toast = Toast.makeText ( rootView.getContext ( ), text, Toast.LENGTH_SHORT );
-			toast.show ( );
-	 }
+   private
+   void initViews ( LayoutInflater inflater,
+                    ViewGroup container )
+   {
+
+      rootView = inflater.inflate ( R.layout.camera_layout, container, false );
+      capturePicture = ( Button ) rootView.findViewById ( R.id.capturePicture );
+      captureVideo = ( Button ) rootView.findViewById ( R.id.captureVideo );
+      videoStreamView = ( SurfaceView ) rootView.findViewById ( R.id.video_live_stream_view );
+      surfaceHolder = videoStreamView.getHolder ( );
+      rtvPlayer = RTVPlayer.getPlayer ( RTVPlayer.PLAYER_FFMPEG );
+      rtvPlayer.init ( getActivity ( ), RTVPlayer.IMAGE_FORMAT_YV12, false );
+      videoSurfaceHolderCallBack = new VideoSurfaceHolderCallBack ( getActivity ( ), videoSurface, rtvPlayer );
+      surfaceHolder.addCallback ( videoSurfaceHolderCallBack );
+   }
+
+
+   private
+   void registerListener ( )
+   {
+
+      CameraListener.registerCameraListener ( );
+   }
+
+   private
+   void unRegisterListener ( )
+   {
+
+      CameraListener.unRegisterCameraListener ( );
+   }
+
+
+   private
+   void addOnClickListeners ( )
+   {
+
+      capturePicture.setOnClickListener ( this );
+      captureVideo.setOnClickListener ( this );
+   }
+
+   @Override
+   public
+   void onClick ( View v )
+   {
+
+      switch ( v.getId ( ) )
+      {
+         case R.id.capturePicture:
+            Camera.asyncTakePhoto ( );
+            Uri notificationSound = RingtoneManager.getDefaultUri ( RingtoneManager.TYPE_NOTIFICATION );
+            Ringtone currentRingtone = RingtoneManager.getRingtone ( getActivity ( ), notificationSound );
+            currentRingtone.play ( );
+            break;
+         case R.id.captureVideo:
+            if ( captureVideo.getText ( )
+                             .equals ( "Start Video" ) )
+            {
+               Camera.asyncStartVideo ( );
+               captureVideo.setText ( "Stop Video" );
+            }
+            else
+            {
+               Camera.asyncStopVideo ( );
+               captureVideo.setText ( "Start Video" );
+            }
+      }
+
+   }
+
+   public static
+   class MediaInfoEntry
+   {
+
+      public String path;
+
+      public String title;
+
+      public String description;
+
+      public boolean downloaded = false;
+   }
+
+   public
+   class ListviewMediaInfosAdapter
+           extends BaseAdapter
+   {
+
+      private ArrayList< MediaInfoEntry > entries;
+
+      private LayoutInflater inflater;
+
+      public
+      ListviewMediaInfosAdapter ( Context context,
+                                  ArrayList< MediaInfoEntry > list )
+      {
+
+         entries = list;
+         inflater = LayoutInflater.from ( context );
+      }
+
+      public
+      MediaInfoEntry entryFromMediaInfo ( Camera.MediaInfo mediaInfo )
+      {
+
+         MediaInfoEntry entry = new MediaInfoEntry ( );
+         entry.path = mediaInfo.path;
+         entry.description = String.format ( "%.1f MiB", mediaInfo.size_mib );
+         // We want to split "100MEDIA/YUN00001.jpg" to "YUN00001.jpg"
+         String[] parts = entry.path.split ( "/" );
+         entry.title = parts[ 1 ];
+
+         return entry;
+      }
+
+      public
+      void setEntries ( ArrayList< Camera.MediaInfo > list )
+      {
+
+         entries.clear ( );
+         for ( Camera.MediaInfo item : list )
+         {
+            entries.add ( entryFromMediaInfo ( item ) );
+         }
+      }
+
+      @Override
+      public
+      int getCount ( )
+      {
+
+         return entries.size ( );
+      }
+
+      @Override
+      public
+      MediaInfoEntry getItem ( int index )
+      {
+
+         return entries.get ( index );
+      }
+
+      @Override
+      public
+      long getItemId ( int index )
+      {
+
+         return index;
+      }
+
+      public
+      View getView ( int index,
+                     View convertView,
+                     ViewGroup parent )
+      {
+
+         ViewHolder holder;
+         if ( convertView == null )
+         {
+            convertView = inflater.inflate ( android.R.layout.simple_list_item_2, null );
+            holder = new ViewHolder ( );
+            holder.text1 = ( TextView ) convertView.findViewById ( android.R.id.text1 );
+            holder.text2 = ( TextView ) convertView.findViewById ( android.R.id.text2 );
+
+            convertView.setTag ( holder );
+         }
+         else
+         {
+            holder = ( ViewHolder ) convertView.getTag ( );
+         }
+
+         MediaInfoEntry entry = entries.get ( index );
+         holder.text1.setText ( entry.title );
+         holder.text2.setText ( entry.description );
+
+         if ( entry.downloaded )
+         {
+            convertView.setBackgroundColor ( Color.argb ( 20, 0, 0, 255 ) );
+         }
+         else
+         {
+            convertView.setBackgroundColor ( Color.WHITE );
+         }
+
+         return convertView;
+      }
+
+      class ViewHolder
+      {
+
+         TextView text1, text2;
+      }
+   }
+
+   @Override
+   public
+   void onRefresh ( )
+   {
+
+      refreshIndex ( );
+   }
+
+   public
+   void refreshIndex ( )
+   {
+
+      //Camera.getMediaInfosAsync ( mediaInfoslistener );
+   }
+
+   private
+   void updateToast ( String text )
+   {
+
+      if ( toast != null )
+      {
+         toast.cancel ( );
+      }
+      toast = Toast.makeText ( rootView.getContext ( ), text, Toast.LENGTH_SHORT );
+      toast.show ( );
+   }
 }
