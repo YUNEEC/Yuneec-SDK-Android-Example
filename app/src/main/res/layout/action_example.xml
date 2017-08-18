@@ -27,15 +27,13 @@
             android:id="@+id/takeoff_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Takeoff"
-            android:onClick="asyncTakeoff" />
+            android:text="Takeoff" />
 
         <Button
             android:id="@+id/land_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Land"
-            android:onClick="asyncLand" />
+            android:text="Land" />
 
         <Button
             android:id="@+id/return_to_launch_button"
