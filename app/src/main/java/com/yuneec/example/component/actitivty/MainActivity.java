@@ -22,97 +22,91 @@ import com.yuneec.example.component.listeners.ConnectionListener;
  */
 public
 class MainActivity
-				extends FragmentActivity
-				implements OnConnectionChangeListener
+        extends FragmentActivity
+        implements OnConnectionChangeListener
 {
 
-	 private FragmentTabHost mTabHost;
+   private FragmentTabHost mTabHost;
 
-	 //TextView connectionStateText;
+   //TextView connectionStateText;
 
-	 private static final String TAG = MainActivity.class.getCanonicalName ( );
+   private static final String TAG = MainActivity.class.getCanonicalName ( );
 
-	 @Override
-	 protected
-	 void onCreate ( Bundle savedInstanceState )
-	 {
+   @Override
+   protected
+   void onCreate ( Bundle savedInstanceState )
+   {
 
-			super.onCreate ( savedInstanceState );
-			setContentView ( R.layout.main_activity );
+      super.onCreate ( savedInstanceState );
+      setContentView ( R.layout.main_activity );
 
-			mTabHost = ( FragmentTabHost ) findViewById ( android.R.id.tabhost );
-			mTabHost.setup ( this, getSupportFragmentManager ( ), R.id.tabcontent );
-			mTabHost.addTab ( mTabHost.newTabSpec ( "connection" )
-																.setIndicator ( "Connection Info" ), ConnectionFragment.class, null );
-			mTabHost.addTab ( mTabHost.newTabSpec ( "telemetry" )
-																.setIndicator ( "Telemetry" ), TelemetryFragment.class, null );
-			mTabHost.addTab ( mTabHost.newTabSpec ( "action" )
-																.setIndicator ( "Action" ), ActionFragment.class, null );
-			mTabHost.addTab ( mTabHost.newTabSpec ( "mission" )
-																.setIndicator ( "Mission" ), MissionFragment.class, null );
-			mTabHost.addTab ( mTabHost.newTabSpec ( "camera" )
-																.setIndicator ( "Camera" ), CameraFragment.class, null );
-			mTabHost.addTab ( mTabHost.newTabSpec ( "gimbal" )
-																.setIndicator ( "Gimbal" ), GimbalFragment.class, null );
+      mTabHost = ( FragmentTabHost ) findViewById ( android.R.id.tabhost );
+      mTabHost.setup ( this, getSupportFragmentManager ( ), R.id.tabcontent );
+      mTabHost.addTab ( mTabHost.newTabSpec ( "connection" )
+                                .setIndicator ( "Connection Info" ), ConnectionFragment.class, null );
+      mTabHost.addTab ( mTabHost.newTabSpec ( "camera" )
+                                .setIndicator ( "Camera" ), CameraFragment.class, null );
+      mTabHost.addTab ( mTabHost.newTabSpec ( "gimbal" )
+                                .setIndicator ( "Gimbal" ), GimbalFragment.class, null );
 
-			//connectionStateText = ( TextView ) findViewById ( R.id.connection_state_text );
-			//connectionStateText.setText ( "Not connected" );
-	 }
+      //connectionStateText = ( TextView ) findViewById ( R.id.connection_state_text );
+      //connectionStateText.setText ( "Not connected" );
+   }
 
-	 @Override
-	 protected
-	 void onStart ( )
-	 {
+   @Override
+   protected
+   void onStart ( )
+   {
 
-			super.onStart ( );
-			registerListeners ( );
-	 }
+      super.onStart ( );
+      registerListeners ( );
+   }
 
-	 @Override
-	 protected
-	 void onStop ( )
-	 {
+   @Override
+   protected
+   void onStop ( )
+   {
 
-			super.onStop ( );
-			unRegisterListeners ( );
+      super.onStop ( );
+      unRegisterListeners ( );
 
-	 }
+   }
 
-	 private
-	 void registerListeners ( )
-	 {
+   private
+   void registerListeners ( )
+   {
 
-			ConnectionListener.registerConnectionListener ( this );
-	 }
+      ConnectionListener.registerConnectionListener ( this );
+   }
 
-	 private
-	 void unRegisterListeners ( )
-	 {
+   private
+   void unRegisterListeners ( )
+   {
 
-			ConnectionListener.unRegisterConnectionListener ( );
-	 }
+      ConnectionListener.unRegisterConnectionListener ( );
+   }
 
-	 @Override
-	 public
-	 void publishConnectionStatus ( final String connectionStatus )
-	 {
+   @Override
+   public
+   void publishConnectionStatus ( final String connectionStatus )
+   {
 
-			runOnUiThread ( new Runnable ( )
-			{
+      runOnUiThread ( new Runnable ( )
+      {
 
-				 @Override
-				 public
-				 void run ( )
-				 {
+         @Override
+         public
+         void run ( )
+         {
 
-						Log.d ( TAG, connectionStatus );
-						ConnectionFragment fragment = ( ConnectionFragment ) getSupportFragmentManager ( ).findFragmentByTag (
-										"connection" );
-						fragment.setConnectionStateView ( connectionStatus );
+            Log.d ( TAG, connectionStatus );
+            ConnectionFragment fragment = ( ConnectionFragment ) getSupportFragmentManager ( ).findFragmentByTag (
+                    "connection" );
+            fragment.setConnectionStateView ( connectionStatus );
 
-				 }
-			} );
-	 }
+         }
+      } );
+   }
 
 }
 

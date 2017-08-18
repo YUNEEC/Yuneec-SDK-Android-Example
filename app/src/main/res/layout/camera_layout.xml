@@ -8,19 +8,24 @@
 
       <SurfaceView
 				      android:id = "@+id/video_live_stream_view"
-				      android:layout_width = "350dp"
-				      android:layout_height = "220dp"
-				      android:foregroundGravity = "center"
+				      android:layout_width = "400dp"
+				      android:layout_height = "300dp"
       />
 
-    <Button android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:id = "@+id/capturePicture"
+    <Button android:id = "@+id/capturePicture"
             android:layout_marginTop = "@dimen/activity_vertical_margin"
             style = "@style/button"
             android:text = "Capture Picture"
             android:layout_below = "@+id/video_live_stream_view"
-            android:gravity = "center"
+            android:layout_centerHorizontal = "true"
     />
+
+	<!--<Button android:id = "@+id/captureVideo"
+	        android:layout_marginTop = "@dimen/activity_vertical_margin"
+	        style = "@style/button"
+	        android:text = "Start Video"
+	        android:layout_below = "@+id/capturePicture"
+	        android:layout_centerHorizontal = "true"
+	/>-->
 
 </RelativeLayout>
