@@ -74,6 +74,14 @@ class ConnectionFragment
    {
 
       super.onStop ( );
+   }
+
+   @Override
+   public
+   void onDestroyView ( )
+   {
+
+      super.onDestroyView ( );
       unRegisterListener ( );
    }
 
