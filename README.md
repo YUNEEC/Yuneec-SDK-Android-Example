@@ -45,7 +45,6 @@ brew install gazebo7
 ```
 OpenCV is required to run the simulation.
 ```
-brew tap homebrew/science
 brew install opencv
 ```
 
