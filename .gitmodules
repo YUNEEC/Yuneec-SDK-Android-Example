@@ -1,0 +1,3 @@
+[submodule "Yuneec-SDK-Android"]
+	path = Yuneec-SDK-Android
+	url = git@github.com:YUNEEC/Yuneec-SDK-Android.git
