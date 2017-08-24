@@ -21,6 +21,11 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
     View mView;
 
     Camera.WhiteBalanceListener whiteBalanceListener;
+    Camera.ColorModeListener colorModeListener;
+    Camera.ExposureModeListener exposureModeListener;
+    Camera.ExposureValueListener exposureValueListener;
+    Camera.ShutterSpeedListener shutterSpeedSListener;
+    Camera.ShutterSpeedS shutterSpeedS;
     Camera.ResultListener resultListener;
 
     @Override
@@ -36,11 +41,68 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(mView.getContext(), result.resultStr + ", WB: " + whiteBalance,
-                                       Toast.LENGTH_LONG).show();
+                                       Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         };
+
+        colorModeListener = new Camera.ColorModeListener() {
+            @Override
+            public void callback(final Camera.Result result, final Camera.ColorMode colorMode) {
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(mView.getContext(), result.resultStr + ", Color Mode: " + colorMode,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        };
+
+        exposureModeListener = new Camera.ExposureModeListener() {
+            @Override
+            public void callback(final Camera.Result result, final Camera.ExposureMode exposureMode) {
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(mView.getContext(), result.resultStr + ", Exposure mode: " + exposureMode,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        };
+
+        exposureValueListener = new Camera.ExposureValueListener() {
+            @Override
+            public void callback(final Camera.Result result, final float exposureValue) {
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(mView.getContext(), result.resultStr + ", EV: " + exposureValue,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        };
+
+        shutterSpeedSListener = new Camera.ShutterSpeedListener() {
+            @Override
+            public void callback(final Camera.Result result, final Camera.ShutterSpeedS shutterSpeedS) {
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        if (shutterSpeedS.denominator > 1) {
+                            Toast.makeText(mView.getContext(), result.resultStr +
+                                            ", Shutter: " + shutterSpeedS.numerator + " s",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(mView.getContext(), result.resultStr +
+                                            ", Shutter: " + shutterSpeedS.numerator + "/" + shutterSpeedS.denominator + " s",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        };
+
+        shutterSpeedS = new Camera.ShutterSpeedS();
 
         resultListener = new Camera.ResultListener() {
             @Override
@@ -48,19 +110,35 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(mView.getContext(), result.resultStr,
-                                Toast.LENGTH_LONG).show();
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         };
         Camera.setResultListener(resultListener);
 
-        mView.findViewById(R.id.wb_get_button).setOnClickListener(this);
-        mView.findViewById(R.id.auto_button).setOnClickListener(this);
-        mView.findViewById(R.id.lock_button).setOnClickListener(this);
-        mView.findViewById(R.id.sunny_button).setOnClickListener(this);
-        mView.findViewById(R.id.cloudy_button).setOnClickListener(this);
+        mView.findViewById(R.id.whitebalance_get_button).setOnClickListener(this);
+        mView.findViewById(R.id.whitebalance_auto_button).setOnClickListener(this);
+        mView.findViewById(R.id.whitebalance_lock_button).setOnClickListener(this);
+        mView.findViewById(R.id.whitebalance_sunny_button).setOnClickListener(this);
+        mView.findViewById(R.id.whitebalance_cloudy_button).setOnClickListener(this);
+        mView.findViewById(R.id.colormode_get_button).setOnClickListener(this);
+        mView.findViewById(R.id.colormode_neutral_button).setOnClickListener(this);
+        mView.findViewById(R.id.colormode_enhanced_button).setOnClickListener(this);
+        mView.findViewById(R.id.colormode_night_button).setOnClickListener(this);
+        mView.findViewById(R.id.colormode_unprocessed_button).setOnClickListener(this);
+        mView.findViewById(R.id.exposuremode_get_button).setOnClickListener(this);
+        mView.findViewById(R.id.exposuremode_auto_button).setOnClickListener(this);
+        mView.findViewById(R.id.exposuremode_manual_button).setOnClickListener(this);
+        mView.findViewById(R.id.exposurevalue_get_button).setOnClickListener(this);
+        mView.findViewById(R.id.exposurevalue_neutral_button).setOnClickListener(this);
+        mView.findViewById(R.id.exposurevalue_positive_button).setOnClickListener(this);
+        mView.findViewById(R.id.exposurevalue_negative_button).setOnClickListener(this);
         mView.findViewById(R.id.picture_button).setOnClickListener(this);
+        mView.findViewById(R.id.shutterspeed_get_button).setOnClickListener(this);
+        mView.findViewById(R.id.shutterspeed_2_button).setOnClickListener(this);
+        mView.findViewById(R.id.shutterspeed_1_30_button).setOnClickListener(this);
+        mView.findViewById(R.id.shutterspeed_1_1000_button).setOnClickListener(this);
 
         return mView;
     }
@@ -68,23 +146,77 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.wb_get_button:
+            case R.id.whitebalance_get_button:
                 Camera.getWhiteBalance(whiteBalanceListener);
                 break;
-            case R.id.auto_button:
+            case R.id.whitebalance_auto_button:
                 Camera.setWhiteBalance(Camera.WhiteBalance.AUTO, whiteBalanceListener);
                 break;
-            case R.id.lock_button:
+            case R.id.whitebalance_lock_button:
                 Camera.setWhiteBalance(Camera.WhiteBalance.LOCK, whiteBalanceListener);
                 break;
-            case R.id.sunny_button:
+            case R.id.whitebalance_sunny_button:
                 Camera.setWhiteBalance(Camera.WhiteBalance.SUNNY, whiteBalanceListener);
                 break;
-            case R.id.cloudy_button:
+            case R.id.whitebalance_cloudy_button:
                 Camera.setWhiteBalance(Camera.WhiteBalance.CLOUDY, whiteBalanceListener);
+                break;
+            case R.id.colormode_get_button:
+                Camera.getColorMode(colorModeListener);
+                break;
+            case R.id.colormode_neutral_button:
+                Camera.setColorMode(Camera.ColorMode.NEUTRAL, colorModeListener);
+                break;
+            case R.id.colormode_enhanced_button:
+                Camera.setColorMode(Camera.ColorMode.ENHANCED, colorModeListener);
+                break;
+            case R.id.colormode_night_button:
+                Camera.setColorMode(Camera.ColorMode.NIGHT, colorModeListener);
+                break;
+            case R.id.colormode_unprocessed_button:
+                Camera.setColorMode(Camera.ColorMode.UNPROCESSED, colorModeListener);
+                break;
+            case R.id.exposuremode_get_button:
+                Camera.getExposureMode(exposureModeListener);
+                break;
+            case R.id.exposuremode_auto_button:
+                Camera.setExposureMode(Camera.ExposureMode.AUTO, exposureModeListener);
+                break;
+            case R.id.exposuremode_manual_button:
+                Camera.setExposureMode(Camera.ExposureMode.MANUAL, exposureModeListener);
+                break;
+            case R.id.exposurevalue_get_button:
+                Camera.getExposureValue(exposureValueListener);
+                break;
+            case R.id.exposurevalue_neutral_button:
+                Camera.setExposureValue(0.0f, exposureValueListener);
+                break;
+            case R.id.exposurevalue_positive_button:
+                Camera.setExposureValue(2.0f, exposureValueListener);
+                break;
+            case R.id.exposurevalue_negative_button:
+                Camera.setExposureValue(-2.0f, exposureValueListener);
                 break;
             case R.id.picture_button:
                 Camera.asyncTakePhoto();
+                break;
+            case R.id.shutterspeed_get_button:
+                Camera.getShutterSpeed(shutterSpeedSListener);
+                break;
+            case R.id.shutterspeed_2_button:
+                shutterSpeedS.numerator = 2;
+                shutterSpeedS.denominator = 1;
+                Camera.setShutterSpeed(shutterSpeedS, shutterSpeedSListener);
+                break;
+            case R.id.shutterspeed_1_30_button:
+                shutterSpeedS.numerator = 1;
+                shutterSpeedS.denominator = 30;
+                Camera.setShutterSpeed(shutterSpeedS, shutterSpeedSListener);
+                break;
+            case R.id.shutterspeed_1_1000_button:
+                shutterSpeedS.numerator = 1;
+                shutterSpeedS.denominator = 1000;
+                Camera.setShutterSpeed(shutterSpeedS, shutterSpeedSListener);
                 break;
         }
     }
