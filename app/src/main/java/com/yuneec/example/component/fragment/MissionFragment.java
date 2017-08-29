@@ -1,7 +1,7 @@
 /**
  * MissionFragment.java
  * Yuneec-SDK-Android-Example
- *
+ * <p>
  * Copyright @ 2016-2017 Yuneec.
  * All rights reserved.
  */
@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import com.yuneec.example.R;
 import com.yuneec.sdk.Mission;
 import com.yuneec.sdk.MissionItem;
@@ -20,7 +21,7 @@ import com.yuneec.sdk.MissionItem;
 import java.util.ArrayList;
 
 
-public class MissionFragment extends Fragment implements View.OnClickListener{
+public class MissionFragment extends Fragment implements View.OnClickListener {
 
     View rootView;
 
@@ -32,7 +33,7 @@ public class MissionFragment extends Fragment implements View.OnClickListener{
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        rootView = inflater.inflate( R.layout.mission_example, container, false);
+        rootView = inflater.inflate(R.layout.mission_example, container, false);
 
         resultListener = new Mission.ResultListener() {
             @Override
@@ -40,7 +41,7 @@ public class MissionFragment extends Fragment implements View.OnClickListener{
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(rootView.getContext(), result.resultStr,
-                                       Toast.LENGTH_LONG).show();
+                                Toast.LENGTH_LONG).show();
                     }
                 });
             }

@@ -1,7 +1,7 @@
 /**
  * CameraSettingsFragment.java
  * Yuneec-SDK-Android-Example
- *
+ * <p>
  * Copyright @ 2016-2017 Yuneec.
  * All rights reserved.
  */
@@ -36,7 +36,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(mView.getContext(), result.resultStr + ", WB: " + whiteBalance,
-                                       Toast.LENGTH_LONG).show();
+                                Toast.LENGTH_LONG).show();
                     }
                 });
             }

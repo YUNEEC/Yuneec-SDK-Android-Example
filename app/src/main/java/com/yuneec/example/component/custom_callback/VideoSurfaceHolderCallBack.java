@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
+
 import com.yuneec.example.component.utils.Common;
 import com.yuneec.rtvplayer.RTVPlayer;
 
@@ -11,65 +12,53 @@ import com.yuneec.rtvplayer.RTVPlayer;
  * Created by sushma on 8/14/17.
  */
 
-public
-class VideoSurfaceHolderCallBack
-				implements SurfaceHolder.Callback
-{
+public class VideoSurfaceHolderCallBack
+        implements SurfaceHolder.Callback {
 
-	 private RTVPlayer rtvPlayer;
+    private RTVPlayer rtvPlayer;
 
-	 private Surface surface;
+    private Surface surface;
 
-	 private Context context;
+    private Context context;
 
-	 private final static String TAG = VideoSurfaceHolderCallBack.class.getCanonicalName ( );
+    private final static String TAG = VideoSurfaceHolderCallBack.class.getCanonicalName();
 
-	 public
-	 VideoSurfaceHolderCallBack ( Context context,
-																Surface surface,
-																RTVPlayer rtvPlayer )
-	 {
+    public VideoSurfaceHolderCallBack(Context context,
+                                      Surface surface,
+                                      RTVPlayer rtvPlayer) {
 
-			this.context = context;
-			this.surface = surface;
-			this.rtvPlayer = rtvPlayer;
-	 }
-	 
-	 @Override
-	 public
-	 void surfaceCreated ( SurfaceHolder holder )
-	 {
+        this.context = context;
+        this.surface = surface;
+        this.rtvPlayer = rtvPlayer;
+    }
 
-			preparePlayer ( );
-	 }
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
 
-	 @Override
-	 public
-	 void surfaceChanged ( SurfaceHolder holder,
-												 int format,
-												 int width,
-												 int height )
-	 {
+        preparePlayer();
+    }
 
-			surface = holder.getSurface ( );
-			rtvPlayer.setSurface ( surface );
-			Log.d ( TAG, "Surface changed" );
-	 }
+    @Override
+    public void surfaceChanged(SurfaceHolder holder,
+                               int format,
+                               int width,
+                               int height) {
 
-	 @Override
-	 public
-	 void surfaceDestroyed ( SurfaceHolder holder )
-	 {
+        surface = holder.getSurface();
+        rtvPlayer.setSurface(surface);
+        Log.d(TAG, "Surface changed");
+    }
 
-			rtvPlayer.deinit ( );
-	 }
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
 
-	 public
-	 void preparePlayer ( )
-	 {
+        rtvPlayer.deinit();
+    }
 
-			rtvPlayer.play ( Common.VideoStreamUrl );
-	 }
+    public void preparePlayer() {
+
+        rtvPlayer.play(Common.VideoStreamUrl);
+    }
 
 
 }

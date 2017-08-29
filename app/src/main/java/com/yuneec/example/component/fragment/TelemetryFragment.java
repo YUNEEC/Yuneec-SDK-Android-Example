@@ -1,7 +1,7 @@
 /**
  * TelemetryFragment.java
  * Yuneec-SDK-Android-Example
- *
+ * <p>
  * Copyright @ 2016-2017 Yuneec.
  * All rights reserved.
  */
@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.yuneec.example.R;
 import com.yuneec.sdk.Connection;
 import com.yuneec.sdk.Telemetry;
@@ -38,7 +39,9 @@ public class TelemetryFragment extends Fragment {
         public final static int VELOCITY_UP = 9;
         public final static int FLIGHT_MODE = 10;
         public final static int HEALTH = 11;
-    };
+    }
+
+    ;
 
     private ListviewTelemetryAdapter adapter;
 
@@ -49,6 +52,7 @@ public class TelemetryFragment extends Fragment {
             unit = new_unit;
             value = "-";
         }
+
         public String description;
         public String value;
         public String unit;
@@ -84,7 +88,7 @@ public class TelemetryFragment extends Fragment {
 
         public View getView(int index, View convertView, ViewGroup parent) {
             ViewHolder holder;
-            if(convertView == null){
+            if (convertView == null) {
                 convertView = inflater.inflate(android.R.layout.simple_list_item_2, null);
                 holder = new ViewHolder();
                 holder.text1 = (TextView) convertView.findViewById(android.R.id.text1);
@@ -111,11 +115,11 @@ public class TelemetryFragment extends Fragment {
         @Override
         public void onPositionCallback(Telemetry.Position position) {
             adapter.setItemValue(TelemetryIndices.RELATIVE_ALTITUDE,
-                                 String.format("%.1f", position.relativeAltitudeM));
+                    String.format("%.1f", position.relativeAltitudeM));
             adapter.setItemValue(TelemetryIndices.LATITUDE,
-                                 String.format("%.6f", position.latitudeDeg));
+                    String.format("%.6f", position.latitudeDeg));
             adapter.setItemValue(TelemetryIndices.LONGITUDE,
-                                 String.format("%.6f", position.longitudeDeg));
+                    String.format("%.6f", position.longitudeDeg));
 
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
@@ -131,11 +135,11 @@ public class TelemetryFragment extends Fragment {
         public void onAttitudeEulerAngleCallback(Telemetry.AttitudeEulerAngle attitude) {
 
             adapter.setItemValue(TelemetryIndices.ROLL,
-                                 String.format("%d", (int)attitude.rollDeg));
+                    String.format("%d", (int) attitude.rollDeg));
             adapter.setItemValue(TelemetryIndices.PITCH,
-                                 String.format("%d", (int)attitude.pitchDeg));
+                    String.format("%d", (int) attitude.pitchDeg));
             adapter.setItemValue(TelemetryIndices.YAW,
-                                 String.format("%d", (int)attitude.yawDeg));
+                    String.format("%d", (int) attitude.yawDeg));
 
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
@@ -151,7 +155,7 @@ public class TelemetryFragment extends Fragment {
         public void onBatteryCallback(Telemetry.Battery battery) {
 
             adapter.setItemValue(TelemetryIndices.BATTERY,
-                                 String.format("%d", (int)(100* battery.remainingPercent)));
+                    String.format("%d", (int) (100 * battery.remainingPercent)));
 
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
@@ -167,11 +171,11 @@ public class TelemetryFragment extends Fragment {
         public void onGroundSpeedNEDCallback(Telemetry.GroundSpeedNED groundSpeedNED) {
 
             adapter.setItemValue(TelemetryIndices.VELOCITY_NORTH,
-                                 String.format("%.1f", groundSpeedNED.velocityNorthMS));
+                    String.format("%.1f", groundSpeedNED.velocityNorthMS));
             adapter.setItemValue(TelemetryIndices.VELOCITY_EAST,
-                                 String.format("%.1f", groundSpeedNED.velocityEastMS));
+                    String.format("%.1f", groundSpeedNED.velocityEastMS));
             adapter.setItemValue(TelemetryIndices.VELOCITY_UP,
-                                 String.format("%.1f", (-1) * groundSpeedNED.velocityDownMS));
+                    String.format("%.1f", (-1) * groundSpeedNED.velocityDownMS));
 
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
@@ -202,18 +206,18 @@ public class TelemetryFragment extends Fragment {
         public void onHealthCallback(Telemetry.Health health) {
 
             boolean calibrationOk = health.accelerometerCalibrationOk &&
-                                    health.gyrometerCalibrationOk &&
-                                    health.magnetometerCalibrationOk &&
-                                    health.levelCalibrationOk;
+                    health.gyrometerCalibrationOk &&
+                    health.magnetometerCalibrationOk &&
+                    health.levelCalibrationOk;
 
             boolean positionOk = health.globalPositionOk &&
-                                 health.localPositionOk &&
-                                 health.homePositionOk;
+                    health.localPositionOk &&
+                    health.homePositionOk;
 
             adapter.setItemValue(TelemetryIndices.HEALTH,
-                                 String.format("calibration: %s, position: %s",
-                                               calibrationOk ? "ok" : "not ok",
-                                               positionOk ? "ok" : "not ok"));
+                    String.format("calibration: %s, position: %s",
+                            calibrationOk ? "ok" : "not ok",
+                            positionOk ? "ok" : "not ok"));
 
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
@@ -241,9 +245,9 @@ public class TelemetryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate( R.layout.telemetry_example, container, false);
+        View rootView = inflater.inflate(R.layout.telemetry_example, container, false);
 
-        ListView lv = (ListView)rootView.findViewById(R.id.telemetry_list);
+        ListView lv = (ListView) rootView.findViewById(R.id.telemetry_list);
         lv.setAdapter(adapter);
 
         return rootView;
@@ -287,5 +291,7 @@ public class TelemetryFragment extends Fragment {
         public void onTimeoutCallback() {
             // Do nothing, leave last values.
         }
-    };
+    }
+
+    ;
 }
