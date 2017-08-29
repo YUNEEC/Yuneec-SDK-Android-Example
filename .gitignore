@@ -53,3 +53,6 @@ captures/
 
 # built Cpp stuff
 *.externalNativeBuild
+
+# DS_Store
+.DS_Store
