@@ -1,35 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-              android:orientation = "vertical"
-              android:layout_width = "match_parent"
-              android:layout_height = "match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-	<Button android:layout_width = "wrap_content"
-	        android:layout_height = "wrap_content"
-	        android:id = "@+id/rotate_camera_clockwise"
-	        style = "@style/button"
-	        android:text = "@string/rotate_clockwise"
-	        android:layout_marginTop = "@dimen/activity_vertical_margin"
-	        android:layout_gravity = "center"
-	/>
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/rotate_camera_clockwise"
+        style="@style/button"
+        android:text="@string/rotate_clockwise" />
 
-	<Button android:layout_width = "wrap_content"
-	        android:layout_height = "wrap_content"
-	        android:id = "@+id/rotate_camera_anticlockwise"
-	        style = "@style/button"
-	        android:layout_marginTop = "@dimen/activity_vertical_margin"
-	        android:text = "@string/rotate_anticlockwise"
-	        android:layout_gravity = "center"
-	/>
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/rotate_camera_anticlockwise"
+        style="@style/button"
+        android:text="@string/rotate_anticlockwise" />
 
-	<Button android:layout_width = "wrap_content"
-	        android:layout_height = "wrap_content"
-	        android:id = "@+id/rotate_to_initial"
-	        style = "@style/button"
-	        android:layout_marginTop = "@dimen/activity_vertical_margin"
-	        android:text = "@string/rotate_to_initial"
-	        android:layout_gravity = "center"
-	/>
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/rotate_to_initial"
+        style="@style/button"
+        android:text="@string/rotate_to_initial" />
 
 
 </LinearLayout>

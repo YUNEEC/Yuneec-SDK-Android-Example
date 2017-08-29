@@ -1,13 +1,13 @@
 <resources>
-    <string name = "app_name">YuneecAndroidExample</string>
-    <string name = "rotate_clockwise">Rotate camera clockwise</string>
-    <string name = "rotate_anticlockwise">Rotate camera anti-clockwise</string>
-    <string name = "rotate_to_initial">Bring to the initial position</string>
-    <string name = "connection_status">Connection Status: </string>
-    <string name = "battery_status">Battery Percentage: </string>
-    <string name = "not_connected_status"> Not connected to the drone </string>
-    <string name = "health_status">Health Status: </string>
-    <string name = "no_status">Unknown</string>
+    <string name="app_name">YuneecAndroidExample</string>
+    <string name="rotate_clockwise">Rotate camera clockwise</string>
+    <string name="rotate_anticlockwise">Rotate camera anti-clockwise</string>
+    <string name="rotate_to_initial">Bring to the initial position</string>
+    <string name="connection_status">Connection Status: </string>
+    <string name="battery_status">Battery Percentage: </string>
+    <string name="not_connected_status"> Not connected to the drone </string>
+    <string name="health_status">Health Status: </string>
+    <string name="no_status">Unknown</string>
 
 
 </resources>

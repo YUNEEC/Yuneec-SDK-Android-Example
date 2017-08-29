@@ -1,7 +1,7 @@
 /**
  * ActionFragment.java
  * Yuneec-SDK-Android-Example
- *
+ * <p>
  * Copyright @ 2016-2017 Yuneec.
  * All rights reserved.
  */
@@ -33,7 +33,7 @@ public class ActionFragment extends Fragment implements View.OnClickListener {
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mView = inflater.inflate( R.layout.action_example, container, false);
+        mView = inflater.inflate(R.layout.action_example, container, false);
 
         listener = new Action.ResultListener() {
             @Override
@@ -41,7 +41,7 @@ public class ActionFragment extends Fragment implements View.OnClickListener {
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(mView.getContext(), result.resultStr,
-                                       Toast.LENGTH_LONG).show();
+                                Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -55,8 +55,8 @@ public class ActionFragment extends Fragment implements View.OnClickListener {
         mView.findViewById(R.id.kill_button).setOnClickListener(this);
         mView.findViewById(R.id.set_altitude).setOnClickListener(this);
         mView.findViewById(R.id.get_altitude).setOnClickListener(this);
-        setHeight=(EditText) mView.findViewById(R.id.saltitude);
-        getHeight=(EditText)mView.findViewById(R.id.galtitude);
+        setHeight = (EditText) mView.findViewById(R.id.saltitude);
+        getHeight = (EditText) mView.findViewById(R.id.galtitude);
 
         return mView;
     }
@@ -85,15 +85,15 @@ public class ActionFragment extends Fragment implements View.OnClickListener {
             case R.id.set_altitude:
                 try {
                     Action.setAltitudeM(Double.parseDouble(setHeight.getText() + ""));
-                    Toast.makeText(mView.getContext(),"Set success",Toast.LENGTH_LONG).show();
+                    Toast.makeText(mView.getContext(), "Set success", Toast.LENGTH_LONG).show();
                 } catch (NumberFormatException e) {
-                    Toast.makeText(mView.getContext(),"Input error",Toast.LENGTH_LONG).show();
+                    Toast.makeText(mView.getContext(), "Input error", Toast.LENGTH_LONG).show();
                 }
 
                 break;
             case R.id.get_altitude:
-                double height= Action.getAltitude();
-                getHeight.setText(height+"");
+                double height = Action.getAltitude();
+                getHeight.setText(height + "");
         }
     }
 }

@@ -6,15 +6,22 @@
 
 package com.yuneec.example.component.actitivty;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.yuneec.example.R;
 import com.yuneec.example.component.custom_callback.OnChangeListener;
 import com.yuneec.example.component.fragment.CameraFragment;
 import com.yuneec.example.component.fragment.ConnectionFragment;
 import com.yuneec.example.component.fragment.GimbalFragment;
+import com.yuneec.example.component.fragment.MediaDownloadFragment;
 import com.yuneec.example.component.listeners.ConnectionListener;
 
 /**
@@ -22,137 +29,130 @@ import com.yuneec.example.component.listeners.ConnectionListener;
  * <p>
  * The example has 3 tabs (fragments) called Telemetry, Action, Mission.
  */
-public
-class MainActivity
+public class MainActivity
         extends FragmentActivity
-        implements OnChangeListener
-{
+        implements OnChangeListener {
 
-   private FragmentTabHost mTabHost;
+    private FragmentTabHost mTabHost;
 
-   //TextView connectionStateText;
+    //TextView connectionStateText;
 
-   private static final String TAG = MainActivity.class.getCanonicalName ( );
+    private static final String TAG = MainActivity.class.getCanonicalName();
 
-   @Override
-   protected
-   void onCreate ( Bundle savedInstanceState )
-   {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-      super.onCreate ( savedInstanceState );
-      setContentView ( R.layout.main_activity );
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_activity);
 
-      mTabHost = ( FragmentTabHost ) findViewById ( android.R.id.tabhost );
-      mTabHost.setup ( this, getSupportFragmentManager ( ), R.id.tabcontent );
-      mTabHost.addTab ( mTabHost.newTabSpec ( "connection" )
-                                .setIndicator ( "Connection Info" ), ConnectionFragment.class, null );
-      mTabHost.addTab ( mTabHost.newTabSpec ( "camera" )
-                                .setIndicator ( "Camera" ), CameraFragment.class, null );
-      mTabHost.addTab ( mTabHost.newTabSpec ( "gimbal" )
-                                .setIndicator ( "Gimbal" ), GimbalFragment.class, null );
+        mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+        mTabHost.setup(this, getSupportFragmentManager(), R.id.tabcontent);
+        mTabHost.addTab(mTabHost.newTabSpec("connection")
+                .setIndicator("Connection Info"), ConnectionFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("camera")
+                .setIndicator("Camera"), CameraFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("gimbal")
+                .setIndicator("Gimbal"), GimbalFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("media-download")
+                .setIndicator("Media Download"), MediaDownloadFragment.class, null);
 
-      //connectionStateText = ( TextView ) findViewById ( R.id.connection_state_text );
-      //connectionStateText.setText ( "Not connected" );
-   }
+        for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
+            View v = mTabHost.getTabWidget().getChildAt(i);
+            TextView tv = (TextView) v.findViewById(android.R.id.title);
+            tv.setTextColor(ContextCompat.getColor(this, R.color.orange));
+            tv.setTextSize(16);
+        }
 
-   @Override
-   protected
-   void onStart ( )
-   {
+        //connectionStateText = ( TextView ) findViewById ( R.id.connection_state_text );
+        //connectionStateText.setText ( "Not connected" );
+    }
 
-      super.onStart ( );
-      registerListeners ( );
-   }
+    @Override
+    protected void onStart() {
 
-   @Override
-   protected
-   void onStop ( )
-   {
+        super.onStart();
+        registerListeners();
+    }
 
-      super.onStop ( );
-      unRegisterListeners ( );
+    @Override
+    protected void onStop() {
 
-   }
+        super.onStop();
+        unRegisterListeners();
 
-   private
-   void registerListeners ( )
-   {
+    }
 
-      ConnectionListener.registerConnectionListener ( this );
-   }
+    private void registerListeners() {
 
-   private
-   void unRegisterListeners ( )
-   {
+        ConnectionListener.registerConnectionListener(this);
+    }
 
-      ConnectionListener.unRegisterConnectionListener ( );
-   }
+    private void unRegisterListeners() {
 
-   @Override
-   public
-   void publishConnectionStatus ( final String connectionStatus )
-   {
+        ConnectionListener.unRegisterConnectionListener();
+    }
 
-      runOnUiThread ( new Runnable ( )
-      {
+    @Override
+    public void publishConnectionStatus(final String connectionStatus) {
 
-         @Override
-         public
-         void run ( )
-         {
+        runOnUiThread(new Runnable() {
 
-            Log.d ( TAG, connectionStatus );
-            ConnectionFragment fragment = ( ConnectionFragment ) getSupportFragmentManager ( ).findFragmentByTag (
-                    "connection" );
-            fragment.setConnectionStateView ( connectionStatus );
+            @Override
+            public void run() {
 
-         }
-      } );
-   }
+                Log.d(TAG, connectionStatus);
+                ConnectionFragment fragment = (ConnectionFragment) getSupportFragmentManager().findFragmentByTag(
+                        "connection");
+                fragment.setConnectionStateView(connectionStatus);
 
-   @Override
-   public
-   void publishBatteryChangeStatus ( final String batteryStatus )
-   {
+            }
+        });
+    }
 
-      runOnUiThread ( new Runnable ( )
-      {
+    @Override
+    public void publishBatteryChangeStatus(final String batteryStatus) {
 
-         @Override
-         public
-         void run ( )
-         {
+        runOnUiThread(new Runnable() {
 
-            Log.d ( TAG, batteryStatus );
-            ConnectionFragment fragment = ( ConnectionFragment ) getSupportFragmentManager ( ).findFragmentByTag (
-                    "connection" );
-            fragment.setBatterStateView ( batteryStatus );
+            @Override
+            public void run() {
 
-         }
-      } );
-   }
+                Log.d(TAG, batteryStatus);
+                ConnectionFragment fragment = (ConnectionFragment) getSupportFragmentManager().findFragmentByTag(
+                        "connection");
+                fragment.setBatterStateView(batteryStatus);
 
-   @Override
-   public
-   void publishHealthChangeStatus ( final String healthStatus )
-   {
+            }
+        });
+    }
 
-      runOnUiThread ( new Runnable ( )
-      {
+    @Override
+    public void publishHealthChangeStatus(final String healthStatus) {
 
-         @Override
-         public
-         void run ( )
-         {
+        runOnUiThread(new Runnable() {
 
-            Log.d ( TAG, healthStatus );
-            ConnectionFragment fragment = ( ConnectionFragment ) getSupportFragmentManager ( ).findFragmentByTag (
-                    "connection" );
-            fragment.setDroneHealthView ( healthStatus );
+            @Override
+            public void run() {
 
-         }
-      } );
-   }
+                Log.d(TAG, healthStatus);
+                ConnectionFragment fragment = (ConnectionFragment) getSupportFragmentManager().findFragmentByTag(
+                        "connection");
+                fragment.setDroneHealthView(healthStatus);
+
+            }
+        });
+    }
+
+    @Override
+    public void publishCameraResult(final String result) {
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
 }
 
