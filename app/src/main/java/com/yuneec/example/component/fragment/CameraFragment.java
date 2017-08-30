@@ -23,7 +23,6 @@ import android.widget.Toast;
 import com.yuneec.example.R;
 import com.yuneec.example.component.custom_callback.VideoSurfaceHolderCallBack;
 import com.yuneec.example.component.listeners.CameraListener;
-import com.yuneec.rtvplayer.RTVPlayer;
 import com.yuneec.sdk.Camera;
 
 
@@ -47,7 +46,7 @@ public class CameraFragment
 
     Surface videoSurface;
 
-    RTVPlayer rtvPlayer;
+    //RTVPlayer rtvPlayer;
 
     VideoSurfaceHolderCallBack videoSurfaceHolderCallBack;
 
@@ -88,7 +87,7 @@ public class CameraFragment
     public void onPause() {
 
         super.onPause();
-        rtvPlayer.stop();
+        //rtvPlayer.stop();
     }
 
     @Override
@@ -107,7 +106,7 @@ public class CameraFragment
 
     public void deInitPlayer() {
 
-        rtvPlayer.deinit();
+        //rtvPlayer.deinit();
         if (videoSurfaceHolderCallBack != null) {
             videoSurfaceHolderCallBack = null;
         }
@@ -121,9 +120,9 @@ public class CameraFragment
         captureVideo = (Button) rootView.findViewById(R.id.captureVideo);
         videoStreamView = (SurfaceView) rootView.findViewById(R.id.video_live_stream_view);
         surfaceHolder = videoStreamView.getHolder();
-        rtvPlayer = RTVPlayer.getPlayer(RTVPlayer.PLAYER_FFMPEG);
-        rtvPlayer.init(getActivity(), RTVPlayer.IMAGE_FORMAT_YV12, false);
-        videoSurfaceHolderCallBack = new VideoSurfaceHolderCallBack(getActivity(), videoSurface, rtvPlayer);
+        //rtvPlayer = RTVPlayer.getPlayer(RTVPlayer.PLAYER_FFMPEG);
+        //rtvPlayer.init(getActivity(), RTVPlayer.IMAGE_FORMAT_YV12, false);
+        //videoSurfaceHolderCallBack = new VideoSurfaceHolderCallBack(getActivity(), videoSurface, rtvPlayer);
         surfaceHolder.addCallback(videoSurfaceHolderCallBack);
     }
 

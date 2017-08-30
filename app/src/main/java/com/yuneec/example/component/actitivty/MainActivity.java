@@ -49,8 +49,8 @@ public class MainActivity
         mTabHost.setup(this, getSupportFragmentManager(), R.id.tabcontent);
         mTabHost.addTab(mTabHost.newTabSpec("connection")
                         .setIndicator("Connection Info"), ConnectionFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("camera")
-                        .setIndicator("Camera"), CameraFragment.class, null);
+        //mTabHost.addTab(mTabHost.newTabSpec("camera")
+        //              .setIndicator("Camera"), CameraFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("gimbal")
                         .setIndicator("Gimbal"), GimbalFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("media-download")

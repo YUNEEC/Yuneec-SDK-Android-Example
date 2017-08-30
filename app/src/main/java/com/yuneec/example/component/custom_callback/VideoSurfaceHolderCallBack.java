@@ -6,7 +6,6 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 
 import com.yuneec.example.component.utils.Common;
-import com.yuneec.rtvplayer.RTVPlayer;
 
 /**
  * Created by sushma on 8/14/17.
@@ -15,7 +14,7 @@ import com.yuneec.rtvplayer.RTVPlayer;
 public class VideoSurfaceHolderCallBack
     implements SurfaceHolder.Callback {
 
-    private RTVPlayer rtvPlayer;
+    //private RTVPlayer rtvPlayer;
 
     private Surface surface;
 
@@ -23,14 +22,14 @@ public class VideoSurfaceHolderCallBack
 
     private final static String TAG = VideoSurfaceHolderCallBack.class.getCanonicalName();
 
-    public VideoSurfaceHolderCallBack(Context context,
+    /*public VideoSurfaceHolderCallBack(Context context,
                                       Surface surface,
                                       RTVPlayer rtvPlayer) {
 
         this.context = context;
         this.surface = surface;
         this.rtvPlayer = rtvPlayer;
-    }
+    }*/
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
@@ -45,19 +44,19 @@ public class VideoSurfaceHolderCallBack
                                int height) {
 
         surface = holder.getSurface();
-        rtvPlayer.setSurface(surface);
+        //rtvPlayer.setSurface(surface);
         Log.d(TAG, "Surface changed");
     }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
 
-        rtvPlayer.deinit();
+        //rtvPlayer.deinit();
     }
 
     public void preparePlayer() {
 
-        rtvPlayer.play(Common.VideoStreamUrl);
+        //rtvPlayer.play(Common.VideoStreamUrl);
     }
 
 
