@@ -13,7 +13,7 @@ The project has been created using Android Studio 2.2.x.
 ### Checkout this repo
 
 ```
-git clone git@github.com:YUNEEC/Yuneec-SDK-Android-Example-prerelease.git
+git clone git@github.com:YUNEEC/Yuneec-SDK-Android-Example.git
 git submodule update --init --recursive
 ```
 
