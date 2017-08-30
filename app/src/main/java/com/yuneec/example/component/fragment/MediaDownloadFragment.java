@@ -66,14 +66,14 @@ public class MediaDownloadFragment extends Fragment implements SwipeRefreshLayou
     public void onStart() {
 
         super.onStart();
-        registerListener();
+        //registerListener();
     }
 
     @Override
     public void onStop() {
 
         super.onStop();
-        unRegisterListener();
+        //unRegisterListener();
     }
 
     @Override
@@ -247,7 +247,7 @@ public class MediaDownloadFragment extends Fragment implements SwipeRefreshLayou
     }
 
 
-    private void registerListener() {
+    /*private void registerListener() {
 
         CameraListener.registerCameraListener(getActivity());
     }
@@ -255,7 +255,7 @@ public class MediaDownloadFragment extends Fragment implements SwipeRefreshLayou
     private void unRegisterListener() {
 
         CameraListener.unRegisterCameraListener();
-    }
+    }*/
 
     @Override
     public void onRefresh() {
