@@ -28,8 +28,8 @@ import com.yuneec.sdk.Camera;
 
 
 public class CameraFragment
-        extends Fragment implements
-        View.OnClickListener {
+    extends Fragment implements
+    View.OnClickListener {
 
     private View rootView;
 

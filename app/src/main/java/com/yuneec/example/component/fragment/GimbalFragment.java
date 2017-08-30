@@ -20,8 +20,8 @@ import com.yuneec.sdk.Gimbal;
  */
 
 public class GimbalFragment
-        extends Fragment
-        implements View.OnClickListener {
+    extends Fragment
+    implements View.OnClickListener {
 
     private View rootView;
 
@@ -96,18 +96,17 @@ public class GimbalFragment
         switch (v.getId()) {
             case R.id.rotate_camera_clockwise:
 
-                if(editText.getText().toString().isEmpty()) {
+                if (editText.getText().toString().isEmpty()) {
                     Toast.makeText(getActivity(), R.string.no_text, Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
                     try {
                         float yaw_degree = Float.parseFloat(editText.getText().toString());
                         Gimbal.asyncSetPitchAndYawOfJni(0, yaw_degree,
-                                GimbalListener.getGimbaListener());
+                                                        GimbalListener.getGimbaListener());
                         Common.currentRotation += Common.fixedRotationAngleDeg;
-                    }
-                    catch (Exception e) {
-                        Toast.makeText(getActivity(), "Please enter a valid value for yaw degree", Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(getActivity(), "Please enter a valid value for yaw degree",
+                                       Toast.LENGTH_LONG).show();
                     }
                 }
 

@@ -33,8 +33,8 @@ public class TelemetryListener {
                 public void onBatteryCallback(Telemetry.Battery battery) {
 
                     ((OnChangeListener) context).publishBatteryChangeStatus(
-                            String.format("%d", (int) (100 * battery.remainingPercent)));
-                    Log.d(TAG, String.format("%d", (int) (100 * battery.remainingPercent)));
+                        String.format("%d", (int)(100 * battery.remainingPercent)));
+                    Log.d(TAG, String.format("%d", (int)(100 * battery.remainingPercent)));
                 }
             };
         }
@@ -60,13 +60,13 @@ public class TelemetryListener {
                 public void onHealthCallback(Telemetry.Health health) {
 
                     boolean calibrationOk = health.accelerometerCalibrationOk &&
-                            health.gyrometerCalibrationOk &&
-                            health.magnetometerCalibrationOk &&
-                            health.levelCalibrationOk;
+                                            health.gyrometerCalibrationOk &&
+                                            health.magnetometerCalibrationOk &&
+                                            health.levelCalibrationOk;
 
                     boolean positionOk = health.globalPositionOk &&
-                            health.localPositionOk &&
-                            health.homePositionOk;
+                                         health.localPositionOk &&
+                                         health.homePositionOk;
                     if (calibrationOk && positionOk) {
                         ((OnChangeListener) context).publishHealthChangeStatus("Calibration and position is okay");
                     } else {

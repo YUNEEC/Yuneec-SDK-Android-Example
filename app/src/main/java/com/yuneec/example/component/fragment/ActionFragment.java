@@ -41,7 +41,7 @@ public class ActionFragment extends Fragment implements View.OnClickListener {
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(mView.getContext(), result.resultStr,
-                                Toast.LENGTH_LONG).show();
+                                       Toast.LENGTH_LONG).show();
                     }
                 });
             }
