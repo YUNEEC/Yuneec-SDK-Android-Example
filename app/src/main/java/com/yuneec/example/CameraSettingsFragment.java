@@ -36,7 +36,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(mView.getContext(), result.resultStr + ", WB: " + whiteBalance,
-                                Toast.LENGTH_LONG).show();
+                                       Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -48,7 +48,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(mView.getContext(), result.resultStr,
-                                Toast.LENGTH_LONG).show();
+                                       Toast.LENGTH_LONG).show();
                     }
                 });
             }

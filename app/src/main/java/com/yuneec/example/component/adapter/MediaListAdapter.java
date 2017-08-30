@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 
 public class MediaListAdapter
-        extends BaseAdapter {
+    extends BaseAdapter {
 
     private ArrayList<MediaInfoEntry> entries;
 

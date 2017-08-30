@@ -32,7 +32,8 @@ import java.util.ArrayList;
  * This fragment allows users to view and download pictures and video taken from the drone
  */
 
-public class MediaDownloadFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class MediaDownloadFragment extends Fragment implements
+    SwipeRefreshLayout.OnRefreshListener {
 
     private View rootView;
 
@@ -102,7 +103,8 @@ public class MediaDownloadFragment extends Fragment implements SwipeRefreshLayou
         rootView = inflater.inflate(R.layout.media_download_layout, container, false);
         mediaInfoslistener = new Camera.MediaInfosListener() {
             @Override
-            public void getMediaInfosCallback(final Camera.Result result, final ArrayList<Camera.MediaInfo> mediaInfos) {
+            public void getMediaInfosCallback(final Camera.Result result,
+                                              final ArrayList<Camera.MediaInfo> mediaInfos) {
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         adapter.setEntries(mediaInfos);
@@ -207,9 +209,9 @@ public class MediaDownloadFragment extends Fragment implements SwipeRefreshLayou
 
                 // Taken from https://stackoverflow.com/questions/38200282#answer-38858040
                 newIntent.setDataAndType(FileProvider.getUriForFile(context,
-                        context.getApplicationContext().getPackageName() + ".yuneec.sdk.example.provider",
-                        file),
-                        mimeType);
+                                                                    context.getApplicationContext().getPackageName() + ".yuneec.sdk.example.provider",
+                                                                    file),
+                                         mimeType);
                 newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 newIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 

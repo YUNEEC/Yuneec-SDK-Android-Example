@@ -41,7 +41,7 @@ public class MissionFragment extends Fragment implements View.OnClickListener {
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(rootView.getContext(), result.resultStr,
-                                Toast.LENGTH_LONG).show();
+                                       Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -86,17 +86,28 @@ public class MissionFragment extends Fragment implements View.OnClickListener {
             case R.id.mission_send_button:
 
                 ArrayList<MissionItem> missionItems = new ArrayList<MissionItem>();
-                missionItems.add(makeMissionItem(47.40328702, 8.45186958, 10.0f, MissionItem.CameraAction.START_VIDEO, 0.0f, 0.0f));
-                missionItems.add(makeMissionItem(47.40321712, 8.45205203, 10.0f, MissionItem.CameraAction.NONE, -30.0f, 30.0f));
-                missionItems.add(makeMissionItem(47.40309596, 8.45195392, 10.0f, MissionItem.CameraAction.NONE, -60.0f, -30.0f));
-                missionItems.add(makeMissionItem(47.40302956, 8.45213636, 10.0f, MissionItem.CameraAction.NONE, -90.0f, 0.0f));
-                missionItems.add(makeMissionItem(47.40314839, 8.45223619, 10.0f, MissionItem.CameraAction.STOP_VIDEO, 0.0f, 0.0f));
-                missionItems.add(makeMissionItem(47.40309014, 8.45241003, 10.0f, MissionItem.CameraAction.TAKE_PHOTO, -90.0f, 0.0f));
-                missionItems.add(makeMissionItem(47.40285248, 8.45218627, 10.0f, MissionItem.CameraAction.TAKE_PHOTO, -90.0f, 0.0f));
-                missionItems.add(makeMissionItem(47.40289092, 8.45208473, 10.0f, MissionItem.CameraAction.TAKE_PHOTO, -45.0f, 0.0f));
-                missionItems.add(makeMissionItem(47.40292812, 8.45200039, 10.0f, MissionItem.CameraAction.TAKE_PHOTO, -45.0f, 90.0f));
-                missionItems.add(makeMissionItem(47.40296548, 8.45189884, 10.0f, MissionItem.CameraAction.TAKE_PHOTO, 0.0f, -90.0f));
-                missionItems.add(makeMissionItem(47.40301907, 8.45175942, 10.0f, MissionItem.CameraAction.TAKE_PHOTO, 0.0f, 90.0f));
+                missionItems.add(makeMissionItem(47.40328702, 8.45186958, 10.0f,
+                                                 MissionItem.CameraAction.START_VIDEO, 0.0f, 0.0f));
+                missionItems.add(makeMissionItem(47.40321712, 8.45205203, 10.0f, MissionItem.CameraAction.NONE,
+                                                 -30.0f, 30.0f));
+                missionItems.add(makeMissionItem(47.40309596, 8.45195392, 10.0f, MissionItem.CameraAction.NONE,
+                                                 -60.0f, -30.0f));
+                missionItems.add(makeMissionItem(47.40302956, 8.45213636, 10.0f, MissionItem.CameraAction.NONE,
+                                                 -90.0f, 0.0f));
+                missionItems.add(makeMissionItem(47.40314839, 8.45223619, 10.0f,
+                                                 MissionItem.CameraAction.STOP_VIDEO, 0.0f, 0.0f));
+                missionItems.add(makeMissionItem(47.40309014, 8.45241003, 10.0f,
+                                                 MissionItem.CameraAction.TAKE_PHOTO, -90.0f, 0.0f));
+                missionItems.add(makeMissionItem(47.40285248, 8.45218627, 10.0f,
+                                                 MissionItem.CameraAction.TAKE_PHOTO, -90.0f, 0.0f));
+                missionItems.add(makeMissionItem(47.40289092, 8.45208473, 10.0f,
+                                                 MissionItem.CameraAction.TAKE_PHOTO, -45.0f, 0.0f));
+                missionItems.add(makeMissionItem(47.40292812, 8.45200039, 10.0f,
+                                                 MissionItem.CameraAction.TAKE_PHOTO, -45.0f, 90.0f));
+                missionItems.add(makeMissionItem(47.40296548, 8.45189884, 10.0f,
+                                                 MissionItem.CameraAction.TAKE_PHOTO, 0.0f, -90.0f));
+                missionItems.add(makeMissionItem(47.40301907, 8.45175942, 10.0f,
+                                                 MissionItem.CameraAction.TAKE_PHOTO, 0.0f, 90.0f));
 
                 Mission.subscribeProgress(progressListener);
                 Mission.sendMissionAsync(missionItems, resultListener);

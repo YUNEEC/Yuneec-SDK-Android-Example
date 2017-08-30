@@ -13,7 +13,7 @@ import com.yuneec.rtvplayer.RTVPlayer;
  */
 
 public class VideoSurfaceHolderCallBack
-        implements SurfaceHolder.Callback {
+    implements SurfaceHolder.Callback {
 
     private RTVPlayer rtvPlayer;
 

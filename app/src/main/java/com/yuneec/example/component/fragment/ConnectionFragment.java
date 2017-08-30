@@ -20,7 +20,7 @@ import com.yuneec.example.component.utils.Common;
  */
 
 public class ConnectionFragment
-        extends Fragment
+    extends Fragment
 
 {
 
@@ -103,8 +103,8 @@ public class ConnectionFragment
 
     @Override
     public void onViewStateRestored(
-            @Nullable
-                    Bundle savedInstanceState) {
+        @Nullable
+        Bundle savedInstanceState) {
 
         super.onViewStateRestored(savedInstanceState);
         Log.d(TAG, "on restore");
