@@ -2,6 +2,7 @@ package com.yuneec.example.component.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,7 +92,7 @@ public class MediaListAdapter
         holder.text2.setText(entry.description);
 
         if (entry.downloaded) {
-            convertView.setBackgroundColor(Color.argb(20, 0, 0, 255));
+            convertView.setBackgroundColor(Color.parseColor("#FF8C00"));
         } else {
             convertView.setBackgroundColor(Color.WHITE);
         }

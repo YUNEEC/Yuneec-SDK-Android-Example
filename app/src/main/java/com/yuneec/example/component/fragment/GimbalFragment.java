@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.yuneec.example.R;
 import com.yuneec.example.component.listeners.GimbalListener;
@@ -25,9 +27,11 @@ public class GimbalFragment
 
     private Button rotateClockwise;
 
-    private Button rotateAnticlockwise;
+    //private Button rotateAnticlockwise;
 
     private Button rotateToInitial;
+
+    private EditText editText;
 
 
     @Override
@@ -69,8 +73,9 @@ public class GimbalFragment
         rootView = inflater.inflate(R.layout.gimbal_layout, container, false);
         rotateClockwise = (Button) rootView.findViewById(R.id.rotate_camera_clockwise);
         rotateClockwise.setOnClickListener(this);
-        rotateAnticlockwise = (Button) rootView.findViewById(R.id.rotate_camera_anticlockwise);
-        rotateAnticlockwise.setOnClickListener(this);
+        editText = (EditText) rootView.findViewById(R.id.yaw_degree);
+        //rotateAnticlockwise = (Button) rootView.findViewById(R.id.rotate_camera_anticlockwise);
+        //rotateAnticlockwise.setOnClickListener(this);
         rotateToInitial = (Button) rootView.findViewById(R.id.rotate_to_initial);
         rotateToInitial.setOnClickListener(this);
     }
@@ -90,15 +95,28 @@ public class GimbalFragment
 
         switch (v.getId()) {
             case R.id.rotate_camera_clockwise:
-                Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation + Common.fixedRotationAngleDeg,
-                        GimbalListener.getGimbaListener());
-                Common.currentRotation += Common.fixedRotationAngleDeg;
+
+                if(editText.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity(), R.string.no_text, Toast.LENGTH_LONG).show();
+                }
+                else {
+                    try {
+                        float yaw_degree = Float.parseFloat(editText.getText().toString());
+                        Gimbal.asyncSetPitchAndYawOfJni(0, yaw_degree,
+                                GimbalListener.getGimbaListener());
+                        Common.currentRotation += Common.fixedRotationAngleDeg;
+                    }
+                    catch (Exception e) {
+                        Toast.makeText(getActivity(), "Please enter a valid value for yaw degree", Toast.LENGTH_LONG).show();
+                    }
+                }
+
                 break;
-            case R.id.rotate_camera_anticlockwise:
+            /*case R.id.rotate_camera_anticlockwise:
                 Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation - Common.fixedRotationAngleDeg,
                         GimbalListener.getGimbaListener());
                 Common.currentRotation -= Common.fixedRotationAngleDeg;
-                break;
+                break;*/
             case R.id.rotate_to_initial:
                 Gimbal.asyncSetPitchAndYawOfJni(0, 0, GimbalListener.getGimbaListener());
                 Common.currentRotation = 0;
