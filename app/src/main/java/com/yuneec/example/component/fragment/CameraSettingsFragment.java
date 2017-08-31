@@ -5,7 +5,7 @@
  * Copyright @ 2016-2017 Yuneec.
  * All rights reserved.
  */
-package com.yuneec.example;
+package com.yuneec.example.component.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.View;
 import android.widget.Toast;
 
+import com.yuneec.example.R;
 import com.yuneec.sdk.Camera;
 
 public class CameraSettingsFragment extends Fragment implements View.OnClickListener {
