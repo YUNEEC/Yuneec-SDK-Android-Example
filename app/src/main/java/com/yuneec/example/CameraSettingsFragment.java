@@ -54,7 +54,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(mView.getContext(), result.resultStr + ", Color Mode: " + colorMode,
-                                Toast.LENGTH_SHORT).show();
+                                       Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -66,7 +66,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(mView.getContext(), result.resultStr + ", Exposure mode: " + exposureMode,
-                                Toast.LENGTH_SHORT).show();
+                                       Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -78,7 +78,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(mView.getContext(), result.resultStr + ", EV: " + exposureValue,
-                                Toast.LENGTH_SHORT).show();
+                                       Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -91,12 +91,12 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                     public void run() {
                         if (shutterSpeedS.denominator == 1) {
                             Toast.makeText(mView.getContext(), result.resultStr +
-                                            ", Shutter: " + shutterSpeedS.numerator + " s",
-                                    Toast.LENGTH_SHORT).show();
+                                           ", Shutter: " + shutterSpeedS.numerator + " s",
+                                           Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(mView.getContext(), result.resultStr +
-                                            ", Shutter: " + shutterSpeedS.numerator + "/" + shutterSpeedS.denominator + " s",
-                                    Toast.LENGTH_SHORT).show();
+                                           ", Shutter: " + shutterSpeedS.numerator + "/" + shutterSpeedS.denominator + " s",
+                                           Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -111,7 +111,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(mView.getContext(), result.resultStr + ", ISO: " + isoValue,
-                                Toast.LENGTH_SHORT).show();
+                                       Toast.LENGTH_SHORT).show();
                     }
                 });
             }
