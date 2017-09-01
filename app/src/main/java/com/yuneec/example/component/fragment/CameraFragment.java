@@ -12,8 +12,10 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.*;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -23,8 +25,11 @@ import android.widget.Toast;
 import com.yuneec.example.R;
 import com.yuneec.example.component.custom_callback.VideoSurfaceHolderCallBack;
 import com.yuneec.example.component.listeners.CameraListener;
+import com.yuneec.example.component.listeners.GimbalListener;
+import com.yuneec.example.component.utils.Common;
 import com.yuneec.rtvplayer.RTVPlayer;
 import com.yuneec.sdk.Camera;
+import com.yuneec.sdk.Gimbal;
 
 
 public class CameraFragment
@@ -42,6 +47,10 @@ public class CameraFragment
     //Button captureVideo;
 
     Button cameraSettings;
+
+    Button rotateClockwise;
+
+    Button rotateAnticlockwise;
 
     SurfaceView videoStreamView;
 
@@ -121,6 +130,8 @@ public class CameraFragment
         rootView = inflater.inflate(R.layout.camera_layout, container, false);
         capturePicture = (Button) rootView.findViewById(R.id.capturePicture);
         cameraSettings = (Button) rootView.findViewById(R.id.cameraSettings);
+        rotateClockwise = (Button) rootView.findViewById(R.id.gimbal_rotate_clockwise);
+        rotateAnticlockwise = (Button) rootView.findViewById(R.id.gimbal_rotate_anticlockwise);
         //captureVideo = (Button) rootView.findViewById(R.id.captureVideo);
         videoStreamView = (SurfaceView) rootView.findViewById(R.id.video_live_stream_view);
         surfaceHolder = videoStreamView.getHolder();
@@ -134,17 +145,22 @@ public class CameraFragment
     private void registerListener() {
 
         CameraListener.registerCameraListener(getActivity());
+        GimbalListener.registerGimbalListener();
     }
 
     private void unRegisterListener() {
 
         CameraListener.unRegisterCameraListener();
+        GimbalListener.unRegisterGimbalListener();
     }
 
 
     private void addOnClickListeners() {
 
         capturePicture.setOnClickListener(this);
+        cameraSettings.setOnClickListener(this);
+        rotateClockwise.setOnClickListener(this);
+        rotateAnticlockwise.setOnClickListener(this);
         //captureVideo.setOnClickListener(this);
     }
 
@@ -154,12 +170,29 @@ public class CameraFragment
         switch (v.getId()) {
             case R.id.capturePicture:
                 Camera.asyncTakePhoto();
+                vibrate();
+                Toast.makeText(getActivity(), "Picture Captured", Toast.LENGTH_LONG).show();
                 Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                 Ringtone currentRingtone = RingtoneManager.getRingtone(getActivity(), notificationSound);
                 currentRingtone.play();
                 break;
             case R.id.cameraSettings:
-
+                vibrate();
+                break;
+            case R.id.gimbal_rotate_clockwise:
+                vibrate();
+                if(Common.currentRotation + Common.fixedRotationAngleDeg >= 180) {
+                    
+                }
+                Common.currentRotation += Common.fixedRotationAngleDeg;
+                Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
+                        GimbalListener.getGimbaListener());
+                break;
+            case R.id.gimbal_rotate_anticlockwise:
+                vibrate();
+                Common.currentRotation -= Common.fixedRotationAngleDeg;
+                Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
+                        GimbalListener.getGimbaListener());
                 break;
             /*case R.id.captureVideo:
                 if (captureVideo.getText()
@@ -172,5 +205,10 @@ public class CameraFragment
                 }*/
         }
 
+    }
+
+    void vibrate() {
+        Vibrator vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+            vibe.vibrate(100);
     }
 }

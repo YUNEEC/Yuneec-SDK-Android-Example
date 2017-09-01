@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,11 @@ import com.yuneec.example.component.fragment.CameraFragment;
 import com.yuneec.example.component.fragment.ConnectionFragment;
 import com.yuneec.example.component.fragment.GimbalFragment;
 import com.yuneec.example.component.fragment.MediaDownloadFragment;
+import com.yuneec.example.component.listeners.CameraListener;
 import com.yuneec.example.component.listeners.ConnectionListener;
+import com.yuneec.example.component.listeners.TelemetryListener;
+import com.yuneec.example.component.utils.Common;
+import com.yuneec.example.view.CustomTextView;
 
 /**
  * Simple example based on the Yuneec SDK for Android
@@ -40,7 +45,11 @@ public class MainActivity
 
     private FragmentTabHost mTabHost;
 
-    //TextView connectionStateText;
+    CustomTextView connectionStateText;
+
+    CustomTextView batteryLevel;
+
+    ImageButton batteryIcon;
 
     private static final String TAG = MainActivity.class.getCanonicalName();
 
@@ -49,6 +58,10 @@ public class MainActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+        initViews();
+    }
+
+    void initViews() {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         View view = getLayoutInflater().inflate(R.layout.custom_action_bar_layout,
@@ -58,32 +71,12 @@ public class MainActivity
         getSupportActionBar().setCustomView(view, layoutParams);
         Toolbar parent = (Toolbar) view.getParent();
         parent.setContentInsetsAbsolute(0, 0);
+        connectionStateText = (CustomTextView) view.findViewById(R.id.connection_state);
+        batteryLevel = (CustomTextView) view.findViewById(R.id.battery_level);
+        batteryIcon = (ImageButton) view.findViewById(R.id.battery_status_icon);
         FragmentManager fragmentManager = getSupportFragmentManager();
         CameraFragment cameraFragment = new CameraFragment();
         fragmentManager.beginTransaction().add(R.id.fragment_view, cameraFragment ).commit();
-
-
-
-        /*mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
-        mTabHost.setup(this, getSupportFragmentManager(), R.id.tabcontent);
-        mTabHost.addTab(mTabHost.newTabSpec("connection")
-                        .setIndicator("Connection Info"), ConnectionFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("camera")
-                        .setIndicator("Camera"), CameraFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("gimbal")
-                        .setIndicator("Gimbal"), GimbalFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("media-download")
-                        .setIndicator("Media Download"), MediaDownloadFragment.class, null);
-
-        for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
-            View v = mTabHost.getTabWidget().getChildAt(i);
-            TextView tv = (TextView) v.findViewById(android.R.id.title);
-            tv.setTextColor(ContextCompat.getColor(this, R.color.orange));
-            tv.setTextSize(16);
-        }*/
-
-        //connectionStateText = ( TextView ) findViewById ( R.id.connection_state_text );
-        //connectionStateText.setText ( "Not connected" );
     }
 
     @Override
@@ -104,11 +97,15 @@ public class MainActivity
     private void registerListeners() {
 
         ConnectionListener.registerConnectionListener(this);
+        TelemetryListener.registerBatteryListener(this);
+        TelemetryListener.registerHealthListener(this);
     }
 
     private void unRegisterListeners() {
 
         ConnectionListener.unRegisterConnectionListener();
+        TelemetryListener.unRegisterBatteryListener();
+        TelemetryListener.unRegisterBatteryListener();
     }
 
     @Override
@@ -120,10 +117,8 @@ public class MainActivity
             public void run() {
 
                 Log.d(TAG, connectionStatus);
-                ConnectionFragment fragment = (ConnectionFragment) getSupportFragmentManager().findFragmentByTag(
-                                                  "connection");
-                fragment.setConnectionStateView(connectionStatus);
-
+                connectionStateText.setText(connectionStatus);
+                Common.connectionStatus = connectionStatus;
             }
         });
     }
@@ -137,10 +132,17 @@ public class MainActivity
             public void run() {
 
                 Log.d(TAG, batteryStatus);
-                ConnectionFragment fragment = (ConnectionFragment) getSupportFragmentManager().findFragmentByTag(
-                                                  "connection");
-                fragment.setBatterStateView(batteryStatus);
+                batteryLevel.setText(batteryStatus);
+                try {
+                    int batteryPercentage = Integer.parseInt(batteryStatus);
+                    if(batteryPercentage <= 35) {
+                        batteryIcon.setImageResource(R.drawable.battery1_android);
+                    }
+                }
 
+                catch (Exception e ) {
+                    Log.d(TAG, e.getMessage() );
+                }
             }
         });
     }
@@ -154,9 +156,6 @@ public class MainActivity
             public void run() {
 
                 Log.d(TAG, healthStatus);
-                ConnectionFragment fragment = (ConnectionFragment) getSupportFragmentManager().findFragmentByTag(
-                                                  "connection");
-                fragment.setDroneHealthView(healthStatus);
 
             }
         });
@@ -168,7 +167,7 @@ public class MainActivity
 
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                Log.d(TAG, result);
             }
         });
     }

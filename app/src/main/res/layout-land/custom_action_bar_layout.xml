@@ -41,7 +41,7 @@
             android:layout_weight="1">
 
             <ImageButton
-                android:id="@+id/battery_status"
+                android:id="@+id/battery_status_icon"
                 style="@style/buttonIcon_actionBar"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="40dp"

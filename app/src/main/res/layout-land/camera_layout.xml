@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:clickable="false"
+        android:focusableInTouchMode="false"/>
 
 
 
@@ -37,20 +39,24 @@
             android:layout_margin="@dimen/less_margin"
             android:layout_centerHorizontal="true"
             style="@style/buttonIcon"
-            android:background="@drawable/camera_settings_android"/>
+            android:background="@drawable/camera_settings_android"
+            android:clickable="true"/>
 
         <Button
             android:id="@+id/gimbal_rotate_clockwise"
             android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/less_margin"
             style="@style/buttonIcon"
-            android:background="@drawable/rotate_clockwise"/>
+            android:background="@drawable/rotate_clockwise"
+            android:clickable="true"/>
 
         <Button
             android:id="@+id/gimbal_rotate_anticlockwise"
             android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/less_margin"
             style="@style/buttonIcon"
-            android:background="@drawable/rotate_anticlockwise" />
+            android:background="@drawable/rotate_anticlockwise"
+            android:clickable="true"/>
 
 
     </LinearLayout>

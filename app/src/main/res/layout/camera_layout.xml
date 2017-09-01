@@ -8,25 +8,55 @@
 
     <SurfaceView
         android:id="@+id/video_live_stream_view"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_width="400dp"
-        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/capturePicture"
-        style="@style/button"
-        android:text="Capture Picture"
-        android:layout_below="@+id/video_live_stream_view"
-        android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/captureVideo"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        style="@style/button"
-        android:text="Start Video"
-        android:layout_below="@+id/capturePicture"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone" />
+
+    <LinearLayout android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/margin"
+        android:orientation="vertical"
+        android:background="@color/text"
+        android:layout_centerInParent="true">
+        <Button
+            android:id="@+id/capturePicture"
+            android:layout_margin="@dimen/less_margin"
+            android:layout_below="@+id/video_live_stream_view"
+            android:layout_centerHorizontal="true"
+            style="@style/buttonIcon"
+            android:background="@drawable/photo_capture"/>
+
+        <Button
+            android:id="@+id/cameraSettings"
+            android:layout_margin="@dimen/less_margin"
+            android:layout_centerHorizontal="true"
+            style="@style/buttonIcon"
+            android:background="@drawable/camera_settings_android"/>
+
+        <Button
+            android:id="@+id/gimbal_rotate_clockwise"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/less_margin"
+            style="@style/buttonIcon"
+            android:background="@drawable/rotate_clockwise"/>
+
+        <Button
+            android:id="@+id/gimbal_rotate_anticlockwise"
+            android:layout_centerHorizontal="true"
+            style="@style/buttonIcon"
+            android:background="@drawable/rotate_anticlockwise" />
+
+
+    </LinearLayout>
+
+
+
+
 
 </RelativeLayout>
