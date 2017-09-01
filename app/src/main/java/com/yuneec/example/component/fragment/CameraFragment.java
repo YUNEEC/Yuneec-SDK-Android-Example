@@ -39,7 +39,7 @@ public class CameraFragment
 
     Button capturePicture;
 
-    Button captureVideo;
+    //Button captureVideo;
 
     Button cameraSettings;
 
@@ -121,7 +121,7 @@ public class CameraFragment
         rootView = inflater.inflate(R.layout.camera_layout, container, false);
         capturePicture = (Button) rootView.findViewById(R.id.capturePicture);
         cameraSettings = (Button) rootView.findViewById(R.id.cameraSettings);
-        captureVideo = (Button) rootView.findViewById(R.id.captureVideo);
+        //captureVideo = (Button) rootView.findViewById(R.id.captureVideo);
         videoStreamView = (SurfaceView) rootView.findViewById(R.id.video_live_stream_view);
         surfaceHolder = videoStreamView.getHolder();
         rtvPlayer = RTVPlayer.getPlayer(RTVPlayer.PLAYER_FFMPEG);
@@ -145,7 +145,7 @@ public class CameraFragment
     private void addOnClickListeners() {
 
         capturePicture.setOnClickListener(this);
-        captureVideo.setOnClickListener(this);
+        //captureVideo.setOnClickListener(this);
     }
 
     @Override
@@ -161,7 +161,7 @@ public class CameraFragment
             case R.id.cameraSettings:
 
                 break;
-            case R.id.captureVideo:
+            /*case R.id.captureVideo:
                 if (captureVideo.getText()
                         .equals("Start Video")) {
                     Camera.asyncStartVideo();
@@ -169,7 +169,7 @@ public class CameraFragment
                 } else {
                     Camera.asyncStopVideo();
                     captureVideo.setText("Start Video");
-                }
+                }*/
         }
 
     }

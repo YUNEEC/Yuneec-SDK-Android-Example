@@ -6,7 +6,7 @@
     <string name="rotate_to_initial">Bring to the initial position</string>
     <string name="connection_status">Connection Status: </string>
     <string name="battery_status">Battery Percentage: </string>
-    <string name="not_connected_status"> Not connected! </string>
+    <string name="not_connected_status"> Not Connected! </string>
     <string name="health_status">Health Status: </string>
     <string name="no_status">Unknown</string>
     <string name="no_text">Please enter yaw degree, before clicking rotate button</string>

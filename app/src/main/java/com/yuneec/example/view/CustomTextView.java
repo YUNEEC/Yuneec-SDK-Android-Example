@@ -27,7 +27,7 @@ public class CustomTextView extends android.support.v7.widget.AppCompatTextView 
     }
 
     public void init() {
-        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "res/font/Lato-Black.ttf");
+        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "font/Lato-Bold.ttf");
         setTypeface(tf, 1);
     }
 }

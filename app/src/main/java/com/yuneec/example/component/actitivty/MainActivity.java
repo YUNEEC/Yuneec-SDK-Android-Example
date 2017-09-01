@@ -12,6 +12,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar.LayoutParams;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -31,7 +35,7 @@ import com.yuneec.example.component.listeners.ConnectionListener;
  * The example has 3 tabs (fragments) called Telemetry, Action, Mission.
  */
 public class MainActivity
-    extends FragmentActivity
+    extends AppCompatActivity
     implements OnChangeListener {
 
     private FragmentTabHost mTabHost;
@@ -45,9 +49,20 @@ public class MainActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        View view = getLayoutInflater().inflate(R.layout.custom_action_bar_layout,
+                null);
+        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT);
+        getSupportActionBar().setCustomView(view, layoutParams);
+        Toolbar parent = (Toolbar) view.getParent();
+        parent.setContentInsetsAbsolute(0, 0);
         FragmentManager fragmentManager = getSupportFragmentManager();
         CameraFragment cameraFragment = new CameraFragment();
         fragmentManager.beginTransaction().add(R.id.fragment_view, cameraFragment ).commit();
+
+
 
         /*mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.tabcontent);

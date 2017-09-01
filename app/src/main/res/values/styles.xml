@@ -15,14 +15,16 @@
 
     <style name="text">
         <item name="android:textSize">20dp</item>
-        <item name="android:textColor">@color/text</item>S
+        <item name="android:textColor">@color/text</item>
     </style>
 
     <style name="text_actionBar">
         <item name="android:textSize">25dp</item>
         <item name="android:textColor">@color/text</item>
-        <item name="android:layout_centerInParent">true
-        </item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="button">
@@ -38,23 +40,30 @@
 
     <style name="buttonIcon">
         <item name="android:layout_gravity">center</item>
-        <item name="android:layout_width">50dp</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">75dp</item>
+        <item name="android:layout_height">75dp</item>
     </style>
 
     <style name="buttonIcon_actionBar">
-        <item name="android:layout_width">40dp</item>
-        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_width">44dp</item>
+        <item name="android:layout_height">44dp</item>
         <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="buttonIcon_actionBar_home">
+        <item name="android:layout_width">44dp</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:scaleType">fitStart</item>
     </style>
 
     <style name="AppCustomTheme" parent="@android:style/Theme.Black">
         <item name="android:background">@color/background</item>
     </style>
 
-    <style name="NoActionBar" parent="@android:style/Theme.Holo.Light">
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
+    <style name="CustomTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetEnd">0dp</item>
+        <item name="android:background">@color/blue</item>
     </style>
 
 </resources>

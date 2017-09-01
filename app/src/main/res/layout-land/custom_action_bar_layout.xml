@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:background="@color/blue"
     >
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blue">
+        android:layout_margin="6dp">
 
         <ImageButton
             android:id="@+id/yuneec_home"
-            style="@style/buttonIcon_actionBar"
-            android:layout_alignParentTop="true"
+            style="@style/buttonIcon_actionBar_home"
             android:background="@android:color/transparent"
             android:src="@drawable/yuneec_logo_android"
-            android:layout_weight="1" />
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            />
 
         <ImageButton
             android:id="@+id/waypoint"
             style="@style/buttonIcon_actionBar"
-            android:layout_alignParentTop="true"
             android:background="@android:color/transparent"
             android:src="@drawable/waypoint1_android"
             android:layout_weight="1" />
@@ -29,9 +30,6 @@
         <com.yuneec.example.view.CustomTextView
             android:id="@+id/connection_state"
             style="@style/text_actionBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
             android:text="@string/not_connected_status"
             android:layout_weight="1"
@@ -48,8 +46,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="40dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/battery_android"
-                android:layout_weight="1"/>
+                android:src="@drawable/battery_android" />
 
             <com.yuneec.example.view.CustomTextView
                 android:id="@+id/battery_level"
@@ -57,9 +54,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
-                android:text="-"
-                android:layout_weight="1"/>
+                android:text="-" />
 
         </LinearLayout>
 
