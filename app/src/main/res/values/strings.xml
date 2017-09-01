@@ -6,10 +6,27 @@
     <string name="rotate_to_initial">Bring to the initial position</string>
     <string name="connection_status">Connection Status: </string>
     <string name="battery_status">Battery Percentage: </string>
-    <string name="not_connected_status"> Not connected to the drone </string>
+    <string name="not_connected_status"> Not connected! </string>
     <string name="health_status">Health Status: </string>
     <string name="no_status">Unknown</string>
     <string name="no_text">Please enter yaw degree, before clicking rotate button</string>
-
-
+    <string name="white_balance_mode">White Balance Mode</string>
+    <string name="exposure_mode">Exposure Mode</string>
+    <string name="exposure_compensation">Exposure Compensation</string>
+    <string name="iso_value">ISO Value</string>
+    <string name="shutter_speed">Shutter Speed</string>
+    <string name="color_mode">Color mode</string>
+    <string-array name="wb_values">
+        <item>AUTO</item>
+        <item>LOCK</item>
+        <item>SUNNY</item>
+        <item>CLOUDY</item>
+    </string-array>
+    <string-array name="exposure_mode">
+        <item>AUTO</item>
+        <item>MANUAL</item>
+    </string-array>
+    <string-array name="color_mode">
+        <item></item>
+    </string-array>
 </resources>

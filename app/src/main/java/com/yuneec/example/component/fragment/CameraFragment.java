@@ -41,6 +41,8 @@ public class CameraFragment
 
     Button captureVideo;
 
+    Button cameraSettings;
+
     SurfaceView videoStreamView;
 
     SurfaceHolder surfaceHolder;
@@ -118,6 +120,7 @@ public class CameraFragment
 
         rootView = inflater.inflate(R.layout.camera_layout, container, false);
         capturePicture = (Button) rootView.findViewById(R.id.capturePicture);
+        cameraSettings = (Button) rootView.findViewById(R.id.cameraSettings);
         captureVideo = (Button) rootView.findViewById(R.id.captureVideo);
         videoStreamView = (SurfaceView) rootView.findViewById(R.id.video_live_stream_view);
         surfaceHolder = videoStreamView.getHolder();
@@ -154,6 +157,9 @@ public class CameraFragment
                 Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                 Ringtone currentRingtone = RingtoneManager.getRingtone(getActivity(), notificationSound);
                 currentRingtone.play();
+                break;
+            case R.id.cameraSettings:
+
                 break;
             case R.id.captureVideo:
                 if (captureVideo.getText()

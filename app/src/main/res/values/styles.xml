@@ -18,6 +18,13 @@
         <item name="android:textColor">@color/text</item>S
     </style>
 
+    <style name="text_actionBar">
+        <item name="android:textSize">25dp</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:layout_centerInParent">true
+        </item>
+    </style>
+
     <style name="button">
         <item name="android:textSize">16dp</item>
         <item name="android:textColor">#000000</item>
@@ -29,8 +36,25 @@
         <item name="android:layout_margin">@dimen/activity_vertical_margin</item>
     </style>
 
+    <style name="buttonIcon">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+    </style>
+
+    <style name="buttonIcon_actionBar">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
     <style name="AppCustomTheme" parent="@android:style/Theme.Black">
         <item name="android:background">@color/background</item>
+    </style>
+
+    <style name="NoActionBar" parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
 </resources>

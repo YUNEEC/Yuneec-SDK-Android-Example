@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blue">
+
+        <ImageButton
+            android:id="@+id/yuneec_home"
+            style="@style/buttonIcon_actionBar"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/yuneec_logo_android"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/waypoint"
+            style="@style/buttonIcon_actionBar"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/waypoint1_android"
+            android:layout_weight="1" />
+
+        <com.yuneec.example.view.CustomTextView
+            android:id="@+id/connection_state"
+            style="@style/text_actionBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/not_connected_status"
+            android:layout_weight="1"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:id="@+id/battery_status"
+                style="@style/buttonIcon_actionBar"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="40dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/battery_android"
+                android:layout_weight="1"/>
+
+            <com.yuneec.example.view.CustomTextView
+                android:id="@+id/battery_level"
+                style="@style/text_actionBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center"
+                android:text="-"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+
+
+    </TableRow>
+
+</TableLayout>

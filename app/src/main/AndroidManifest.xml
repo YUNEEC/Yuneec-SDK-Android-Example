@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.yuneec.example.component.actitivty.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -9,6 +9,7 @@ package com.yuneec.example.component.actitivty;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -44,8 +45,11 @@ public class MainActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        CameraFragment cameraFragment = new CameraFragment();
+        fragmentManager.beginTransaction().add(R.id.fragment_view, cameraFragment ).commit();
 
-        mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+        /*mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.tabcontent);
         mTabHost.addTab(mTabHost.newTabSpec("connection")
                         .setIndicator("Connection Info"), ConnectionFragment.class, null);
@@ -61,7 +65,7 @@ public class MainActivity
             TextView tv = (TextView) v.findViewById(android.R.id.title);
             tv.setTextColor(ContextCompat.getColor(this, R.color.orange));
             tv.setTextSize(16);
-        }
+        }*/
 
         //connectionStateText = ( TextView ) findViewById ( R.id.connection_state_text );
         //connectionStateText.setText ( "Not connected" );
