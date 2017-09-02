@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.*;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -50,7 +51,6 @@ public class CameraFragment
     RTVPlayer rtvPlayer;
 
     VideoSurfaceHolderCallBack videoSurfaceHolderCallBack;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -107,10 +107,19 @@ public class CameraFragment
 
     public void deInitPlayer() {
 
-        rtvPlayer.deinit();
-        if (videoSurfaceHolderCallBack != null) {
-            videoSurfaceHolderCallBack = null;
+        if (supportsVideoStreamLib()) {
+            rtvPlayer.deinit();
+            if (videoSurfaceHolderCallBack != null) {
+                videoSurfaceHolderCallBack = null;
+            }
         }
+    }
+
+
+    private boolean supportsVideoStreamLib() {
+        String arch = System.getProperty("os.arch");
+        // The underlying ffmpeg implementation does not support any other architectures as of yet.
+        return (arch.equals("x86") || arch.equals("x86_64") || arch.equals("armeabi-v7a"));
     }
 
     private void initViews(LayoutInflater inflater,
@@ -119,12 +128,16 @@ public class CameraFragment
         rootView = inflater.inflate(R.layout.camera_layout, container, false);
         capturePicture = (Button) rootView.findViewById(R.id.capturePicture);
         captureVideo = (Button) rootView.findViewById(R.id.captureVideo);
-        videoStreamView = (SurfaceView) rootView.findViewById(R.id.video_live_stream_view);
-        surfaceHolder = videoStreamView.getHolder();
-        rtvPlayer = RTVPlayer.getPlayer(RTVPlayer.PLAYER_FFMPEG);
-        rtvPlayer.init(getActivity(), RTVPlayer.IMAGE_FORMAT_YV12, false);
-        videoSurfaceHolderCallBack = new VideoSurfaceHolderCallBack(getActivity(), videoSurface, rtvPlayer);
-        surfaceHolder.addCallback(videoSurfaceHolderCallBack);
+        if (supportsVideoStreamLib()) {
+            videoStreamView = (SurfaceView) rootView.findViewById(R.id.video_live_stream_view);
+            surfaceHolder = videoStreamView.getHolder();
+            rtvPlayer = RTVPlayer.getPlayer(RTVPlayer.PLAYER_FFMPEG);
+            rtvPlayer.init(getActivity(), RTVPlayer.IMAGE_FORMAT_YV12, false);
+            videoSurfaceHolderCallBack = new VideoSurfaceHolderCallBack(getActivity(), videoSurface, rtvPlayer);
+            surfaceHolder.addCallback(videoSurfaceHolderCallBack);
+        } else {
+            Log.d(TAG, "Video stream not supported on this architecture.");
+        }
     }
 
 

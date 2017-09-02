@@ -44,9 +44,11 @@ public class VideoSurfaceHolderCallBack
                                int width,
                                int height) {
 
-        surface = holder.getSurface();
-        rtvPlayer.setSurface(surface);
-        Log.d(TAG, "Surface changed");
+        if (surface != null) {
+            surface = holder.getSurface();
+            rtvPlayer.setSurface(surface);
+            Log.d(TAG, "Surface changed");
+        }
     }
 
     @Override
@@ -59,6 +61,4 @@ public class VideoSurfaceHolderCallBack
 
         rtvPlayer.play(Common.VideoStreamUrl);
     }
-
-
 }
