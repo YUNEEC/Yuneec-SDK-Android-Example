@@ -15,6 +15,14 @@
         android:clickable="false"
         android:focusableInTouchMode="false"/>
 
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+    </FrameLayout>
+
 
 
     <LinearLayout android:id="@+id/linearLayout1"
@@ -46,7 +54,7 @@
             android:id="@+id/gimbal_rotate_clockwise"
             android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/less_margin"
-            style="@style/buttonIcon"
+            style="@style/buttonIcon_small"
             android:background="@drawable/rotate_clockwise"
             android:clickable="true"/>
 
@@ -54,8 +62,16 @@
             android:id="@+id/gimbal_rotate_anticlockwise"
             android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/less_margin"
-            style="@style/buttonIcon"
+            style="@style/buttonIcon_small"
             android:background="@drawable/rotate_anticlockwise"
+            android:clickable="true"/>
+
+        <Button
+            android:id="@+id/media_download"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/less_margin"
+            style="@style/buttonIcon_small"
+            android:background="@drawable/play"
             android:clickable="true"/>
 
 

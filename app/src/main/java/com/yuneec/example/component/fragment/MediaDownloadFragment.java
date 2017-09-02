@@ -8,6 +8,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
  * This fragment allows users to view and download pictures and video taken from the drone
  */
 
-public class MediaDownloadFragment extends Fragment implements
+public class MediaDownloadFragment extends DialogFragment implements
     SwipeRefreshLayout.OnRefreshListener {
 
     private View rootView;

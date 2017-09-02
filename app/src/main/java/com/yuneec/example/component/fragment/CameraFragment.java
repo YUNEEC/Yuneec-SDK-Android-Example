@@ -13,6 +13,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -51,6 +52,8 @@ public class CameraFragment
     Button rotateClockwise;
 
     Button rotateAnticlockwise;
+
+    Button media_download;
 
     SurfaceView videoStreamView;
 
@@ -132,6 +135,7 @@ public class CameraFragment
         cameraSettings = (Button) rootView.findViewById(R.id.cameraSettings);
         rotateClockwise = (Button) rootView.findViewById(R.id.gimbal_rotate_clockwise);
         rotateAnticlockwise = (Button) rootView.findViewById(R.id.gimbal_rotate_anticlockwise);
+        media_download = (Button) rootView.findViewById(R.id.media_download);
         //captureVideo = (Button) rootView.findViewById(R.id.captureVideo);
         videoStreamView = (SurfaceView) rootView.findViewById(R.id.video_live_stream_view);
         surfaceHolder = videoStreamView.getHolder();
@@ -161,6 +165,7 @@ public class CameraFragment
         cameraSettings.setOnClickListener(this);
         rotateClockwise.setOnClickListener(this);
         rotateAnticlockwise.setOnClickListener(this);
+        media_download.setOnClickListener(this);
         //captureVideo.setOnClickListener(this);
     }
 
@@ -182,17 +187,33 @@ public class CameraFragment
             case R.id.gimbal_rotate_clockwise:
                 vibrate();
                 if(Common.currentRotation + Common.fixedRotationAngleDeg >= 180) {
-                    
+                    Common.currentRotation = 0;
+                    Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
+                            GimbalListener.getGimbaListener());
                 }
-                Common.currentRotation += Common.fixedRotationAngleDeg;
-                Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
-                        GimbalListener.getGimbaListener());
+                else {
+                    Common.currentRotation += Common.fixedRotationAngleDeg;
+                    Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
+                            GimbalListener.getGimbaListener());
+                }
                 break;
             case R.id.gimbal_rotate_anticlockwise:
                 vibrate();
-                Common.currentRotation -= Common.fixedRotationAngleDeg;
-                Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
-                        GimbalListener.getGimbaListener());
+                if(Common.currentRotation - Common.fixedRotationAngleDeg <= -180) {
+                    Common.currentRotation = 0;
+                    Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
+                            GimbalListener.getGimbaListener());
+                }
+                else {
+                    Common.currentRotation -= Common.fixedRotationAngleDeg;
+                    Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
+                            GimbalListener.getGimbaListener());
+                }
+                break;
+            case R.id.media_download:
+                vibrate();
+                DialogFragment dialogFragment = new MediaDownloadFragment();
+                dialogFragment.show(getFragmentManager(), "dialog");
                 break;
             /*case R.id.captureVideo:
                 if (captureVideo.getText()

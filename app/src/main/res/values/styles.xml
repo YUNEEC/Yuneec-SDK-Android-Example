@@ -40,8 +40,14 @@
 
     <style name="buttonIcon">
         <item name="android:layout_gravity">center</item>
-        <item name="android:layout_width">75dp</item>
-        <item name="android:layout_height">75dp</item>
+        <item name="android:layout_width">68dp</item>
+        <item name="android:layout_height">68dp</item>
+    </style>
+
+    <style name="buttonIcon_small">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">58dp</item>
+        <item name="android:layout_height">58dp</item>
     </style>
 
     <style name="buttonIcon_actionBar">
@@ -65,5 +71,14 @@
         <item name="contentInsetEnd">0dp</item>
         <item name="android:background">@color/blue</item>
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
