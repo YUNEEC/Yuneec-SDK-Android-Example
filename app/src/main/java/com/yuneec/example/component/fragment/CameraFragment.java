@@ -88,7 +88,9 @@ public class CameraFragment
     public void onPause() {
 
         super.onPause();
-        rtvPlayer.stop();
+        if (supportsVideoStreamLib()) {
+            rtvPlayer.stop();
+        }
     }
 
     @Override
