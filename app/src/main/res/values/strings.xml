@@ -29,5 +29,10 @@
     <string-array name="color_mode">
         <item></item>
     </string-array>
+    <string-array name="camera_action">
+        <item></item>
+    </string-array>
     <string name="title_activity_camera_settings">CameraSettingsActivity</string>
+    <string name="apply">Apply</string>
+    <string name="cancel">Cancel</string>
 </resources>

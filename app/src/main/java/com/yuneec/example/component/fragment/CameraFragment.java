@@ -28,6 +28,7 @@ import com.yuneec.example.component.custom_callback.VideoSurfaceHolderCallBack;
 import com.yuneec.example.component.listeners.CameraListener;
 import com.yuneec.example.component.listeners.GimbalListener;
 import com.yuneec.example.component.utils.Common;
+import com.yuneec.example.component.utils.Sounds;
 import com.yuneec.rtvplayer.RTVPlayer;
 import com.yuneec.sdk.Camera;
 import com.yuneec.sdk.Gimbal;
@@ -175,17 +176,20 @@ public class CameraFragment
         switch (v.getId()) {
             case R.id.capturePicture:
                 Camera.asyncTakePhoto();
-                vibrate();
+                Sounds.vibrate(getActivity());
                 Toast.makeText(getActivity(), "Picture Captured", Toast.LENGTH_LONG).show();
                 Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                 Ringtone currentRingtone = RingtoneManager.getRingtone(getActivity(), notificationSound);
                 currentRingtone.play();
                 break;
             case R.id.cameraSettings:
-                vibrate();
+                DialogFragment settingsDialogFragment = new SettingsFragment();
+                settingsDialogFragment.show(getFragmentManager(), "settings");
+                Sounds.vibrate(getActivity());
+
                 break;
             case R.id.gimbal_rotate_clockwise:
-                vibrate();
+                Sounds.vibrate(getActivity());
                 if(Common.currentRotation + Common.fixedRotationAngleDeg >= 180) {
                     Common.currentRotation = 0;
                     Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
@@ -198,7 +202,7 @@ public class CameraFragment
                 }
                 break;
             case R.id.gimbal_rotate_anticlockwise:
-                vibrate();
+                Sounds.vibrate(getActivity());
                 if(Common.currentRotation - Common.fixedRotationAngleDeg <= -180) {
                     Common.currentRotation = 0;
                     Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
@@ -211,9 +215,9 @@ public class CameraFragment
                 }
                 break;
             case R.id.media_download:
-                vibrate();
-                DialogFragment dialogFragment = new MediaDownloadFragment();
-                dialogFragment.show(getFragmentManager(), "dialog");
+                Sounds.vibrate(getActivity());
+                DialogFragment mediaDialogFragment = new MediaDownloadFragment();
+                mediaDialogFragment.show(getFragmentManager(), "dialog");
                 break;
             /*case R.id.captureVideo:
                 if (captureVideo.getText()
@@ -228,8 +232,4 @@ public class CameraFragment
 
     }
 
-    void vibrate() {
-        Vibrator vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-            vibe.vibrate(100);
-    }
 }

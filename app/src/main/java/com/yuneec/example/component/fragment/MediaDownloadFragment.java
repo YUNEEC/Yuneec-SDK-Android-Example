@@ -59,6 +59,7 @@ public class MediaDownloadFragment extends DialogFragment implements
                              Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        getDialog().setTitle("Media");
         setRetainInstance(true);
         initViews(inflater, container);
         return rootView;
@@ -75,7 +76,11 @@ public class MediaDownloadFragment extends DialogFragment implements
     public void onStop() {
 
         super.onStop();
-        //unRegisterListener();
+        unRegisterListener();
+    }
+
+    private void unRegisterListener() {
+        mediaInfoslistener = null;
     }
 
     @Override
@@ -106,14 +111,16 @@ public class MediaDownloadFragment extends DialogFragment implements
             @Override
             public void getMediaInfosCallback(final Camera.Result result,
                                               final ArrayList<Camera.MediaInfo> mediaInfos) {
-                getActivity().runOnUiThread(new Runnable() {
-                    public void run() {
-                        adapter.setEntries(mediaInfos);
-                        adapter.notifyDataSetChanged();
-                        updateToast(result.resultStr + ", found " + mediaInfos.size() + " media items");
-                        swipeLayout.setRefreshing(false);
-                    }
-                });
+                if(getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            adapter.setEntries(mediaInfos);
+                            adapter.notifyDataSetChanged();
+                            updateToast(result.resultStr + ", found " + mediaInfos.size() + " media items");
+                            swipeLayout.setRefreshing(false);
+                        }
+                    });
+                }
             }
 
         };

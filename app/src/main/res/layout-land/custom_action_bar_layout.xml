@@ -21,7 +21,7 @@
             />
 
         <ImageButton
-            android:id="@+id/waypoint"
+            android:id="@+id/waypoint_icon"
             style="@style/buttonIcon_actionBar"
             android:background="@android:color/transparent"
             android:src="@drawable/waypoint1_android"

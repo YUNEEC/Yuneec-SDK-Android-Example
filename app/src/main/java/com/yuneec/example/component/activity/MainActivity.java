@@ -4,14 +4,12 @@
  * Copyright @ 2016-2017 Yuneec. All rights reserved.
  */
 
-package com.yuneec.example.component.actitivty;
+package com.yuneec.example.component.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar.LayoutParams;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,19 +17,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yuneec.example.R;
 import com.yuneec.example.component.custom_callback.OnChangeListener;
 import com.yuneec.example.component.fragment.CameraFragment;
-import com.yuneec.example.component.fragment.ConnectionFragment;
-import com.yuneec.example.component.fragment.GimbalFragment;
-import com.yuneec.example.component.fragment.MediaDownloadFragment;
-import com.yuneec.example.component.listeners.CameraListener;
+import com.yuneec.example.component.fragment.MissionFragment;
 import com.yuneec.example.component.listeners.ConnectionListener;
 import com.yuneec.example.component.listeners.TelemetryListener;
 import com.yuneec.example.component.utils.Common;
+import com.yuneec.example.component.utils.Sounds;
 import com.yuneec.example.view.CustomTextView;
 
 /**
@@ -41,7 +35,7 @@ import com.yuneec.example.view.CustomTextView;
  */
 public class MainActivity
     extends AppCompatActivity
-    implements OnChangeListener {
+    implements OnChangeListener, View.OnClickListener {
 
     private FragmentTabHost mTabHost;
 
@@ -50,6 +44,8 @@ public class MainActivity
     CustomTextView batteryLevel;
 
     ImageButton batteryIcon;
+
+    ImageButton waypointIcon;
 
     private static final String TAG = MainActivity.class.getCanonicalName();
 
@@ -74,9 +70,15 @@ public class MainActivity
         connectionStateText = (CustomTextView) view.findViewById(R.id.connection_state);
         batteryLevel = (CustomTextView) view.findViewById(R.id.battery_level);
         batteryIcon = (ImageButton) view.findViewById(R.id.battery_status_icon);
+        waypointIcon = (ImageButton) view.findViewById(R.id.waypoint_icon);
+        setOnClickListeners();
         FragmentManager fragmentManager = getSupportFragmentManager();
         CameraFragment cameraFragment = new CameraFragment();
-        fragmentManager.beginTransaction().add(R.id.fragment_view, cameraFragment ).commit();
+        fragmentManager.beginTransaction().add(R.id.fragment_view, cameraFragment).commit();
+    }
+
+    private void setOnClickListeners() {
+        waypointIcon.setOnClickListener(this);
     }
 
     @Override
@@ -135,13 +137,11 @@ public class MainActivity
                 batteryLevel.setText(batteryStatus);
                 try {
                     int batteryPercentage = Integer.parseInt(batteryStatus);
-                    if(batteryPercentage <= 35) {
+                    if (batteryPercentage <= 35) {
                         batteryIcon.setImageResource(R.drawable.battery1_android);
                     }
-                }
-
-                catch (Exception e ) {
-                    Log.d(TAG, e.getMessage() );
+                } catch (Exception e) {
+                    Log.d(TAG, e.getMessage());
                 }
             }
         });
@@ -172,6 +172,16 @@ public class MainActivity
         });
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.waypoint_icon:
+                Sounds.vibrate(this);
+                DialogFragment dialogFragment = new MissionFragment();
+                dialogFragment.show(getSupportFragmentManager(), "Mission");
+                break;
+        }
+    }
 }
 
 

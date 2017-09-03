@@ -8,10 +8,14 @@
 package com.yuneec.example.component.fragment;
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.yuneec.example.R;
@@ -19,22 +23,28 @@ import com.yuneec.sdk.Mission;
 import com.yuneec.sdk.MissionItem;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
 
 
-public class MissionFragment extends Fragment implements View.OnClickListener {
+public class MissionFragment extends DialogFragment implements View.OnClickListener {
 
     View rootView;
 
     Mission.ResultListener resultListener;
     Mission.ProgressListener progressListener;
 
+    Spinner camera_action_spinner;
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        rootView = inflater.inflate(R.layout.mission_example, container, false);
-
+        getDialog().setTitle("Set Mission");
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        rootView = inflater.inflate(R.layout.waypoint_layout, container, false);
+        camera_action_spinner = (Spinner) rootView.findViewById(R.id.camera_action_spinner);
+        addItemsOnSpinner();
         resultListener = new Mission.ResultListener() {
             @Override
             public void onResultCallback(final Mission.Result result) {
@@ -66,6 +76,15 @@ public class MissionFragment extends Fragment implements View.OnClickListener {
         return rootView;
     }
 
+    public void addItemsOnSpinner() {
+        List<MissionItem.CameraAction> actionList =
+                new ArrayList<MissionItem.CameraAction>(EnumSet.allOf(MissionItem.CameraAction.class));
+        ArrayAdapter<MissionItem.CameraAction> dataAdapter = new ArrayAdapter<>(getActivity(),
+                android.R.layout.simple_spinner_item, actionList);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        camera_action_spinner.setAdapter(dataAdapter);
+    }
+
     static public MissionItem makeMissionItem(double latitudeDeg, double longitudeM,
                                               float relativeAltitudeM,
                                               MissionItem.CameraAction cameraAction,
@@ -84,7 +103,7 @@ public class MissionFragment extends Fragment implements View.OnClickListener {
 
         switch (view.getId()) {
             case R.id.mission_send_button:
-
+                makeToast();
                 ArrayList<MissionItem> missionItems = new ArrayList<MissionItem>();
                 missionItems.add(makeMissionItem(47.40328702, 8.45186958, 10.0f,
                                                  MissionItem.CameraAction.START_VIDEO, 0.0f, 0.0f));
@@ -109,17 +128,23 @@ public class MissionFragment extends Fragment implements View.OnClickListener {
                 missionItems.add(makeMissionItem(47.40301907, 8.45175942, 10.0f,
                                                  MissionItem.CameraAction.TAKE_PHOTO, 0.0f, 90.0f));
 
-                Mission.subscribeProgress(progressListener);
-                Mission.sendMissionAsync(missionItems, resultListener);
+                //Mission.subscribeProgress(progressListener);
+                //Mission.sendMissionAsync(missionItems, resultListener);
                 break;
 
             case R.id.mission_start_button:
-                Mission.startMissionAsync(resultListener);
+                makeToast();
+                //Mission.startMissionAsync(resultListener);
                 break;
 
             case R.id.mission_pause_button:
-                Mission.pauseMissionAsync(resultListener);
+                makeToast();
+                //SMission.pauseMissionAsync(resultListener);
                 break;
         }
+    }
+
+    private void makeToast() {
+        Toast.makeText(getActivity(), "The position is not okay to perform this action", Toast.LENGTH_LONG).show();
     }
 }
