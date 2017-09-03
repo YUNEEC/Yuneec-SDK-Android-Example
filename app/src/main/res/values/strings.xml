@@ -10,6 +10,6 @@
     <string name="health_status">Health Status: </string>
     <string name="no_status">Unknown</string>
     <string name="no_text">Please enter yaw degree, before clicking rotate button</string>
-
+    <string name="storage_used_of_total">Used: ?/? MiB</string>
 
 </resources>

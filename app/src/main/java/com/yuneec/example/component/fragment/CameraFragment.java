@@ -6,7 +6,6 @@
 
 package com.yuneec.example.component.fragment;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -42,6 +41,8 @@ public class CameraFragment
 
     Button captureVideo;
 
+    TextView storageText;
+
     SurfaceView videoStreamView;
 
     SurfaceHolder surfaceHolder;
@@ -51,6 +52,8 @@ public class CameraFragment
     RTVPlayer rtvPlayer;
 
     VideoSurfaceHolderCallBack videoSurfaceHolderCallBack;
+
+    private static Camera.StatusListener cameraStatusListener = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,7 @@ public class CameraFragment
 
         super.onStart();
         registerListener();
+        requestCameraStatus();
     }
 
     @Override
@@ -130,6 +134,7 @@ public class CameraFragment
         rootView = inflater.inflate(R.layout.camera_layout, container, false);
         capturePicture = (Button) rootView.findViewById(R.id.capturePicture);
         captureVideo = (Button) rootView.findViewById(R.id.captureVideo);
+        storageText = (TextView) rootView.findViewById(R.id.storage_used_of_total);
         if (supportsVideoStreamLib()) {
             videoStreamView = (SurfaceView) rootView.findViewById(R.id.video_live_stream_view);
             surfaceHolder = videoStreamView.getHolder();
@@ -142,15 +147,43 @@ public class CameraFragment
         }
     }
 
+    private void requestCameraStatus() {
+        Camera.getStatus(cameraStatusListener);
+    }
 
     private void registerListener() {
 
         CameraListener.registerCameraListener(getActivity());
+
+        if (cameraStatusListener == null) {
+            Log.d(TAG, "Initialized camera status listener");
+            cameraStatusListener = new Camera.StatusListener() {
+
+                @Override
+                public void callback(final Camera.Result result, final Camera.Status status) {
+                    // TODO: we should not result
+
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            storageText.setText(String.format("Used %d / %d MiB",
+                                                (int)status.usedStorageMib, (int)status.totalStorageMib));
+                        }
+                    });
+                }
+
+
+            };
+        }
     }
 
     private void unRegisterListener() {
 
         CameraListener.unRegisterCameraListener();
+
+        if (cameraStatusListener != null) {
+            cameraStatusListener = null;
+        }
     }
 
 
