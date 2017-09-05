@@ -131,7 +131,7 @@
         <Spinner
             android:id="@+id/camera_action_spinner"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:layout_weight="1"
             style="@style/text_dark"></Spinner>
     </LinearLayout>
@@ -140,39 +140,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_margin="22dp"
         >
         <Button
             android:id="@+id/mission_send_button"
-            android:layout_width="0dp"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:text="Send"
             style="@style/button"
             android:layout_weight="1"
+            android:visibility="gone"
             />
-        <Button
+
+        <ImageButton
             android:id="@+id/mission_start_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Start"
-            style="@style/button"
-            android:layout_weight="1"
-            />
-        <Button
+            style="@style/buttonIcon_image"
+            android:background="@android:color/transparent"
+            android:src="@drawable/play1"
+            android:layout_weight="1" />
+
+        <ImageButton
             android:id="@+id/mission_pause_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Pause"
-            style="@style/button"
-            android:layout_weight="1"
-            />
-        <Button
-            android:id="@+id/addpoint"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Add"
-            style="@style/button"
-            android:layout_weight="1"
-            />
+            style="@style/buttonIcon_image"
+            android:background="@android:color/transparent"
+            android:src="@drawable/pause"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/addpointn"
+            style="@style/buttonIcon_image"
+            android:background="@android:color/transparent"
+            android:src="@drawable/plus"
+            android:layout_weight="1" />
+
     </LinearLayout>
 
 </LinearLayout>

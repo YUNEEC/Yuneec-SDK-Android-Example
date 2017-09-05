@@ -69,28 +69,28 @@
             <Spinner
                 android:id="@+id/wb_dropdown"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"></Spinner>
+                android:layout_height="52dp"></Spinner>
 
             <Spinner
                 android:id="@+id/color_mode_dropdown"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"></Spinner>
+                android:layout_height="52dp"></Spinner>
 
             <Spinner
                 android:id="@+id/exposure_mode_dropdown"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"></Spinner>
+                android:layout_height="52dp"></Spinner>
 
             <Spinner
                 android:id="@+id/iso_dropdown"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
+                android:layout_height="52dp"
                 android:visibility="gone"></Spinner>
 
             <Spinner
                 android:id="@+id/shutter_speed_dropdown"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
+                android:layout_height="52dp"
                 android:visibility="gone"></Spinner>
 
         </LinearLayout>
