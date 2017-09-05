@@ -16,11 +16,23 @@ public class CameraSettingsListener {
 
     private static Camera.ExposureModeListener exposureModeListener = null;
 
+    private static Camera.ExposureValueListener exposureValueListener = null;
+
+    public static Camera.ISOValueListener getIsoValueListener() {
+        return isoValueListener;
+    }
+
+    private static Camera.ISOValueListener isoValueListener = null;
+
 
     private static final String TAG = CameraSettingsListener.class.getCanonicalName();
 
     public static Camera.WhiteBalanceListener getWhiteBalanceListener() {
         return whiteBalanceListener;
+    }
+
+    public static Camera.ExposureValueListener getExposureValueListener() {
+        return exposureValueListener;
     }
 
     public static Camera.ColorModeListener getColorModeListener() {
@@ -53,19 +65,22 @@ public class CameraSettingsListener {
             }
         };
 
-       /* exposureValueListener = new Camera.ExposureValueListener() {
+        exposureValueListener = new Camera.ExposureValueListener() {
             @Override
             public void callback(final Camera.Result result, final float exposureValue) {
-                getActivity().runOnUiThread(new Runnable() {
-                    public void run() {
-                        Toast.makeText(mView.getContext(), result.resultStr + ", EV: " + exposureValue,
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
+                Log.d(TAG, result.resultStr);
             }
         };
 
-        shutterSpeedSListener = new Camera.ShutterSpeedListener() {
+
+        isoValueListener = new Camera.ISOValueListener() {
+            @Override
+            public void callback(Camera.Result result, int i) {
+                Log.d(TAG, result.resultStr);
+            }
+        };
+
+        /*shutterSpeedSListener = new Camera.ShutterSpeedListener() {
             @Override
             public void callback(final Camera.Result result, final Camera.ShutterSpeedS shutterSpeedS) {
                 getActivity().runOnUiThread(new Runnable() {
@@ -98,6 +113,13 @@ public class CameraSettingsListener {
 
         if(exposureModeListener != null) {
             exposureModeListener = null;
+        }
+
+        if(exposureValueListener != null) {
+            exposureValueListener = null;
+        }
+        if(isoValueListener != null) {
+            isoValueListener = null;
         }
     }
 }

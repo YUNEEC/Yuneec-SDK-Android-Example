@@ -167,7 +167,7 @@
             android:layout_weight="1" />
 
         <ImageButton
-            android:id="@+id/addpointn"
+            android:id="@+id/addpoint"
             style="@style/buttonIcon_image"
             android:background="@android:color/transparent"
             android:src="@drawable/plus"

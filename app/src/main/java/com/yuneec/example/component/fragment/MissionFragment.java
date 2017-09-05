@@ -36,6 +36,8 @@ public class MissionFragment extends DialogFragment implements View.OnClickListe
 
     Spinner camera_action_spinner;
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -72,6 +74,7 @@ public class MissionFragment extends DialogFragment implements View.OnClickListe
         rootView.findViewById(R.id.mission_send_button).setOnClickListener(this);
         rootView.findViewById(R.id.mission_start_button).setOnClickListener(this);
         rootView.findViewById(R.id.mission_pause_button).setOnClickListener(this);
+        rootView.findViewById(R.id.addpoint).setOnClickListener(this);
 
         return rootView;
     }
@@ -80,7 +83,7 @@ public class MissionFragment extends DialogFragment implements View.OnClickListe
         List<MissionItem.CameraAction> actionList =
                 new ArrayList<MissionItem.CameraAction>(EnumSet.allOf(MissionItem.CameraAction.class));
         ArrayAdapter<MissionItem.CameraAction> dataAdapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_spinner_item, actionList);
+                R.layout.custom_spinner_item, actionList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         camera_action_spinner.setAdapter(dataAdapter);
     }
@@ -138,6 +141,11 @@ public class MissionFragment extends DialogFragment implements View.OnClickListe
                 break;
 
             case R.id.mission_pause_button:
+                makeToast();
+                //SMission.pauseMissionAsync(resultListener);
+                break;
+
+            case R.id.addpoint:
                 makeToast();
                 //SMission.pauseMissionAsync(resultListener);
                 break;

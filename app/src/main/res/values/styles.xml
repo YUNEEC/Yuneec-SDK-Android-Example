@@ -76,8 +76,8 @@
         <item name="android:scaleType">fitStart</item>
     </style>
 
-    <style name="AppCustomTheme" parent="@android:style/Theme.Black">
-        <item name="android:background">@color/background</item>
+    <style name="AppCustomTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/darkGrey</item>
     </style>
 
     <style name="CustomTheme" parent="@android:style/Theme.Holo.Light">

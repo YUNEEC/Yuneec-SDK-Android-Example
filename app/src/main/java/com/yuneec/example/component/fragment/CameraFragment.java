@@ -66,7 +66,6 @@ public class CameraFragment
 
     VideoSurfaceHolderCallBack videoSurfaceHolderCallBack;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
 

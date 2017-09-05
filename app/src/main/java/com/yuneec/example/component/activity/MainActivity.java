@@ -66,7 +66,7 @@ public class MainActivity
                 LayoutParams.MATCH_PARENT);
         getSupportActionBar().setCustomView(view, layoutParams);
         Toolbar parent = (Toolbar) view.getParent();
-        parent.setContentInsetsAbsolute(0, 0);
+        parent.setContentInsetsAbsolute(0,0);
         connectionStateText = (CustomTextView) view.findViewById(R.id.connection_state);
         batteryLevel = (CustomTextView) view.findViewById(R.id.battery_level);
         batteryIcon = (ImageButton) view.findViewById(R.id.battery_status_icon);
