@@ -110,6 +110,9 @@ public class CameraFragment
     public void onResume() {
 
         super.onResume();
+        if(!rtvPlayer.isPlaying()) {
+            rtvPlayer.play();
+        }
 
     }
 
