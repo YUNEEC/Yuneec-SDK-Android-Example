@@ -13,7 +13,8 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:clickable="false"
-        android:focusableInTouchMode="false"/>
+        android:focusableInTouchMode="false"
+        android:background="@drawable/background"/>
 
     <FrameLayout
         android:id="@+id/frame_layout"

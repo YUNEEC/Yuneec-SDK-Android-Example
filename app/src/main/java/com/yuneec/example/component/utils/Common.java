@@ -20,6 +20,8 @@ public class Common {
 
     public static String connectionStatus = connectionStatusDefault;
 
+    public static boolean isConnected = false;
+
     public static String healthStatus = healthStatusDefault;
 
     public static String batteryStatus = batteryStatusDefault;

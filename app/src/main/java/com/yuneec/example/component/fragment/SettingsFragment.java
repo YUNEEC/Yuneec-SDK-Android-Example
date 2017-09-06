@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.yuneec.example.CameraSettingsFragment;
 import com.yuneec.example.R;
 import com.yuneec.example.component.listeners.CameraSettingsListener;
+import com.yuneec.example.component.utils.Common;
 import com.yuneec.example.component.utils.Sounds;
 import com.yuneec.example.view.CustomTextView;
 import com.yuneec.sdk.Camera;
@@ -222,6 +223,7 @@ public class SettingsFragment extends DialogFragment implements View.OnClickList
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        if(Common.isConnected) {
             switch (adapterView.getId()) {
                 case R.id.wb_dropdown:
                     Log.d(TAG, "wb selected");
@@ -262,6 +264,12 @@ public class SettingsFragment extends DialogFragment implements View.OnClickList
                     Camera.setISOValue(iso_selection, CameraSettingsListener.getIsoValueListener());
                     break;
             }
+
+        }
+
+        else {
+            Toast.makeText(getActivity(), "Please Connect To The Drone", Toast.LENGTH_SHORT).show();
+        }
 
     }
 

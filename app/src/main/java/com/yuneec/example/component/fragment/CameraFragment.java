@@ -177,43 +177,57 @@ public class CameraFragment
 
         switch (v.getId()) {
             case R.id.capturePicture:
-                Camera.asyncTakePhoto();
                 Sounds.vibrate(getActivity());
-                Toast.makeText(getActivity(), "Picture Captured", Toast.LENGTH_LONG).show();
-                Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                Ringtone currentRingtone = RingtoneManager.getRingtone(getActivity(), notificationSound);
-                currentRingtone.play();
+                if(Common.isConnected) {
+                    Camera.asyncTakePhoto();
+                    Toast.makeText(getActivity(), "Picture Captured", Toast.LENGTH_LONG).show();
+                    Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    Ringtone currentRingtone = RingtoneManager.getRingtone(getActivity(), notificationSound);
+                    currentRingtone.play();
+                }
+                else {
+                    Toast.makeText(getActivity(), "Please Connect To The Drone", Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.cameraSettings:
                 DialogFragment settingsDialogFragment = new SettingsFragment();
                 settingsDialogFragment.show(getFragmentManager(), "settings");
                 Sounds.vibrate(getActivity());
-
                 break;
             case R.id.gimbal_rotate_clockwise:
                 Sounds.vibrate(getActivity());
-                if(Common.currentRotation + Common.fixedRotationAngleDeg >= 180) {
-                    Common.currentRotation = 0;
-                    Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
-                            GimbalListener.getGimbaListener());
+                if(Common.isConnected) {
+                    if(Common.currentRotation + Common.fixedRotationAngleDeg >= 180) {
+                        Common.currentRotation = 0;
+                        Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
+                                GimbalListener.getGimbaListener());
+                    }
+                    else {
+                        Common.currentRotation += Common.fixedRotationAngleDeg;
+                        Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
+                                GimbalListener.getGimbaListener());
+                    }
                 }
                 else {
-                    Common.currentRotation += Common.fixedRotationAngleDeg;
-                    Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
-                            GimbalListener.getGimbaListener());
+                    Toast.makeText(getActivity(), "Please Connect To The Drone", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.gimbal_rotate_anticlockwise:
                 Sounds.vibrate(getActivity());
-                if(Common.currentRotation - Common.fixedRotationAngleDeg <= -180) {
-                    Common.currentRotation = 0;
-                    Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
-                            GimbalListener.getGimbaListener());
+                if(Common.isConnected) {
+                    if(Common.currentRotation - Common.fixedRotationAngleDeg <= -180) {
+                        Common.currentRotation = 0;
+                        Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
+                                GimbalListener.getGimbaListener());
+                    }
+                    else {
+                        Common.currentRotation -= Common.fixedRotationAngleDeg;
+                        Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
+                                GimbalListener.getGimbaListener());
+                    }
                 }
                 else {
-                    Common.currentRotation -= Common.fixedRotationAngleDeg;
-                    Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation,
-                            GimbalListener.getGimbaListener());
+                    Toast.makeText(getActivity(), "Please Connect To The Drone", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.media_download:

@@ -6,15 +6,18 @@
 
 package com.yuneec.example.component.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar.LayoutParams;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -47,6 +50,8 @@ public class MainActivity
 
     ImageButton waypointIcon;
 
+    Context context;
+
     private static final String TAG = MainActivity.class.getCanonicalName();
 
     @Override
@@ -55,6 +60,7 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         initViews();
+        context = this;
     }
 
     void initViews() {
@@ -121,6 +127,20 @@ public class MainActivity
                 Log.d(TAG, connectionStatus);
                 connectionStateText.setText(connectionStatus);
                 Common.connectionStatus = connectionStatus;
+                if(Common.isConnected) {
+                    SurfaceView view = (SurfaceView) findViewById(R.id.video_live_stream_view);
+                    if(view!=null) {
+                        view.setBackground(null);
+                        Log.d(TAG, "Background null");
+                    }
+                }
+                if(!Common.isConnected) {
+                    SurfaceView view = (SurfaceView) findViewById(R.id.video_live_stream_view);
+                    if(view!=null) {
+                        view.setBackground(ContextCompat.getDrawable(context, R.drawable.background));
+                        Log.d(TAG, "Background Added");
+                    }
+                }
             }
         });
     }
