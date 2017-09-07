@@ -46,8 +46,6 @@ public class CameraFragment
 
     Surface videoSurface;
 
-    //RTVPlayer rtvPlayer;
-
     VideoSurfaceHolderCallBack videoSurfaceHolderCallBack;
 
 
@@ -87,7 +85,7 @@ public class CameraFragment
     public void onPause() {
 
         super.onPause();
-        //rtvPlayer.stop();
+        // TODO: stop player
     }
 
     @Override
@@ -106,7 +104,7 @@ public class CameraFragment
 
     public void deInitPlayer() {
 
-        //rtvPlayer.deinit();
+        // TODO: deinit player
         if (videoSurfaceHolderCallBack != null) {
             videoSurfaceHolderCallBack = null;
         }
@@ -120,9 +118,7 @@ public class CameraFragment
         captureVideo = (Button) rootView.findViewById(R.id.captureVideo);
         videoStreamView = (SurfaceView) rootView.findViewById(R.id.video_live_stream_view);
         surfaceHolder = videoStreamView.getHolder();
-        //rtvPlayer = RTVPlayer.getPlayer(RTVPlayer.PLAYER_FFMPEG);
-        //rtvPlayer.init(getActivity(), RTVPlayer.IMAGE_FORMAT_YV12, false);
-        //videoSurfaceHolderCallBack = new VideoSurfaceHolderCallBack(getActivity(), videoSurface, rtvPlayer);
+        // TODO: initiate player
         surfaceHolder.addCallback(videoSurfaceHolderCallBack);
     }
 
