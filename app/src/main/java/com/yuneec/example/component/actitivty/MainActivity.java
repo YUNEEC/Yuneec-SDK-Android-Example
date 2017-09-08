@@ -50,8 +50,6 @@ public class MainActivity
         mTabHost.setup(this, getSupportFragmentManager(), R.id.tabcontent);
         mTabHost.addTab(mTabHost.newTabSpec("connection")
                         .setIndicator("Connection Info"), ConnectionFragment.class, null);
-        //mTabHost.addTab(mTabHost.newTabSpec("camera")
-        //              .setIndicator("Camera"), CameraFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("camera_settings")
                         .setIndicator("Camera Settings"), CameraSettingsFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("gimbal")
@@ -66,8 +64,6 @@ public class MainActivity
             tv.setTextSize(16);
         }
 
-        //connectionStateText = ( TextView ) findViewById ( R.id.connection_state_text );
-        //connectionStateText.setText ( "Not connected" );
     }
 
     @Override
