@@ -31,3 +31,4 @@ before_install:
 - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
 script:
 - ./gradlew build
+- ./fix_style.sh .
