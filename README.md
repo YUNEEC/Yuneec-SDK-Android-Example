@@ -18,9 +18,27 @@ git clone https://github.com/YUNEEC/Yuneec-SDK-Android-Example.git
 
 ## Description
 
-The app uses the submodule [Yuneec-SDK-Android](https://github.com/YUNEEC/Yuneec-SDK-Android) which is an Android library module containing the C++ wrapper. The actual precompiled C++ library binary and header files are in yet another submodule called [Yuneec-SDK](https://github.com/YUNEEC/Yuneec-SDK).
+This app uses the Yuneec Android SDK Library. To include the library in your application,
+you should add the following to the root build.grade:
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
 
-The C++ wrapper uses JNI to communicate with the C++ library.
+Then, add the dependency to the app's build.gradle:
+```
+compile 'com.github.YUNEEC:Yuneec-SDK-Android:vX.Y.Z'
+```
+
+where X.Y.Z is the version to select.
+
+To see all the available versions, go to [Jitpack](https://jitpack.io). In the look up box paste YUNEEC/Yuneec-SDK-Android.
+
+Please choose the latest version of the SDK to integrate with your project.
 
 ## Use the Yuneec software in the loop (SITL) simulation for testing
 
