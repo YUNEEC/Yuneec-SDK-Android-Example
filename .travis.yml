@@ -29,6 +29,8 @@ before_install:
 - chmod +x gradlew
 - "./gradlew dependencies || true"
 - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
+- mkdir -p $HOME/bin && wget -P $HOME/bin https://s3.eu-central-1.amazonaws.com/e59024aeb5-287e-496c-fffe-6c230d1fe7e4/ci-resources/astyle && chmod +x $HOME/bin/astyle
+- PATH=$HOME/bin:$PATH
 script:
 - ./gradlew build
 - ./fix_style.sh .
