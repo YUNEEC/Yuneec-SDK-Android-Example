@@ -4,17 +4,16 @@
 
 ## Overview
 
-This is a proof-of-concept Android app built on the of the Yuneec SDK.
+This is an Android app built out of the Yuneec Android SDK.
 
 ## Building
 
-The project has been created using Android Studio 2.2.x.
+The project has been created using Android Studio 2.3.x.
 
 ### Checkout this repo
 
 ```
-git clone git@github.com:YUNEEC/Yuneec-SDK-Android-Example.git
-git submodule update --init --recursive
+git clone https://github.com/YUNEEC/Yuneec-SDK-Android-Example.git
 ```
 
 ## Description
@@ -33,7 +32,7 @@ The SITL can be used on Linux or Mac. The use in a virtualization environment su
 
 #### Mac
 
-Tested on macOS 10.11 and 10.12.
+Tested on macOS 10.12.
 
 Make sure to have [homebrew](http://brew.sh).
 
