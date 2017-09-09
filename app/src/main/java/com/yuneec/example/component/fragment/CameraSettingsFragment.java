@@ -89,9 +89,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
         outState.putInt("wbSpinner", wb_spinner.getSelectedItemPosition());
         outState.putInt("colorModeSpinner", color_mode_spinner.getSelectedItemPosition());
         outState.putInt("exposureSpinner", exposure_spinner.getSelectedItemPosition());
-        if(ex_com_spinner.getVisibility() == View.VISIBLE) {
-            outState.putInt("exComSpinner", ex_com_spinner.getSelectedItemPosition());
-        }
+        outState.putInt("exComSpinner", ex_com_spinner.getSelectedItemPosition());
         if(iso_spinner.getVisibility() == View.VISIBLE) {
             outState.putInt("isoSpinner", iso_spinner.getSelectedItemPosition());
         }
@@ -112,16 +110,15 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
         ex_com_view = (TextView) rootView.findViewById(R.id.ex_com_text);
         iso_view = (TextView) rootView.findViewById(R.id.iso_val);
         shutter_speed_view = (TextView) rootView.findViewById(R.id.shutter_speed);
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             wb_spinner.setSelection(savedInstanceState.getInt("wbSpinner"));
             color_mode_spinner.setSelection(savedInstanceState.getInt("colorModeSpinner"));
             exposure_spinner.setSelection(savedInstanceState.getInt("exposureSpinner"));
-            if(ex_com_spinner.getVisibility() == View.VISIBLE) {
-                ex_com_spinner.setSelection(savedInstanceState.getInt("exComSpinner"));            }
-            if(iso_spinner.getVisibility() == View.VISIBLE) {
+            ex_com_spinner.setSelection(savedInstanceState.getInt("exComSpinner"));
+            if (iso_spinner.getVisibility() == View.VISIBLE) {
                 iso_spinner.setSelection(savedInstanceState.getInt("isoSpinner"));
             }
-            if(shutter_speed_spinner.getVisibility() == View.VISIBLE) {
+            if (shutter_speed_spinner.getVisibility() == View.VISIBLE) {
                 shutter_speed_spinner.setSelection(savedInstanceState.getInt("shutterSpeedSpinner"));
             }
         }
@@ -185,6 +182,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
         isoValLIst.add(600);
         isoValLIst.add(800);
         isoValLIst.add(1600);
+        isoValLIst.add(3200);
 
         ArrayAdapter<Integer> isoAdapter = new ArrayAdapter<>(getActivity(),
                 R.layout.support_simple_spinner_dropdown_item, isoValLIst);
@@ -193,12 +191,20 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
 
 
         List<String> shutterSpeedList = new ArrayList<>();
+        shutterSpeedList.add("4");
+        shutterSpeedList.add("3");
         shutterSpeedList.add("2");
         shutterSpeedList.add("1");
         shutterSpeedList.add("1/30");
         shutterSpeedList.add("1/60");
         shutterSpeedList.add("1/125");
         shutterSpeedList.add("1/250");
+        shutterSpeedList.add("1/500");
+        shutterSpeedList.add("1/1000");
+        shutterSpeedList.add("1/2000");
+        shutterSpeedList.add("1/4000");
+        shutterSpeedList.add("1/8000");
+
 
 
         ArrayAdapter<String> shutterSpeedAdapter = new ArrayAdapter<>(getActivity(),
@@ -249,8 +255,8 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                     Log.d(TAG, "em selected");
                     Camera.ExposureMode exposureModeSelection = (Camera.ExposureMode) exposure_spinner.getSelectedItem();
                     if(exposureModeSelection == Camera.ExposureMode.AUTO || exposureModeSelection == Camera.ExposureMode.UNKNOWN ) {
-                        ex_com_spinner.setVisibility(View.GONE);
-                        ex_com_view.setVisibility(View.GONE);
+                        ex_com_spinner.setVisibility(View.VISIBLE);
+                        ex_com_view.setVisibility(View.VISIBLE);
                         iso_view.setVisibility(View.GONE);
                         iso_spinner.setVisibility(View.GONE);
                         shutter_speed_spinner.setVisibility(View.GONE);
@@ -258,9 +264,9 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                         Camera.setExposureMode(exposureModeSelection, CameraSettingsListener.getExposureModeListener());
                     }
                     else {
-                        ex_com_spinner.setVisibility(View.VISIBLE);
+                        ex_com_spinner.setVisibility(View.GONE);
+                        ex_com_view.setVisibility(View.GONE);
                         iso_spinner.setVisibility(View.VISIBLE);
-                        ex_com_view.setVisibility(View.VISIBLE);
                         iso_view.setVisibility(View.VISIBLE);
                         shutter_speed_spinner.setVisibility(View.VISIBLE);
                         shutter_speed_view.setVisibility(View.VISIBLE);
@@ -279,37 +285,87 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                     break;
                 case R.id.shutter_speed_dropdown:
                     Log.d(TAG, "shutter speed selected");
-                    switch(shutter_speed_spinner.getSelectedItemPosition()) {
+                    switch(shutter_speed_spinner.getSelectedItemPosition() + 1) {
                         case 1:
-                            shutterSpeedS.numerator = 2;
+                            shutterSpeedS.numerator = 4;
                             shutterSpeedS.denominator = 1;
+                            Log.d(TAG, shutterSpeedS.denominator + "");
                             Camera.setShutterSpeed(shutterSpeedS, CameraSettingsListener.getShutterSpeedListener());
                             break;
                         case 2:
-                            shutterSpeedS.numerator = 1;
+                            shutterSpeedS.numerator = 3;
                             shutterSpeedS.denominator = 1;
+                            Log.d(TAG, shutterSpeedS.denominator + "");
                             Camera.setShutterSpeed(shutterSpeedS, CameraSettingsListener.getShutterSpeedListener());
                             break;
                         case 3:
-                            shutterSpeedS.numerator = 1;
-                            shutterSpeedS.denominator = 30;
+                            shutterSpeedS.numerator = 2;
+                            shutterSpeedS.denominator = 1;
+                            Log.d(TAG, shutterSpeedS.denominator + "");
                             Camera.setShutterSpeed(shutterSpeedS, CameraSettingsListener.getShutterSpeedListener());
                             break;
                         case 4:
                             shutterSpeedS.numerator = 1;
-                            shutterSpeedS.denominator = 60;
+                            shutterSpeedS.denominator = 1;
+                            Log.d(TAG, shutterSpeedS.denominator + "");
                             Camera.setShutterSpeed(shutterSpeedS, CameraSettingsListener.getShutterSpeedListener());
                             break;
                         case 5:
                             shutterSpeedS.numerator = 1;
-                            shutterSpeedS.denominator = 125;
+                            shutterSpeedS.denominator = 30;
+                            Log.d(TAG, shutterSpeedS.denominator + "");
                             Camera.setShutterSpeed(shutterSpeedS, CameraSettingsListener.getShutterSpeedListener());
                             break;
                         case 6:
                             shutterSpeedS.numerator = 1;
-                            shutterSpeedS.denominator = 250;
+                            shutterSpeedS.denominator = 60;
+                            Log.d(TAG, shutterSpeedS.denominator + "");
                             Camera.setShutterSpeed(shutterSpeedS, CameraSettingsListener.getShutterSpeedListener());
                             break;
+                        case 7:
+                            shutterSpeedS.numerator = 1;
+                            shutterSpeedS.denominator = 125;
+                            Log.d(TAG, shutterSpeedS.denominator + "");
+                            Camera.setShutterSpeed(shutterSpeedS, CameraSettingsListener.getShutterSpeedListener());
+                            break;
+                        case 8:
+                            shutterSpeedS.numerator = 1;
+                            shutterSpeedS.denominator = 250;
+                            Log.d(TAG, shutterSpeedS.denominator + "");
+                            Camera.setShutterSpeed(shutterSpeedS, CameraSettingsListener.getShutterSpeedListener());
+                            break;
+                        case 9:
+                            shutterSpeedS.numerator = 1;
+                            shutterSpeedS.denominator = 500;
+                            Log.d(TAG, shutterSpeedS.denominator + "");
+                            Camera.setShutterSpeed(shutterSpeedS, CameraSettingsListener.getShutterSpeedListener());
+                            break;
+                        case 10:
+                            shutterSpeedS.numerator = 1;
+                            shutterSpeedS.denominator = 1000;
+                            Log.d(TAG, shutterSpeedS.denominator + "");
+                            Camera.setShutterSpeed(shutterSpeedS, CameraSettingsListener.getShutterSpeedListener());
+                            break;
+                        case 11:
+                            shutterSpeedS.numerator = 1;
+                            shutterSpeedS.denominator = 2000;
+                            Log.d(TAG, shutterSpeedS.denominator + "");
+                            Camera.setShutterSpeed(shutterSpeedS, CameraSettingsListener.getShutterSpeedListener());
+                            break;
+                        case 12:
+                            shutterSpeedS.numerator = 1;
+                            shutterSpeedS.denominator = 4000;
+                            Log.d(TAG, shutterSpeedS.denominator + "");
+                            Camera.setShutterSpeed(shutterSpeedS, CameraSettingsListener.getShutterSpeedListener());
+                            break;
+                        case 13:
+                            shutterSpeedS.numerator = 1;
+                            shutterSpeedS.denominator = 8000;
+                            Log.d(TAG, shutterSpeedS.denominator + "");
+                            Camera.setShutterSpeed(shutterSpeedS, CameraSettingsListener.getShutterSpeedListener());
+                            break;
+
+
 
                     }
                     break;
