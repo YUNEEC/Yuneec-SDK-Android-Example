@@ -100,21 +100,21 @@ public class CameraSettingsListener {
             whiteBalanceListener = null;
         }
 
-        if(colorModeListener != null) {
+        if (colorModeListener != null) {
             colorModeListener = null;
         }
 
-        if(exposureModeListener != null) {
+        if (exposureModeListener != null) {
             exposureModeListener = null;
         }
 
-        if(exposureValueListener != null) {
+        if (exposureValueListener != null) {
             exposureValueListener = null;
         }
-        if(isoValueListener != null) {
+        if (isoValueListener != null) {
             isoValueListener = null;
         }
-        if(shutterSpeedListener != null) {
+        if (shutterSpeedListener != null) {
             shutterSpeedListener = null;
         }
     }
