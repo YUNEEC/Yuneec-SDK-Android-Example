@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.yuneec.example.R;
 import com.yuneec.example.component.custom_callback.OnChangeListener;
@@ -188,6 +189,9 @@ public class MainActivity
             @Override
             public void run() {
                 Log.d(TAG, result);
+                if(!result.equals("Success")) {
+                    Toast.makeText(context, result + "-" + "Please make sure SD card is inserted", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
