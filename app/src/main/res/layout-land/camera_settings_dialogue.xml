@@ -68,8 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/margin"
-                android:text="@string/exposure_compensation"
-                android:visibility="gone" />
+                android:text="@string/exposure_compensation" />
 
             <com.yuneec.example.view.CustomTextView
                 android:id="@+id/iso_val"
@@ -84,6 +83,7 @@
 
 
             <com.yuneec.example.view.CustomTextView
+                android:id="@+id/shutter_speed"
                 style="@style/text_dark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,8 +119,7 @@
             <Spinner
                 android:id="@+id/exposure_com_dropdown"
                 android:layout_width="wrap_content"
-                android:layout_height="56dp"
-                android:visibility="gone"></Spinner>
+                android:layout_height="56dp"></Spinner>
 
             <Spinner
                 android:id="@+id/iso_dropdown"

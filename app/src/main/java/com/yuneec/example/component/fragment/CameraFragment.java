@@ -198,11 +198,13 @@ public class CameraFragment
                     else {
                         if(!isRecording) {
                             Camera.asyncStartVideo();
+                            Toast.makeText(getActivity(), "Video Recording Started", Toast.LENGTH_LONG).show();
                             captureMedia.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.video_stop));
                             isRecording = true;
                         }
                         else {
                             Camera.asyncStopVideo();
+                            Toast.makeText(getActivity(), "Video Recording Stopped", Toast.LENGTH_LONG).show();
                             captureMedia.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.photo_capture));
                             isRecording=false;
                         }

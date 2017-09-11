@@ -18,12 +18,9 @@ public class CameraSettingsListener {
 
     private static Camera.ExposureValueListener exposureValueListener = null;
 
-    public static Camera.ISOValueListener getIsoValueListener() {
-        return isoValueListener;
-    }
-
     private static Camera.ISOValueListener isoValueListener = null;
 
+    private static Camera.ShutterSpeedListener shutterSpeedListener = null;
 
     private static final String TAG = CameraSettingsListener.class.getCanonicalName();
 
@@ -41,6 +38,14 @@ public class CameraSettingsListener {
 
     public static Camera.ExposureModeListener getExposureModeListener() {
         return exposureModeListener;
+    }
+
+    public static Camera.ISOValueListener getIsoValueListener() {
+        return isoValueListener;
+    }
+
+    public static Camera.ShutterSpeedListener getShutterSpeedListener() {
+        return shutterSpeedListener;
     }
 
     public static void registerSettingsListener() {
@@ -80,24 +85,12 @@ public class CameraSettingsListener {
             }
         };
 
-        /*shutterSpeedSListener = new Camera.ShutterSpeedListener() {
+        shutterSpeedListener = new Camera.ShutterSpeedListener() {
             @Override
             public void callback(final Camera.Result result, final Camera.ShutterSpeedS shutterSpeedS) {
-                getActivity().runOnUiThread(new Runnable() {
-                    public void run() {
-                        if (shutterSpeedS.denominator == 1) {
-                            Toast.makeText(mView.getContext(), result.resultStr +
-                                            ", Shutter: " + shutterSpeedS.numerator + " s",
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(mView.getContext(), result.resultStr +
-                                            ", Shutter: " + shutterSpeedS.numerator + "/" + shutterSpeedS.denominator + " s",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                Log.d(TAG, result.resultStr);
             }
-        };*/
+        };
 
     }
 

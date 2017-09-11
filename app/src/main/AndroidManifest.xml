@@ -19,7 +19,8 @@
             android:name=".component.activity.MainActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateHidden"
-            android:theme="@style/AppCustomTheme">
+            android:theme="@style/AppCustomTheme"
+            android:screenOrientation="landscape">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
