@@ -6,26 +6,21 @@
 
 package com.yuneec.example.component.fragment;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
 import android.view.*;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yuneec.example.R;
 import com.yuneec.example.component.custom_callback.VideoSurfaceHolderCallBack;
 import com.yuneec.example.component.listeners.CameraListener;
+import com.yuneec.example.component.listeners.CameraModeListener;
 import com.yuneec.example.component.listeners.GimbalListener;
 import com.yuneec.example.component.utils.Common;
 import com.yuneec.example.component.utils.Sounds;
@@ -42,19 +37,17 @@ public class CameraFragment
 
     private static final String TAG = CameraFragment.class.getCanonicalName();
 
-    private Toast toast = null;
+    private Button captureMedia;
 
-    Button capturePicture;
+    private Button togglePhotoVideo;
 
-    //Button captureVideo;
+    private Button cameraSettings;
 
-    Button cameraSettings;
+    private Button rotateClockwise;
 
-    Button rotateClockwise;
+    private Button rotateAnticlockwise;
 
-    Button rotateAnticlockwise;
-
-    Button media_download;
+    private Button media_download;
 
     SurfaceView videoStreamView;
 
@@ -65,6 +58,12 @@ public class CameraFragment
     RTVPlayer rtvPlayer;
 
     VideoSurfaceHolderCallBack videoSurfaceHolderCallBack;
+
+    private Camera.Mode cameraMode = Camera.Mode.PHOTO;
+
+    private boolean isRecording = false;
+
+    private boolean initCameraMode = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,14 +87,14 @@ public class CameraFragment
     public void onStart() {
 
         super.onStart();
-        registerListener();
+        registerListeners();
     }
 
     @Override
     public void onStop() {
 
         super.onStop();
-        unRegisterListener();
+        unRegisterListeners();
     }
 
     @Override
@@ -112,7 +111,11 @@ public class CameraFragment
         if(!rtvPlayer.isPlaying()) {
             rtvPlayer.play();
         }
+        initCameraMode();
+    }
 
+    private void initCameraMode() {
+        Camera.setMode(Camera.Mode.PHOTO, CameraModeListener.getCameraModeListener());
     }
 
     @Override
@@ -134,13 +137,13 @@ public class CameraFragment
                            ViewGroup container) {
 
         rootView = inflater.inflate(R.layout.camera_layout, container, false);
-        capturePicture = (Button) rootView.findViewById(R.id.capturePicture);
+        captureMedia = (Button) rootView.findViewById(R.id.captureMedia);
         cameraSettings = (Button) rootView.findViewById(R.id.cameraSettings);
         rotateClockwise = (Button) rootView.findViewById(R.id.gimbal_rotate_clockwise);
         rotateAnticlockwise = (Button) rootView.findViewById(R.id.gimbal_rotate_anticlockwise);
         media_download = (Button) rootView.findViewById(R.id.media_download);
-        //captureVideo = (Button) rootView.findViewById(R.id.captureVideo);
         videoStreamView = (SurfaceView) rootView.findViewById(R.id.video_live_stream_view);
+        togglePhotoVideo = (Button) rootView.findViewById(R.id.togglePhotoVideo);
         surfaceHolder = videoStreamView.getHolder();
         rtvPlayer = RTVPlayer.getPlayer(RTVPlayer.PLAYER_FFMPEG);
         rtvPlayer.init(getActivity(), RTVPlayer.IMAGE_FORMAT_YV12, false);
@@ -149,41 +152,61 @@ public class CameraFragment
     }
 
 
-    private void registerListener() {
+    private void registerListeners() {
 
         CameraListener.registerCameraListener(getActivity());
         GimbalListener.registerGimbalListener();
+        CameraModeListener.registerCameraModeListener();
     }
 
-    private void unRegisterListener() {
+    private void unRegisterListeners() {
 
         CameraListener.unRegisterCameraListener();
         GimbalListener.unRegisterGimbalListener();
+        CameraModeListener.unRegisterCameraModeListener();
     }
 
 
     private void addOnClickListeners() {
 
-        capturePicture.setOnClickListener(this);
+        captureMedia.setOnClickListener(this);
         cameraSettings.setOnClickListener(this);
         rotateClockwise.setOnClickListener(this);
         rotateAnticlockwise.setOnClickListener(this);
         media_download.setOnClickListener(this);
-        //captureVideo.setOnClickListener(this);
+        togglePhotoVideo.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.capturePicture:
+            case R.id.captureMedia:
                 Sounds.vibrate(getActivity());
+                if(!initCameraMode) {
+                    initCameraMode();
+                    initCameraMode = true;
+                }
                 if(Common.isConnected) {
-                    Camera.asyncTakePhoto();
-                    Toast.makeText(getActivity(), "Picture Captured", Toast.LENGTH_LONG).show();
-                    Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                    Ringtone currentRingtone = RingtoneManager.getRingtone(getActivity(), notificationSound);
-                    currentRingtone.play();
+                    if(cameraMode.equals(Camera.Mode.PHOTO)) {
+                        Camera.asyncTakePhoto();
+                        Toast.makeText(getActivity(), "Picture Captured", Toast.LENGTH_LONG).show();
+                        Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                        Ringtone currentRingtone = RingtoneManager.getRingtone(getActivity(), notificationSound);
+                        currentRingtone.play();
+                    }
+                    else {
+                        if(!isRecording) {
+                            Camera.asyncStartVideo();
+                            captureMedia.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.video_stop));
+                            isRecording = true;
+                        }
+                        else {
+                            Camera.asyncStopVideo();
+                            captureMedia.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.photo_capture));
+                            isRecording=false;
+                        }
+                    }
                 }
                 else {
                     Toast.makeText(getActivity(), "Please Connect To The Drone", Toast.LENGTH_LONG).show();
@@ -235,15 +258,19 @@ public class CameraFragment
                 DialogFragment mediaDialogFragment = new MediaDownloadFragment();
                 mediaDialogFragment.show(getFragmentManager(), "dialog");
                 break;
-            /*case R.id.captureVideo:
-                if (captureVideo.getText()
-                        .equals("Start Video")) {
-                    Camera.asyncStartVideo();
-                    captureVideo.setText("Stop Video");
-                } else {
-                    Camera.asyncStopVideo();
-                    captureVideo.setText("Start Video");
-                }*/
+            case R.id.togglePhotoVideo:
+                Sounds.vibrate(getActivity());
+                if(cameraMode.equals(Camera.Mode.PHOTO)) {
+                    Camera.setMode(Camera.Mode.VIDEO, CameraModeListener.getCameraModeListener());
+                    togglePhotoVideo.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.video_switch));
+                    cameraMode = Camera.Mode.VIDEO;
+                }
+                else {
+                    Camera.setMode(Camera.Mode.PHOTO, CameraModeListener.getCameraModeListener());
+                    togglePhotoVideo.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.photo_switch));
+                    cameraMode = Camera.Mode.PHOTO;
+                }
+
         }
 
     }

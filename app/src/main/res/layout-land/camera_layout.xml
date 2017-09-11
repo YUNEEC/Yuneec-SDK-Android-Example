@@ -35,10 +35,18 @@
         android:orientation="vertical"
         android:background="@color/text"
         android:layout_centerInParent="true">
+
         <Button
-            android:id="@+id/capturePicture"
+            android:id="@+id/togglePhotoVideo"
             android:layout_margin="@dimen/less_margin"
             android:layout_below="@+id/video_live_stream_view"
+            android:layout_centerHorizontal="true"
+            style="@style/buttonIcon"
+            android:background="@drawable/photo_switch"/>
+
+        <Button
+            android:id="@+id/captureMedia"
+            android:layout_margin="@dimen/less_margin"
             android:layout_centerHorizontal="true"
             style="@style/buttonIcon"
             android:background="@drawable/photo_capture"/>
