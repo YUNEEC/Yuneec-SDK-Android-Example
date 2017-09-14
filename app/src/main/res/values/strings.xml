@@ -16,5 +16,7 @@
     <string name="iso_value">ISO Value</string>
     <string name="shutter_speed">Shutter Speed</string>
     <string name="color_mode">Color mode</string>
+    <string name="capture_picture">Capture Picture</string>
+    <string name="video">Start Video</string>
 
 </resources>

@@ -24,4 +24,6 @@ public class Common {
 
     public static String batteryStatus = batteryStatusDefault;
 
+    public static boolean isConnected = false;
+
 }
