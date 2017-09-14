@@ -54,13 +54,13 @@ public class MainActivity
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.tabcontent);
         mTabHost.addTab(mTabHost.newTabSpec("connection")
-                .setIndicator("Connection Info"), ConnectionFragment.class, null);
+                        .setIndicator("Connection Info"), ConnectionFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("camera_settings")
-                .setIndicator("Camera"), CameraSettingsFragment.class, null);
+                        .setIndicator("Camera"), CameraSettingsFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("gimbal")
-                .setIndicator("Gimbal"), GimbalFragment.class, null);
+                        .setIndicator("Gimbal"), GimbalFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("media-download")
-                .setIndicator("Media Download"), MediaDownloadFragment.class, null);
+                        .setIndicator("Media Download"), MediaDownloadFragment.class, null);
 
         for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
             View v = mTabHost.getTabWidget().getChildAt(i);
@@ -106,7 +106,7 @@ public class MainActivity
 
                 Log.d(TAG, connectionStatus);
                 ConnectionFragment fragment = (ConnectionFragment) getSupportFragmentManager().findFragmentByTag(
-                        "connection");
+                                                  "connection");
                 fragment.setConnectionStateView(connectionStatus);
 
             }
@@ -123,7 +123,7 @@ public class MainActivity
 
                 Log.d(TAG, batteryStatus);
                 ConnectionFragment fragment = (ConnectionFragment) getSupportFragmentManager().findFragmentByTag(
-                        "connection");
+                                                  "connection");
                 fragment.setBatterStateView(batteryStatus);
 
             }
@@ -140,7 +140,7 @@ public class MainActivity
 
                 Log.d(TAG, healthStatus);
                 ConnectionFragment fragment = (ConnectionFragment) getSupportFragmentManager().findFragmentByTag(
-                        "connection");
+                                                  "connection");
                 fragment.setDroneHealthView(healthStatus);
 
             }
@@ -156,7 +156,7 @@ public class MainActivity
                 Log.d(TAG, result);
                 if (!result.equals("Success")) {
                     Toast.makeText(context, result + "-" + "Please make sure SD card is inserted and try again",
-                            Toast.LENGTH_SHORT).show();
+                                   Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -169,7 +169,7 @@ public class MainActivity
             public void run() {
                 if (!result.equals("Success")) {
                     Toast.makeText(context, result + "-" + "Please make sure SD card is inserted",
-                            Toast.LENGTH_SHORT).show();
+                                   Toast.LENGTH_SHORT).show();
                 } else {
                     if (mode.equals(Camera.Mode.PHOTO)) {
                         Camera.asyncTakePhoto();

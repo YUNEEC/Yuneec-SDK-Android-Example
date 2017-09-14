@@ -238,8 +238,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                     if (!cameraMode.equals(Camera.Mode.PHOTO)) {
                         Camera.setMode(Camera.Mode.PHOTO, CameraModeListener.getCameraModeListener());
                         cameraMode = Camera.Mode.PHOTO;
-                    }
-                    else {
+                    } else {
                         Camera.asyncTakePhoto();
                     }
                     break;
@@ -248,8 +247,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                     if (!cameraMode.equals(Camera.Mode.VIDEO)) {
                         Camera.setMode(Camera.Mode.VIDEO, CameraModeListener.getCameraModeListener());
                         cameraMode = Camera.Mode.VIDEO;
-                    }
-                    else {
+                    } else {
                         if (video.getText().equals("Start Video")) {
                             Camera.asyncStartVideo();
                             video.setText("Stop Video");
