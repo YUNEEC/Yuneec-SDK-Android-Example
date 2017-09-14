@@ -62,13 +62,9 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
 
     Button video;
 
-    private Camera.Mode cameraMode = Camera.Mode.PHOTO;
+    private Camera.Mode cameraMode = Camera.Mode.UNKNOWN;
 
     private static final String TAG = CameraSettingsListener.class.getCanonicalName();
-
-    //Button applySettings;
-
-    //Button cancel;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -252,15 +248,13 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                     if (video.getText().equals("Start Video")) {
                         Camera.asyncStartVideo();
                         video.setText("Stop Video");
-                    }
-                    else {
+                    } else {
                         Camera.asyncStopVideo();
                         video.setText("Start Video");
                     }
 
             }
-        }
-        else {
+        } else {
             Toast.makeText(getActivity(), "Please Connect To The Drone", Toast.LENGTH_LONG).show();
         }
     }
