@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentTabHost;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import com.yuneec.example.component.fragment.ConnectionFragment;
 import com.yuneec.example.component.fragment.GimbalFragment;
 import com.yuneec.example.component.fragment.MediaDownloadFragment;
 import com.yuneec.example.component.listeners.ConnectionListener;
+import com.yuneec.sdk.Camera;
 
 /**
  * Simple example based on the Yuneec SDK for Android
@@ -39,6 +41,8 @@ public class MainActivity
 
     private Context context;
 
+    private Button video;
+
     private static final String TAG = MainActivity.class.getCanonicalName();
 
     @Override
@@ -50,13 +54,13 @@ public class MainActivity
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.tabcontent);
         mTabHost.addTab(mTabHost.newTabSpec("connection")
-                        .setIndicator("Connection Info"), ConnectionFragment.class, null);
+                .setIndicator("Connection Info"), ConnectionFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("camera_settings")
-                        .setIndicator("Camera"), CameraSettingsFragment.class, null);
+                .setIndicator("Camera"), CameraSettingsFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("gimbal")
-                        .setIndicator("Gimbal"), GimbalFragment.class, null);
+                .setIndicator("Gimbal"), GimbalFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("media-download")
-                        .setIndicator("Media Download"), MediaDownloadFragment.class, null);
+                .setIndicator("Media Download"), MediaDownloadFragment.class, null);
 
         for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
             View v = mTabHost.getTabWidget().getChildAt(i);
@@ -102,7 +106,7 @@ public class MainActivity
 
                 Log.d(TAG, connectionStatus);
                 ConnectionFragment fragment = (ConnectionFragment) getSupportFragmentManager().findFragmentByTag(
-                                                  "connection");
+                        "connection");
                 fragment.setConnectionStateView(connectionStatus);
 
             }
@@ -119,7 +123,7 @@ public class MainActivity
 
                 Log.d(TAG, batteryStatus);
                 ConnectionFragment fragment = (ConnectionFragment) getSupportFragmentManager().findFragmentByTag(
-                                                  "connection");
+                        "connection");
                 fragment.setBatterStateView(batteryStatus);
 
             }
@@ -136,7 +140,7 @@ public class MainActivity
 
                 Log.d(TAG, healthStatus);
                 ConnectionFragment fragment = (ConnectionFragment) getSupportFragmentManager().findFragmentByTag(
-                                                  "connection");
+                        "connection");
                 fragment.setDroneHealthView(healthStatus);
 
             }
@@ -151,13 +155,37 @@ public class MainActivity
             public void run() {
                 Log.d(TAG, result);
                 if (!result.equals("Success")) {
-                    Toast.makeText(context, result + "-" + "Please make sure SD card is inserted",
-                                   Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, result + "-" + "Please make sure SD card is inserted and try again",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
+    @Override
+    public void publishCameraModeResult(final Camera.Mode mode, final String result) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (!result.equals("Success")) {
+                    Toast.makeText(context, result + "-" + "Please make sure SD card is inserted",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    if (mode.equals(Camera.Mode.PHOTO)) {
+                        Camera.asyncTakePhoto();
+                    } else {
+                        video = (Button) findViewById(R.id.video);
+                        if (video.getText().equals("Start Video")) {
+                            Camera.asyncStartVideo();
+                            video.setText("Stop Video");
+                        } else {
+                            Camera.asyncStopVideo();
+                            video.setText("Start Video");
+                        }
+                    }
+                }
+            }
+        });
+    }
 }
-
 

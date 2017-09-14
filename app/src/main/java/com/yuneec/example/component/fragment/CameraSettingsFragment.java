@@ -80,7 +80,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
     public void onStart() {
 
         super.onStart();
-        CameraModeListener.registerCameraModeListener();
+        CameraModeListener.registerCameraModeListener(getActivity());
         CameraSettingsListener.registerSettingsListener();
         addOnClickListeners();
     }
@@ -237,25 +237,30 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                     Media.vibrate(getActivity());
                     if (!cameraMode.equals(Camera.Mode.PHOTO)) {
                         Camera.setMode(Camera.Mode.PHOTO, CameraModeListener.getCameraModeListener());
+                        cameraMode = Camera.Mode.PHOTO;
                     }
-                    Camera.asyncTakePhoto();
+                    else {
+                        Camera.asyncTakePhoto();
+                    }
                     break;
                 case R.id.video:
                     Media.vibrate(getActivity());
                     if (!cameraMode.equals(Camera.Mode.VIDEO)) {
                         Camera.setMode(Camera.Mode.VIDEO, CameraModeListener.getCameraModeListener());
+                        cameraMode = Camera.Mode.VIDEO;
                     }
-                    if (video.getText().equals("Start Video")) {
-                        Camera.asyncStartVideo();
-                        video.setText("Stop Video");
-                    } else {
-                        Camera.asyncStopVideo();
-                        video.setText("Start Video");
+                    else {
+                        if (video.getText().equals("Start Video")) {
+                            Camera.asyncStartVideo();
+                            video.setText("Stop Video");
+                        } else {
+                            Camera.asyncStopVideo();
+                            video.setText("Start Video");
+                        }
                     }
-
             }
         } else {
-            Toast.makeText(getActivity(), "Please Connect To The Drone", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Please Connect To The Drone", Toast.LENGTH_SHORT).show();
         }
     }
 
