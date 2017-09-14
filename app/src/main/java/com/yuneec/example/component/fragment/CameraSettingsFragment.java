@@ -7,6 +7,7 @@
  */
 package com.yuneec.example.component.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,12 +17,16 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yuneec.example.R;
+import com.yuneec.example.component.listeners.CameraModeListener;
 import com.yuneec.example.component.listeners.CameraSettingsListener;
+import com.yuneec.example.component.utils.Common;
+import com.yuneec.example.component.utils.Media;
 import com.yuneec.sdk.Camera;
 
 import java.util.ArrayList;
@@ -53,6 +58,12 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
 
     Camera.ShutterSpeedS shutterSpeedS = new Camera.ShutterSpeedS();
 
+    Button capturePicture;
+
+    Button video;
+
+    private Camera.Mode cameraMode = Camera.Mode.PHOTO;
+
     private static final String TAG = CameraSettingsListener.class.getCanonicalName();
 
     //Button applySettings;
@@ -73,6 +84,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
     public void onStart() {
 
         super.onStart();
+        CameraModeListener.registerCameraModeListener();
         CameraSettingsListener.registerSettingsListener();
         addOnClickListeners();
     }
@@ -81,6 +93,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
     public void onStop() {
 
         super.onStop();
+        CameraModeListener.unRegisterCameraModeListener();
         CameraSettingsListener.unRegisterCameraSettingsListeners();
     }
 
@@ -123,6 +136,8 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                 shutter_speed_spinner.setSelection(savedInstanceState.getInt("shutterSpeedSpinner"));
             }
         }
+        capturePicture = (Button) rootView.findViewById(R.id.capturePicture);
+        video = (Button) rootView.findViewById(R.id.video);
     }
 
     private void addOnClickListeners() {
@@ -132,6 +147,8 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
         ex_com_spinner.setOnItemSelectedListener(this);
         shutter_speed_spinner.setOnItemSelectedListener(this);
         iso_spinner.setOnItemSelectedListener(this);
+        capturePicture.setOnClickListener(this);
+        video.setOnClickListener(this);
         addItemsOnSpinner();
     }
 
@@ -217,22 +234,35 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
 
 
     @Override
-    public void onClick(View view) {
-        /*switch (view.getId()) {
-            case R.id.ok:
-                Sounds.vibrate(getActivity());
-                applySettings();
-                makeToast("Camera Settings Applied");
-                dismiss();
-                break;
-            case R.id.cancel:
-                Sounds.vibrate(getActivity());
-                makeToast("Camera Settings Not Applied");
-                CameraSettingsListener.unRegisterCameraSettingsListeners();
-                dismiss();
-                break;
-        }*/
+    public void onClick(View v) {
+        if (Common.isConnected) {
+            switch (v.getId()) {
+                case R.id.capturePicture:
+                    Media.vibrate(getActivity());
+                    if (!cameraMode.equals(Camera.Mode.PHOTO)) {
+                        Camera.setMode(Camera.Mode.PHOTO, CameraModeListener.getCameraModeListener());
+                    }
+                    Camera.asyncTakePhoto();
+                    break;
+                case R.id.video:
+                    Media.vibrate(getActivity());
+                    if (!cameraMode.equals(Camera.Mode.VIDEO)) {
+                        Camera.setMode(Camera.Mode.VIDEO, CameraModeListener.getCameraModeListener());
+                    }
+                    if (video.getText().equals("Start Video")) {
+                        Camera.asyncStartVideo();
+                        video.setText("Stop Video");
+                    }
+                    else {
+                        Camera.asyncStopVideo();
+                        video.setText("Start Video");
+                    }
 
+            }
+        }
+        else {
+            Toast.makeText(getActivity(), "Please Connect To The Drone", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void makeToast(String message) {

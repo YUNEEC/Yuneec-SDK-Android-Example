@@ -6,6 +6,18 @@
     android:background="@color/white"
     android:layout_margin="@dimen/margin">
 
+    <Button
+        android:id="@+id/capturePicture"
+        style="@style/button"
+        android:layout_width="wrap_content"
+        android:text="@string/capture_picture" />
+
+    <Button
+        android:id="@+id/video"
+        style="@style/button"
+        android:layout_width="wrap_content"
+        android:text="@string/video" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +66,6 @@
                 android:layout_margin="@dimen/margin"
                 android:text="@string/iso_value"
                 android:visibility="gone" />
-
 
 
             <TextView

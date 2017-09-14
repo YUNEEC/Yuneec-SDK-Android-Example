@@ -6,6 +6,7 @@
 
 package com.yuneec.example.component.actitivty;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -36,7 +37,7 @@ public class MainActivity
 
     private FragmentTabHost mTabHost;
 
-    //TextView connectionStateText;
+    private Context context;
 
     private static final String TAG = MainActivity.class.getCanonicalName();
 
@@ -45,13 +46,13 @@ public class MainActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-
+        context = this;
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.tabcontent);
         mTabHost.addTab(mTabHost.newTabSpec("connection")
                         .setIndicator("Connection Info"), ConnectionFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("camera_settings")
-                        .setIndicator("Camera Settings"), CameraSettingsFragment.class, null);
+                        .setIndicator("Camera"), CameraSettingsFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("gimbal")
                         .setIndicator("Gimbal"), GimbalFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("media-download")
@@ -148,7 +149,10 @@ public class MainActivity
 
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                Log.d(TAG, result);
+                if (!result.equals("Success")) {
+                    Toast.makeText(context, result + "-" + "Please make sure SD card is inserted", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

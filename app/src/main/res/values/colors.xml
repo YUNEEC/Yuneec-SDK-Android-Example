@@ -7,4 +7,5 @@
     <color name="text">#dbdbdb</color>
     <color name="orange">#FF8C00</color>
     <color name="white">#FFFFFF</color>
+    <color name="orangeDark"> #F04C24</color>
 </resources>
