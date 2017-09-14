@@ -151,7 +151,8 @@ public class MainActivity
             public void run() {
                 Log.d(TAG, result);
                 if (!result.equals("Success")) {
-                    Toast.makeText(context, result + "-" + "Please make sure SD card is inserted", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, result + "-" + "Please make sure SD card is inserted",
+                                   Toast.LENGTH_SHORT).show();
                 }
             }
         });
