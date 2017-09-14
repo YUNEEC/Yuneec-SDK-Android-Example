@@ -27,7 +27,7 @@ public class ConnectionListener {
 
                 @Override
                 public void onDiscoverCallback() {
-
+                    Common.isConnected = true;
                     onConnectionChange.publishConnectionStatus("Discovered Drone");
                     Log.d(TAG, "Connected");
 
@@ -35,7 +35,7 @@ public class ConnectionListener {
 
                 @Override
                 public void onTimeoutCallback() {
-
+                    Common.isConnected = false;
                     onConnectionChange.publishConnectionStatus("Timed Out! Reconnect");
                     Log.d(TAG, " Not Connected");
                 }
