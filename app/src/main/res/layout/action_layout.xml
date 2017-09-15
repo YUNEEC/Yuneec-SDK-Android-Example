@@ -7,69 +7,52 @@
     android:fitsSystemWindows="true">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
+        <com.yuneec.example.view.CustomButton
             android:id="@+id/arm_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/button"
             android:text="Arm" />
 
-        <Button
+        <com.yuneec.example.view.CustomButton
             android:id="@+id/disarm_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Disarm" />
+            android:text="Disarm"
+            style="@style/button"/>
 
-        <Button
+        <com.yuneec.example.view.CustomButton
             android:id="@+id/takeoff_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Takeoff" />
+            android:text="Takeoff"
+            style="@style/button"/>
 
-        <Button
+        <com.yuneec.example.view.CustomButton
             android:id="@+id/land_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Land" />
+            android:text="Land"
+            style="@style/button"/>
 
-        <Button
+        <com.yuneec.example.view.CustomButton
             android:id="@+id/return_to_launch_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Return to Launch" />
+            android:text="Return to Launch"
+            style="@style/button"/>
 
 
-        <Button
+        <com.yuneec.example.view.CustomButton
             android:id="@+id/kill_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kill" />
+            android:text="Kill"
+            style="@style/button"/>
 
-        <EditText
-            android:id="@+id/saltitude"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="altitude" />
-
-        <Button
-            android:id="@+id/set_altitude"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="set" />
-
-        <EditText
-            android:id="@+id/galtitude"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="altitude" />
-
-        <Button
-            android:id="@+id/get_altitude"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="get" />
     </LinearLayout>
 </LinearLayout>
