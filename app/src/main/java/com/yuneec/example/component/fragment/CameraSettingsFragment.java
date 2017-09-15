@@ -20,7 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yuneec.example.R;
 import com.yuneec.example.component.listeners.CameraModeListener;
@@ -164,21 +163,21 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
             new ArrayList<>(EnumSet.allOf(Camera.WhiteBalance.class));
         ArrayAdapter<Camera.WhiteBalance> wbAdapter = new ArrayAdapter<>(getActivity(),
                                                                          R.layout.support_simple_spinner_dropdown_item, wbList);
-        wbAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        wbAdapter.setDropDownViewResource(R.layout.spinner_item);
         wb_spinner.setAdapter(wbAdapter);
 
         List<Camera.ColorMode> colorModeList =
             new ArrayList<>(EnumSet.allOf(Camera.ColorMode.class));
         ArrayAdapter<Camera.ColorMode> colorModeAdapter = new ArrayAdapter<>(getActivity(),
                                                                              R.layout.support_simple_spinner_dropdown_item, colorModeList);
-        colorModeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        colorModeAdapter.setDropDownViewResource(R.layout.spinner_item);
         color_mode_spinner.setAdapter(colorModeAdapter);
 
         List<Camera.ExposureMode> exposureModeList =
             new ArrayList<>(EnumSet.allOf(Camera.ExposureMode.class));
         ArrayAdapter<Camera.ExposureMode> exposureModeAdapter = new ArrayAdapter<>(getActivity(),
                                                                                    R.layout.support_simple_spinner_dropdown_item, exposureModeList);
-        exposureModeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        exposureModeAdapter.setDropDownViewResource(R.layout.spinner_item);
         exposure_spinner.setAdapter(exposureModeAdapter);
 
         List<Float> exposureComList = new ArrayList<>();
@@ -194,7 +193,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
 
         ArrayAdapter<Float> exposureComAdapter = new ArrayAdapter<>(getActivity(),
                                                                     R.layout.support_simple_spinner_dropdown_item, exposureComList);
-        exposureModeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        exposureModeAdapter.setDropDownViewResource(R.layout.spinner_item);
         ex_com_spinner.setAdapter(exposureComAdapter);
 
         List<Integer> isoValLIst = new ArrayList<>();
@@ -211,7 +210,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
 
         ArrayAdapter<Integer> isoAdapter = new ArrayAdapter<>(getActivity(),
                                                               R.layout.support_simple_spinner_dropdown_item, isoValLIst);
-        isoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        isoAdapter.setDropDownViewResource(R.layout.spinner_item);
         iso_spinner.setAdapter(isoAdapter);
 
 
@@ -234,7 +233,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
 
         ArrayAdapter<String> shutterSpeedAdapter = new ArrayAdapter<>(getActivity(),
                                                                       R.layout.support_simple_spinner_dropdown_item, shutterSpeedList);
-        shutterSpeedAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        shutterSpeedAdapter.setDropDownViewResource(R.layout.spinner_item);
         shutter_speed_spinner.setAdapter(shutterSpeedAdapter);
 
     }
@@ -269,12 +268,8 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                     }
             }
         } else {
-            Toast.makeText(getActivity(), "Please Connect To The Drone", Toast.LENGTH_SHORT).show();
+            Common.makeToast(getActivity(), "Please Connect To The Drone");
         }
-    }
-
-    private void makeToast(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override

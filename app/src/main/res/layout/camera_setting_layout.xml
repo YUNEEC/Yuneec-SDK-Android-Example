@@ -6,13 +6,13 @@
     android:background="@color/white"
     android:layout_margin="@dimen/margin">
 
-    <Button
+    <com.yuneec.example.view.CustomButton
         android:id="@+id/capturePicture"
         style="@style/button"
         android:layout_width="wrap_content"
         android:text="@string/capture_picture" />
 
-    <Button
+    <com.yuneec.example.view.CustomButton
         android:id="@+id/video"
         style="@style/button"
         android:layout_width="wrap_content"
@@ -30,6 +30,7 @@
             android:orientation="vertical">
 
             <com.yuneec.example.view.CustomTextView
+                style="@style/textSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -37,13 +38,16 @@
                 android:text="@string/white_balance_mode" />
 
             <com.yuneec.example.view.CustomTextView
+                android:id="@+id/customTextView"
+                style="@style/textSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/margin"
                 android:text="@string/color_mode" />
 
-            <TextView
+            <com.yuneec.example.view.CustomTextView
+                style="@style/textSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -52,6 +56,7 @@
 
             <com.yuneec.example.view.CustomTextView
                 android:id="@+id/ex_com_text"
+                style="@style/textSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -60,6 +65,7 @@
 
             <com.yuneec.example.view.CustomTextView
                 android:id="@+id/iso_val"
+                style="@style/textSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -70,6 +76,7 @@
 
             <com.yuneec.example.view.CustomTextView
                 android:id="@+id/shutter_speed"
+                style="@style/textSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -89,34 +96,40 @@
             <Spinner
                 android:id="@+id/wb_dropdown"
                 android:layout_width="wrap_content"
-                android:layout_height="52dp"></Spinner>
+                android:layout_height="56dp"
+                style="@style/textSmall"></Spinner>
 
             <Spinner
                 android:id="@+id/color_mode_dropdown"
                 android:layout_width="wrap_content"
-                android:layout_height="52dp"></Spinner>
+                android:layout_height="52dp"
+                style="@style/textSmall"></Spinner>
 
             <Spinner
                 android:id="@+id/exposure_mode_dropdown"
                 android:layout_width="wrap_content"
-                android:layout_height="52dp"></Spinner>
+                android:layout_height="52dp"
+                style="@style/textSmall"></Spinner>
 
             <Spinner
                 android:id="@+id/exposure_com_dropdown"
                 android:layout_width="wrap_content"
-                android:layout_height="56dp"></Spinner>
+                android:layout_height="56dp"
+                style="@style/textSmall"></Spinner>
 
             <Spinner
                 android:id="@+id/iso_dropdown"
                 android:layout_width="wrap_content"
                 android:layout_height="52dp"
-                android:visibility="gone"></Spinner>
+                android:visibility="gone"
+                style="@style/textSmall"></Spinner>
 
             <Spinner
                 android:id="@+id/shutter_speed_dropdown"
                 android:layout_width="wrap_content"
                 android:layout_height="52dp"
-                android:visibility="gone"></Spinner>
+                android:visibility="gone"
+                style="@style/textSmall"></Spinner>
 
         </LinearLayout>
 

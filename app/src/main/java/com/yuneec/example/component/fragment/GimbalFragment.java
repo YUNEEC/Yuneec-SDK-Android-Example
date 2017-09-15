@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.yuneec.example.R;
 import com.yuneec.example.component.listeners.GimbalListener;
 import com.yuneec.example.component.utils.Common;
+import com.yuneec.example.component.utils.Media;
 import com.yuneec.sdk.Gimbal;
 
 /**
@@ -95,9 +96,9 @@ public class GimbalFragment
 
         switch (v.getId()) {
             case R.id.rotate_camera_clockwise:
-
+                Media.vibrate(getActivity());
                 if (editText.getText().toString().isEmpty()) {
-                    Toast.makeText(getActivity(), R.string.no_text, Toast.LENGTH_LONG).show();
+                    Common.makeToast(getActivity(), "Please enter yaw degree, before clicking rotate button");
                 } else {
                     try {
                         float yaw_degree = Float.parseFloat(editText.getText().toString());
@@ -105,18 +106,13 @@ public class GimbalFragment
                                                         GimbalListener.getGimbaListener());
                         Common.currentRotation += Common.fixedRotationAngleDeg;
                     } catch (Exception e) {
-                        Toast.makeText(getActivity(), "Please enter a valid value for yaw degree",
-                                       Toast.LENGTH_LONG).show();
+                        Common.makeToast(getActivity(), "Please enter a valid value for yaw degree");
                     }
                 }
 
                 break;
-            /*case R.id.rotate_camera_anticlockwise:
-                Gimbal.asyncSetPitchAndYawOfJni(0, Common.currentRotation - Common.fixedRotationAngleDeg,
-                        GimbalListener.getGimbaListener());
-                Common.currentRotation -= Common.fixedRotationAngleDeg;
-                break;*/
             case R.id.rotate_to_initial:
+                Media.vibrate(getActivity());
                 Gimbal.asyncSetPitchAndYawOfJni(0, 0, GimbalListener.getGimbaListener());
                 Common.currentRotation = 0;
                 break;
