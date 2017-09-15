@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.yuneec.example.R;
 import com.yuneec.example.component.custom_callback.OnChangeListener;
+import com.yuneec.example.component.fragment.ActionFragment;
 import com.yuneec.example.component.fragment.CameraFragment;
 import com.yuneec.example.component.fragment.CameraSettingsFragment;
 import com.yuneec.example.component.fragment.ConnectionFragment;
@@ -58,6 +59,8 @@ public class MainActivity
                         .setIndicator("Home"), ConnectionFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("camera_settings")
                         .setIndicator("Camera"), CameraSettingsFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("actions")
+                .setIndicator("Actions"), ActionFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("gimbal")
                         .setIndicator("Gimbal"), GimbalFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("media-download")
