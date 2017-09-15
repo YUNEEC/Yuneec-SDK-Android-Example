@@ -54,7 +54,7 @@ public class MainActivity
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.tabcontent);
         mTabHost.addTab(mTabHost.newTabSpec("connection")
-                        .setIndicator("Connection Info"), ConnectionFragment.class, null);
+                        .setIndicator("Home"), ConnectionFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("camera_settings")
                         .setIndicator("Camera"), CameraSettingsFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("gimbal")
