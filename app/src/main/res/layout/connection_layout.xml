@@ -12,14 +12,14 @@
         android:layout_marginBottom="@dimen/activity_horizontal_margin">
 
 
-        <TextView
+        <com.yuneec.example.view.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/connection_state_label"
             android:text="@string/connection_status"
             style="@style/text" />
 
-        <TextView
+        <com.yuneec.example.view.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/connection_state"
@@ -36,14 +36,14 @@
         android:layout_marginBottom="@dimen/activity_horizontal_margin">
 
 
-        <TextView
+        <com.yuneec.example.view.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/battery_status_label"
             android:text="@string/battery_status"
             style="@style/text" />
 
-        <TextView
+        <com.yuneec.example.view.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/battery_status"
@@ -60,14 +60,14 @@
         android:layout_marginBottom="@dimen/activity_horizontal_margin">
 
 
-        <TextView
+        <com.yuneec.example.view.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/health_status_label"
             style="@style/text"
             android:text="@string/health_status" />
 
-        <TextView
+        <com.yuneec.example.view.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/health_status"

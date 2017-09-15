@@ -137,6 +137,9 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
     }
 
     private void addOnClickListeners() {
+        addItemsOnSpinner();
+        /* work around for https://stackoverflow.com/questions/2562248/how-to-keep-onitemselected-from-firing-off-on-a-newly-instantiated-spinner*/
+        setSelection();
         wb_spinner.setOnItemSelectedListener(this);
         color_mode_spinner.setOnItemSelectedListener(this);
         exposure_spinner.setOnItemSelectedListener(this);
@@ -145,7 +148,15 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
         iso_spinner.setOnItemSelectedListener(this);
         capturePicture.setOnClickListener(this);
         video.setOnClickListener(this);
-        addItemsOnSpinner();
+    }
+
+    private void setSelection() {
+        wb_spinner.setSelection(0, false);
+        color_mode_spinner.setSelection(0, false);
+        exposure_spinner.setSelection(0, false);
+        ex_com_spinner.setSelection(0, false);
+        shutter_speed_spinner.setSelection(0, false);
+        iso_spinner.setSelection(0, false);
     }
 
     public void addItemsOnSpinner() {

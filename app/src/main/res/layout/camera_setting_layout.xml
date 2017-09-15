@@ -29,14 +29,14 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
+            <com.yuneec.example.view.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/margin"
                 android:text="@string/white_balance_mode" />
 
-            <TextView
+            <com.yuneec.example.view.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -50,7 +50,7 @@
                 android:layout_margin="@dimen/margin"
                 android:text="@string/exposure_mode" />
 
-            <TextView
+            <com.yuneec.example.view.CustomTextView
                 android:id="@+id/ex_com_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                 android:layout_margin="@dimen/margin"
                 android:text="@string/exposure_compensation" />
 
-            <TextView
+            <com.yuneec.example.view.CustomTextView
                 android:id="@+id/iso_val"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                 android:visibility="gone" />
 
 
-            <TextView
+            <com.yuneec.example.view.CustomTextView
                 android:id="@+id/shutter_speed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
