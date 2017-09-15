@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.yuneec.example.R;
 import com.yuneec.example.component.fragment.CameraFragment;
 import com.yuneec.example.model.MediaInfoEntry;
 import com.yuneec.sdk.Camera;
@@ -77,10 +78,10 @@ public class MediaListAdapter
 
         MediaListAdapter.ViewHolder holder;
         if (convertView == null) {
-            convertView = inflater.inflate(android.R.layout.simple_list_item_2, null);
+            convertView = inflater.inflate(R.layout.list_item, null);
             holder = new MediaListAdapter.ViewHolder();
-            holder.text1 = (TextView) convertView.findViewById(android.R.id.text1);
-            holder.text2 = (TextView) convertView.findViewById(android.R.id.text2);
+            holder.text1 = (TextView) convertView.findViewById(R.id.text1);
+            holder.text2 = (TextView) convertView.findViewById(R.id.text2);
 
             convertView.setTag(holder);
         } else {
@@ -92,9 +93,13 @@ public class MediaListAdapter
         holder.text2.setText(entry.description);
 
         if (entry.downloaded) {
-            convertView.setBackgroundColor(Color.parseColor("#FF8C00"));
+            convertView.setBackgroundColor(Color.parseColor("#F04C24"));
+            holder.text1.setBackgroundColor(Color.parseColor("#F04C24"));
+            holder.text2.setBackgroundColor(Color.parseColor("#F04C24"));
         } else {
             convertView.setBackgroundColor(Color.WHITE);
+            holder.text1.setBackgroundColor(Color.WHITE);
+            holder.text2.setBackgroundColor(Color.WHITE);
         }
 
         return convertView;

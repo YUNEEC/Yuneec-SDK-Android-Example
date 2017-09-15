@@ -26,6 +26,7 @@ import com.yuneec.example.component.fragment.ConnectionFragment;
 import com.yuneec.example.component.fragment.GimbalFragment;
 import com.yuneec.example.component.fragment.MediaDownloadFragment;
 import com.yuneec.example.component.listeners.ConnectionListener;
+import com.yuneec.example.component.utils.Common;
 import com.yuneec.sdk.Camera;
 
 /**
@@ -65,7 +66,7 @@ public class MainActivity
         for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
             View v = mTabHost.getTabWidget().getChildAt(i);
             TextView tv = (TextView) v.findViewById(android.R.id.title);
-            tv.setTextColor(ContextCompat.getColor(this, R.color.orange));
+            tv.setTextColor(ContextCompat.getColor(this, R.color.orangeDark));
             tv.setTextSize(16);
         }
 
@@ -155,8 +156,7 @@ public class MainActivity
             public void run() {
                 Log.d(TAG, result);
                 if (!result.equals("Success")) {
-                    Toast.makeText(context, result + "-" + "Please make sure SD card is inserted and try again",
-                                   Toast.LENGTH_SHORT).show();
+                    Common.makeToast(context, "Please make sure SD card is inserted and try again" );
                 }
             }
         });
@@ -168,8 +168,7 @@ public class MainActivity
             @Override
             public void run() {
                 if (!result.equals("Success")) {
-                    Toast.makeText(context, result + "-" + "Please make sure SD card is inserted",
-                                   Toast.LENGTH_SHORT).show();
+                    Common.makeToast(context, "Please make sure SD card is inserted and try again" );
                 } else {
                     if (mode.equals(Camera.Mode.PHOTO)) {
                         Camera.asyncTakePhoto();

@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.yuneec.example.R;
 import com.yuneec.example.component.adapter.MediaListAdapter;
 import com.yuneec.example.component.listeners.CameraListener;
+import com.yuneec.example.component.utils.Common;
 import com.yuneec.example.model.MediaInfoEntry;
 import com.yuneec.sdk.Camera;
 
@@ -272,7 +273,6 @@ public class MediaDownloadFragment extends Fragment implements
         if (toast != null) {
             toast.cancel();
         }
-        toast = Toast.makeText(rootView.getContext(), text, Toast.LENGTH_SHORT);
-        toast.show();
+        Common.makeToast(getActivity(), text);
     }
 }

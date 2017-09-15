@@ -13,24 +13,23 @@
             android:background="@color/text"
             android:layout_margin="@dimen/activity_vertical_margin"
             android:padding="5dp"
+            android:textColor="@color/background"
             android:layout_gravity="center"/>
 
-    <Button
+    <com.yuneec.example.view.CustomButton
         android:layout_width="wrap_content"
         android:id="@+id/rotate_camera_clockwise"
         style="@style/button"
         android:text="@string/rotate_text" />
 
-
-
-    <Button
+    <com.yuneec.example.view.CustomButton
         android:id="@+id/rotate_camera_anticlockwise"
         style="@style/button"
         android:layout_width="wrap_content"
         android:text="@string/rotate_anticlockwise"
         android:visibility="gone"/>
 
-    <Button
+    <com.yuneec.example.view.CustomButton
         android:id="@+id/rotate_to_initial"
         style="@style/button"
         android:layout_width="wrap_content"
