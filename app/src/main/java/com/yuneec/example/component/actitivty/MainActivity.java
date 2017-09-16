@@ -60,7 +60,7 @@ public class MainActivity
         mTabHost.addTab(mTabHost.newTabSpec("camera_settings")
                         .setIndicator("Camera"), CameraSettingsFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("actions")
-                .setIndicator("Actions"), ActionFragment.class, null);
+                        .setIndicator("Actions"), ActionFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("gimbal")
                         .setIndicator("Gimbal"), GimbalFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("media-download")
@@ -159,7 +159,7 @@ public class MainActivity
             public void run() {
                 Log.d(TAG, result);
                 if (!result.equals("Success")) {
-                    Common.makeToast(context, "Please make sure SD card is inserted and try again" );
+                    Common.makeToast(context, "Please make sure SD card is inserted and try again");
                 }
             }
         });
@@ -171,7 +171,7 @@ public class MainActivity
             @Override
             public void run() {
                 if (!result.equals("Success")) {
-                    Common.makeToast(context, "Please make sure SD card is inserted and try again" );
+                    Common.makeToast(context, "Please make sure SD card is inserted and try again");
                 } else {
                     if (mode.equals(Camera.Mode.PHOTO)) {
                         Camera.asyncTakePhoto();
