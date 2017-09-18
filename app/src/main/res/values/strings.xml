@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">YuneecAndroidExample</string>
-    <string name="rotate_clockwise">Enter value in degree starting from 0</string>
-    <string name="rotate_text">Rotate Camera</string>
+    <string name="set_yaw_hint">Enter value in degree starting 0</string>
+    <string name="set_yaw">Set Yaw</string>
+    <string name="set_pitch_hint">Enter value in degree (0 to -90</string>
+    <string name="set_pitch">Set Pitch</string>
     <string name="rotate_anticlockwise">Rotate camera anti-clockwise</string>
     <string name="rotate_to_initial">Bring to the Initial Position</string>
     <string name="connection_status">Connection Status: </string>
@@ -18,5 +20,4 @@
     <string name="color_mode">Color Mode</string>
     <string name="capture_picture">Capture Picture</string>
     <string name="video">Start Video</string>
-
 </resources>
