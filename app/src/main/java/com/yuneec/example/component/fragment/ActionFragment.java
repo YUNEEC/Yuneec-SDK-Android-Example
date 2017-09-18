@@ -69,7 +69,7 @@ public class ActionFragment extends Fragment implements View.OnClickListener {
     }
 
     private void unRegisterListener() {
-        ActionListener.unRegisterActionistener();
+        ActionListener.unRegisterActionListener();
     }
 
     @Override
