@@ -43,7 +43,7 @@ public class ActionListener {
         }
     }
 
-    public static void unRegisterActionistener() {
+    public static void unRegisterActionListener() {
 
         if (actionResultListener != null) {
             actionResultListener = null;
