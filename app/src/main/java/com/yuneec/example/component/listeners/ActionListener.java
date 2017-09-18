@@ -15,7 +15,7 @@ public class ActionListener {
 
     private static final String TAG = ActionListener.class.getCanonicalName();
 
-    public static Action.ResultListener getActionResultListeneristener() {
+    public static Action.ResultListener getActionResultListener() {
 
         if (actionResultListener == null) {
             Log.d(TAG, "Initialized action result listener");

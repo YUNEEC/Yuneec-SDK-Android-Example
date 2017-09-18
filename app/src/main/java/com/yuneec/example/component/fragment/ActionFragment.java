@@ -43,7 +43,7 @@ public class ActionFragment extends Fragment implements View.OnClickListener {
 
         super.onStart();
         registerListener();
-        listener = ActionListener.getActionResultListeneristener();
+        listener = ActionListener.getActionResultListener();
     }
 
     @Override
@@ -65,11 +65,11 @@ public class ActionFragment extends Fragment implements View.OnClickListener {
     }
 
     private void registerListener() {
-
+        ActionListener.registerActionListener();
     }
 
     private void unRegisterListener() {
-
+        ActionListener.unRegisterActionistener();
     }
 
     @Override
