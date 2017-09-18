@@ -8,7 +8,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:hint="@string/rotate_clockwise"
+            android:hint="@string/set_yaw_hint"
             android:id="@+id/yaw_degree"
             android:background="@color/text"
             android:layout_margin="@dimen/activity_vertical_margin"
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:id="@+id/rotate_camera_clockwise"
         style="@style/button"
-        android:text="@string/rotate_text" />
+        android:text="@string/set_yaw" />
 
     <com.yuneec.example.view.CustomButton
         android:id="@+id/rotate_camera_anticlockwise"
@@ -28,6 +28,23 @@
         android:layout_width="wrap_content"
         android:text="@string/rotate_anticlockwise"
         android:visibility="gone"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:hint="@string/set_pitch_hint"
+        android:id="@+id/pitch_degree"
+        android:background="@color/text"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:padding="5dp"
+        android:textColor="@color/background"
+        android:layout_gravity="center"/>
+
+    <com.yuneec.example.view.CustomButton
+        android:layout_width="wrap_content"
+        android:id="@+id/set_pitch"
+        style="@style/button"
+        android:text="@string/set_pitch" />
 
     <com.yuneec.example.view.CustomButton
         android:id="@+id/rotate_to_initial"

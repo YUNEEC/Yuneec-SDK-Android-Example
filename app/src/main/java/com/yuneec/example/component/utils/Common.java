@@ -18,8 +18,6 @@ public class Common {
 
     public static final int fixedRotationAngleDeg = 20;
 
-    public static int currentRotation = 0;
-
     public static final String connectionStatusDefault = "Not connected to the drone";
 
     public static final String batteryStatusDefault = "Unknown";
@@ -41,5 +39,8 @@ public class Common {
         v.setTextColor(ContextCompat.getColor(context, R.color.white));
         toast.show();
     }
+
+    public static float currentYaw = 0.0f;
+    public static float currentPitch = 0.0f;
 
 }

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.yuneec.example.R;
 import com.yuneec.example.component.listeners.GimbalListener;
@@ -28,12 +27,13 @@ public class GimbalFragment
 
     private Button rotateClockwise;
 
-    //private Button rotateAnticlockwise;
-
     private Button rotateToInitial;
 
-    private EditText editText;
+    private EditText yawVal;
 
+    private EditText pitchVal;
+
+    private Button setPitch;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,11 +74,12 @@ public class GimbalFragment
         rootView = inflater.inflate(R.layout.gimbal_layout, container, false);
         rotateClockwise = (Button) rootView.findViewById(R.id.rotate_camera_clockwise);
         rotateClockwise.setOnClickListener(this);
-        editText = (EditText) rootView.findViewById(R.id.yaw_degree);
-        //rotateAnticlockwise = (Button) rootView.findViewById(R.id.rotate_camera_anticlockwise);
-        //rotateAnticlockwise.setOnClickListener(this);
+        yawVal = (EditText) rootView.findViewById(R.id.yaw_degree);
+        pitchVal = (EditText) rootView.findViewById(R.id.pitch_degree);
         rotateToInitial = (Button) rootView.findViewById(R.id.rotate_to_initial);
         rotateToInitial.setOnClickListener(this);
+        setPitch = (Button) rootView.findViewById(R.id.set_pitch);
+        setPitch.setOnClickListener(this);
     }
 
     private void registerListener() {
@@ -97,14 +98,14 @@ public class GimbalFragment
         switch (v.getId()) {
             case R.id.rotate_camera_clockwise:
                 Media.vibrate(getActivity());
-                if (editText.getText().toString().isEmpty()) {
+                if (yawVal.getText().toString().isEmpty()) {
                     Common.makeToast(getActivity(), "Please enter yaw degree, before clicking rotate button");
                 } else {
                     try {
-                        float yaw_degree = Float.parseFloat(editText.getText().toString());
-                        Gimbal.asyncSetPitchAndYawOfJni(0, yaw_degree,
+                        float yaw_degree = Float.parseFloat(yawVal.getText().toString());
+                        Gimbal.asyncSetPitchAndYawOfJni(Common.currentPitch, yaw_degree,
                                                         GimbalListener.getGimbaListener());
-                        Common.currentRotation += Common.fixedRotationAngleDeg;
+                        Common.currentYaw = yaw_degree;
                     } catch (Exception e) {
                         Common.makeToast(getActivity(), "Please enter a valid value for yaw degree");
                     }
@@ -114,9 +115,25 @@ public class GimbalFragment
             case R.id.rotate_to_initial:
                 Media.vibrate(getActivity());
                 Gimbal.asyncSetPitchAndYawOfJni(0, 0, GimbalListener.getGimbaListener());
-                Common.currentRotation = 0;
+                Common.currentYaw = 0;
+                Common.currentPitch = 0;
                 break;
+            case R.id.set_pitch:
+                Media.vibrate(getActivity());
+                if (pitchVal.getText().toString().isEmpty()) {
+                    Common.makeToast(getActivity(), "Please enter pitch degree, before clicking rotate button");
+                } else {
+                    try {
+                        float pitch_degree = Float.parseFloat(pitchVal.getText().toString());
+                        Gimbal.asyncSetPitchAndYawOfJni(pitch_degree, Common.currentYaw,
+                                                        GimbalListener.getGimbaListener());
+                        Common.currentPitch = pitch_degree;
+                    } catch (Exception e) {
+                        Common.makeToast(getActivity(), "Please enter a valid value for pitch degree");
+                    }
+                }
 
+                break;
         }
     }
 }
