@@ -6,53 +6,72 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <com.yuneec.example.view.CustomButton
             android:id="@+id/arm_button"
+            style="@style/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/button"
-            android:text="Arm" />
+            android:text="Arm"
+            android:layout_centerHorizontal="true"/>
 
         <com.yuneec.example.view.CustomButton
             android:id="@+id/disarm_button"
+            style="@style/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Disarm"
-            style="@style/button"/>
+            android:layout_below="@+id/arm_button"
+            android:layout_centerHorizontal="true"/>
+
+        <EditText
+            android:id="@+id/takeoff_altitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/disarm_button"
+            android:hint="@string/take_off_hint"
+            android:layout_centerHorizontal="true"/>
 
         <com.yuneec.example.view.CustomButton
             android:id="@+id/takeoff_button"
+            style="@style/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/takeoff_altitude"
             android:text="Takeoff"
-            style="@style/button"/>
+            android:layout_centerHorizontal="true"/>
 
         <com.yuneec.example.view.CustomButton
             android:id="@+id/land_button"
+            style="@style/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/takeoff_button"
             android:text="Land"
-            style="@style/button"/>
+            android:layout_centerHorizontal="true"/>
 
         <com.yuneec.example.view.CustomButton
             android:id="@+id/return_to_launch_button"
+            style="@style/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/land_button"
             android:text="Return to Launch"
-            style="@style/button"/>
+            android:layout_centerHorizontal="true"/>
 
 
         <com.yuneec.example.view.CustomButton
             android:id="@+id/kill_button"
+            style="@style/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/return_to_launch_button"
             android:text="Kill"
-            style="@style/button"/>
+            android:layout_centerHorizontal="true"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

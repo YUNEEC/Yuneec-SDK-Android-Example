@@ -166,6 +166,17 @@ public class MainActivity
     }
 
     @Override
+    public void publishActionResult(final String result) {
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                Common.makeToast(context, result);
+            }
+        });
+    }
+
+    @Override
     public void publishCameraModeResult(final Camera.Mode mode, final String result) {
         runOnUiThread(new Runnable() {
             @Override

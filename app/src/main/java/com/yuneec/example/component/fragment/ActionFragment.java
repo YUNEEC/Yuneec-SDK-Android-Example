@@ -9,6 +9,7 @@ package com.yuneec.example.component.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
@@ -30,6 +31,8 @@ public class ActionFragment extends Fragment implements View.OnClickListener {
 
     Action.ResultListener listener;
 
+    private static final String TAG = ActionFragment.class.getCanonicalName();
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public class ActionFragment extends Fragment implements View.OnClickListener {
 
         super.onStart();
         registerListener();
-        listener = ActionListener.getActionResultListener();
+        listener = ActionListener.getActionResultListener(getActivity());
     }
 
     @Override
@@ -62,6 +65,7 @@ public class ActionFragment extends Fragment implements View.OnClickListener {
         mView.findViewById(R.id.land_button).setOnClickListener(this);
         mView.findViewById(R.id.return_to_launch_button).setOnClickListener(this);
         mView.findViewById(R.id.kill_button).setOnClickListener(this);
+        setHeight = (EditText) mView.findViewById(R.id.takeoff_altitude);
     }
 
     private void registerListener() {
@@ -83,6 +87,11 @@ public class ActionFragment extends Fragment implements View.OnClickListener {
                 Action.disarmAsync(listener);
                 break;
             case R.id.takeoff_button:
+                if (!setHeight.getText().toString().trim().isEmpty()) {
+                    Double altitude = Double.parseDouble(setHeight.getText().toString());
+                    Action.setAltitudeM(altitude);
+                    Log.d(TAG, "Altitude set");
+                }
                 Action.takeoffAsync(listener);
                 break;
             case R.id.land_button:
