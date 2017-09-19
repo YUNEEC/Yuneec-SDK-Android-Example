@@ -16,5 +16,7 @@ public interface OnChangeListener {
 
     void publishCameraResult(String result);
 
+    void publishActionResult(String result);
+
     void publishCameraModeResult(Camera.Mode mode, String result);
 }

@@ -20,4 +20,5 @@
     <string name="color_mode">Color Mode</string>
     <string name="capture_picture">Capture Picture</string>
     <string name="video">Start Video</string>
+    <string name="take_off_hint">Enter takeoff altitude in meters (Optional) </string>
 </resources>

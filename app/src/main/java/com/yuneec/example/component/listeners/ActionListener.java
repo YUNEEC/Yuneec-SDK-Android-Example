@@ -1,7 +1,9 @@
 package com.yuneec.example.component.listeners;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.yuneec.example.component.custom_callback.OnChangeListener;
 import com.yuneec.sdk.Action;
 import com.yuneec.sdk.Gimbal;
 
@@ -15,8 +17,10 @@ public class ActionListener {
 
     private static final String TAG = ActionListener.class.getCanonicalName();
 
-    public static Action.ResultListener getActionResultListener() {
+    private static OnChangeListener onChangeListener;
 
+    public static Action.ResultListener getActionResultListener(Context context) {
+        onChangeListener = (OnChangeListener) context;
         if (actionResultListener == null) {
             Log.d(TAG, "Initialized action result listener");
             actionResultListener = new Action.ResultListener() {
@@ -37,6 +41,7 @@ public class ActionListener {
             actionResultListener = new Action.ResultListener() {
                 @Override
                 public void onResultCallback(Action.Result result) {
+                    onChangeListener.publishActionResult(result.resultStr);
                     Log.d(TAG, result.resultStr);
                 }
             };
