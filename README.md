@@ -56,7 +56,7 @@ Make sure to have [homebrew](http://brew.sh).
 
 ```
 brew cask install xquartz
-brew tap px4/simulation
+brew tap osrf/simulation
 brew update
 brew install gazebo7
 ```
