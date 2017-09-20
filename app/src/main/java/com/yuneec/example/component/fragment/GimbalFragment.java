@@ -102,10 +102,10 @@ public class GimbalFragment
                     Common.makeToast(getActivity(), "Please enter yaw degree, before clicking rotate button");
                 } else {
                     try {
-                        float yaw_degree = Float.parseFloat(yawVal.getText().toString());
-                        Gimbal.asyncSetPitchAndYawOfJni(Common.currentPitch, yaw_degree,
+                        float yawDeg = Float.parseFloat(yawVal.getText().toString());
+                        Gimbal.asyncSetPitchAndYawOfJni(Common.currentPitch, yawDeg,
                                                         GimbalListener.getGimbaListener());
-                        Common.currentYaw = yaw_degree;
+                        Common.currentYaw = yawDeg;
                     } catch (Exception e) {
                         Common.makeToast(getActivity(), "Please enter a valid value for yaw degree");
                     }
@@ -124,10 +124,10 @@ public class GimbalFragment
                     Common.makeToast(getActivity(), "Please enter pitch degree, before clicking rotate button");
                 } else {
                     try {
-                        float pitch_degree = Float.parseFloat(pitchVal.getText().toString());
-                        Gimbal.asyncSetPitchAndYawOfJni(pitch_degree, Common.currentYaw,
+                        float pitchDeg = Float.parseFloat(pitchVal.getText().toString());
+                        Gimbal.asyncSetPitchAndYawOfJni(pitchDeg, Common.currentYaw,
                                                         GimbalListener.getGimbaListener());
-                        Common.currentPitch = pitch_degree;
+                        Common.currentPitch = pitchDeg;
                     } catch (Exception e) {
                         Common.makeToast(getActivity(), "Please enter a valid value for pitch degree");
                     }
