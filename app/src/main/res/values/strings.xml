@@ -20,5 +20,8 @@
     <string name="color_mode">Color Mode</string>
     <string name="capture_picture">Capture Picture</string>
     <string name="video">Start Video</string>
+    <string name="stop_video">Stop Video</string>
+    <string name="photo_interval">Start Capturing Photos</string>
+    <string name="stop_photo_interval">Stop Capturing Photos</string>
     <string name="take_off_hint">Enter takeoff altitude in meters (Optional) </string>
 </resources>
