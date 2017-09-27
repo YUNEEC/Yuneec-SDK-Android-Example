@@ -7,7 +7,6 @@
  */
 package com.yuneec.example.component.fragment;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -60,6 +59,10 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
     Button capturePicture;
 
     Button video;
+
+    Button photoInterval;
+
+    public static boolean isPhotoInterval = false;
 
     private Camera.Mode cameraMode = Camera.Mode.UNKNOWN;
 
@@ -133,6 +136,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
         }
         capturePicture = (Button) rootView.findViewById(R.id.capturePicture);
         video = (Button) rootView.findViewById(R.id.video);
+        photoInterval = (Button) rootView.findViewById(R.id.photo_interval);
     }
 
     private void addOnClickListeners() {
@@ -147,6 +151,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
         iso_spinner.setOnItemSelectedListener(this);
         capturePicture.setOnClickListener(this);
         video.setOnClickListener(this);
+        photoInterval.setOnClickListener(this);
     }
 
     private void setSelection() {
@@ -258,14 +263,32 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                         Camera.setMode(Camera.Mode.VIDEO, CameraModeListener.getCameraModeListener());
                         cameraMode = Camera.Mode.VIDEO;
                     } else {
-                        if (video.getText().equals("Start Video")) {
+                        if (video.getText().equals(getString(R.string.video))) {
                             Camera.asyncStartVideo();
-                            video.setText("Stop Video");
+                            video.setText(getString(R.string.stop_video));
                         } else {
                             Camera.asyncStopVideo();
-                            video.setText("Start Video");
+                            video.setText(getString(R.string.video));
                         }
                     }
+                    break;
+                case R.id.photo_interval:
+                    Media.vibrate(getActivity());
+                    isPhotoInterval = true;
+                    if (!cameraMode.equals(Camera.Mode.PHOTO)) {
+                        Camera.setMode(Camera.Mode.PHOTO, CameraModeListener.getCameraModeListener());
+                        cameraMode = Camera.Mode.PHOTO;
+                    } else {
+                        if (photoInterval.getText().equals(getString(R.string.photo_interval))) {
+                            Camera.asyncStartPhotoInterval(Common.defaultPhotoIntervalInSeconds);
+                            photoInterval.setText(getString(R.string.stop_photo_interval));
+                        } else {
+                            isPhotoInterval = false;
+                            Camera.asyncStopPhotoInterval();
+                            photoInterval.setText(getString(R.string.photo_interval));
+                        }
+                    }
+                    break;
             }
         } else {
             Common.makeToast(getActivity(), "Please Connect To The Drone");

@@ -7,7 +7,7 @@
 
         <EditText
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:hint="@string/set_yaw_hint"
             android:id="@+id/yaw_degree"
             android:background="@color/text"
@@ -31,7 +31,7 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:hint="@string/set_pitch_hint"
         android:id="@+id/pitch_degree"
         android:background="@color/text"

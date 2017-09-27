@@ -32,6 +32,8 @@ public class Common {
 
     public static boolean isConnected = false;
 
+    public static int defaultPhotoIntervalInSeconds = 4;
+
     public static void makeToast(Context context, String message) {
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
         TextView v = (TextView) toast.getView().findViewById(android.R.id.message);

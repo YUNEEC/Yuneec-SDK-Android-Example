@@ -7,7 +7,6 @@
 package com.yuneec.example.component.actitivty;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
@@ -16,12 +15,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yuneec.example.R;
 import com.yuneec.example.component.custom_callback.OnChangeListener;
 import com.yuneec.example.component.fragment.ActionFragment;
-import com.yuneec.example.component.fragment.CameraFragment;
 import com.yuneec.example.component.fragment.CameraSettingsFragment;
 import com.yuneec.example.component.fragment.ConnectionFragment;
 import com.yuneec.example.component.fragment.GimbalFragment;
@@ -43,7 +40,7 @@ public class MainActivity
 
     private Context context;
 
-    private Button video;
+    private Button mediaCapture;
 
     private static final String TAG = MainActivity.class.getCanonicalName();
 
@@ -184,16 +181,25 @@ public class MainActivity
                 if (!result.equals("Success")) {
                     Common.makeToast(context, "Please make sure SD card is inserted and try again");
                 } else {
-                    if (mode.equals(Camera.Mode.PHOTO)) {
+                    if (mode.equals(Camera.Mode.PHOTO) && !CameraSettingsFragment.isPhotoInterval) {
                         Camera.asyncTakePhoto();
-                    } else {
-                        video = (Button) findViewById(R.id.video);
-                        if (video.getText().equals("Start Video")) {
+                    } else if (mode.equals(Camera.Mode.VIDEO)) {
+                        mediaCapture = (Button) findViewById(R.id.video);
+                        if (mediaCapture.getText().equals(getString(R.string.video))) {
                             Camera.asyncStartVideo();
-                            video.setText("Stop Video");
+                            mediaCapture.setText(getString(R.string.stop_video));
                         } else {
                             Camera.asyncStopVideo();
-                            video.setText("Start Video");
+                            mediaCapture.setText(getString(R.string.video));
+                        }
+                    } else {
+                        mediaCapture = (Button) findViewById(R.id.photo_interval);
+                        if (mediaCapture.getText().equals(getString(R.string.photo_interval))) {
+                            Camera.asyncStartPhotoInterval(Common.defaultPhotoIntervalInSeconds);
+                            mediaCapture.setText(getString(R.string.stop_photo_interval));
+                        } else {
+                            Camera.asyncStopPhotoInterval();
+                            mediaCapture.setText(getString(R.string.photo_interval));
                         }
                     }
                 }
