@@ -62,11 +62,27 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
 
     Button photoInterval;
 
-    public static boolean isPhotoInterval = false;
+    private boolean isPhotoInterval = false;
 
     private Camera.Mode cameraMode = Camera.Mode.UNKNOWN;
 
     private static final String TAG = CameraSettingsListener.class.getCanonicalName();
+
+    public Camera.Mode getCameraMode() {
+        return cameraMode;
+    }
+
+    public void setCameraMode(Camera.Mode cameraMode) {
+        this.cameraMode = cameraMode;
+    }
+
+    public boolean getIsPhotoInterval() {
+        return isPhotoInterval;
+    }
+
+    public void setIsPhotoInterval(boolean photoInterval) {
+        isPhotoInterval = photoInterval;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -250,42 +266,34 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
             switch (v.getId()) {
                 case R.id.capturePicture:
                     Media.vibrate(getActivity());
-                    if (!cameraMode.equals(Camera.Mode.PHOTO)) {
+                    if (!getCameraMode().equals(Camera.Mode.PHOTO)) {
                         Camera.setMode(Camera.Mode.PHOTO, CameraModeListener.getCameraModeListener());
-                        cameraMode = Camera.Mode.PHOTO;
                     } else {
                         Camera.asyncTakePhoto();
                     }
                     break;
                 case R.id.video:
                     Media.vibrate(getActivity());
-                    if (!cameraMode.equals(Camera.Mode.VIDEO)) {
+                    if (!getCameraMode().equals(Camera.Mode.VIDEO)) {
                         Camera.setMode(Camera.Mode.VIDEO, CameraModeListener.getCameraModeListener());
-                        cameraMode = Camera.Mode.VIDEO;
                     } else {
                         if (video.getText().equals(getString(R.string.video))) {
                             Camera.asyncStartVideo();
-                            video.setText(getString(R.string.stop_video));
                         } else {
                             Camera.asyncStopVideo();
-                            video.setText(getString(R.string.video));
                         }
                     }
                     break;
                 case R.id.photo_interval:
                     Media.vibrate(getActivity());
-                    isPhotoInterval = true;
-                    if (!cameraMode.equals(Camera.Mode.PHOTO)) {
+                    setIsPhotoInterval(true);
+                    if (!getCameraMode().equals(Camera.Mode.PHOTO)) {
                         Camera.setMode(Camera.Mode.PHOTO, CameraModeListener.getCameraModeListener());
-                        cameraMode = Camera.Mode.PHOTO;
                     } else {
                         if (photoInterval.getText().equals(getString(R.string.photo_interval))) {
                             Camera.asyncStartPhotoInterval(Common.defaultPhotoIntervalInSeconds);
-                            photoInterval.setText(getString(R.string.stop_photo_interval));
                         } else {
-                            isPhotoInterval = false;
                             Camera.asyncStopPhotoInterval();
-                            photoInterval.setText(getString(R.string.photo_interval));
                         }
                     }
                     break;

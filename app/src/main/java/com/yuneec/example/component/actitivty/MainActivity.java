@@ -44,6 +44,8 @@ public class MainActivity
 
     private static final String TAG = MainActivity.class.getCanonicalName();
 
+    private CameraSettingsFragment cameraSettingsFragment = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -155,8 +157,50 @@ public class MainActivity
             @Override
             public void run() {
                 Log.d(TAG, result);
+                if(cameraSettingsFragment == null) {
+                    cameraSettingsFragment = (CameraSettingsFragment) getSupportFragmentManager().findFragmentByTag("camera_settings");
+                }
                 if (!result.equals("Success")) {
-                    Common.makeToast(context, "Please make sure SD card is inserted and try again");
+                    Common.makeToast(context, "Error! Please make sure SD card is inserted and try again");
+                    if(cameraSettingsFragment.getCameraMode().equals(Camera.Mode.PHOTO) && cameraSettingsFragment.getIsPhotoInterval()) {
+                        mediaCapture = (Button) findViewById(R.id.photo_interval);
+                        if (mediaCapture.getText().equals(getString(R.string.stop_photo_interval))) {
+                            mediaCapture.setText(getString(R.string.photo_interval));
+                        }
+                        cameraSettingsFragment.setIsPhotoInterval(false);
+                    }
+                    if(cameraSettingsFragment.getCameraMode().equals(Camera.Mode.VIDEO)) {
+                        mediaCapture = (Button) findViewById(R.id.video);
+                        if (mediaCapture.getText().equals(getString(R.string.stop_video))) {
+                            mediaCapture.setText(getString(R.string.video));
+                        }
+                    }
+                }
+                else {
+                    if(cameraSettingsFragment.getCameraMode().equals(Camera.Mode.VIDEO)) {
+                        mediaCapture = (Button) findViewById(R.id.video);
+                        if (mediaCapture.getText().equals(getString(R.string.video))) {
+                            mediaCapture.setText(getString(R.string.stop_video));
+                        }
+                        else {
+                            mediaCapture.setText(getString(R.string.video));
+                        }
+
+                    }
+                    else if(cameraSettingsFragment.getCameraMode().equals(Camera.Mode.PHOTO) && cameraSettingsFragment.getIsPhotoInterval()) {
+                        mediaCapture = (Button) findViewById(R.id.photo_interval);
+                        if (mediaCapture.getText().equals(getString(R.string.photo_interval))) {
+                            mediaCapture.setText(getString(R.string.stop_photo_interval));
+                        }
+                        else {
+                            mediaCapture.setText(getString(R.string.photo_interval));
+                            cameraSettingsFragment.setIsPhotoInterval(false);
+                        }
+
+                    }
+                    else {
+                        Common.makeToast(context, "Picture Capture Successful");
+                    }
                 }
             }
         });
@@ -181,25 +225,25 @@ public class MainActivity
                 if (!result.equals("Success")) {
                     Common.makeToast(context, "Please make sure SD card is inserted and try again");
                 } else {
-                    if (mode.equals(Camera.Mode.PHOTO) && !CameraSettingsFragment.isPhotoInterval) {
+                    if(cameraSettingsFragment == null) {
+                        cameraSettingsFragment = (CameraSettingsFragment) getSupportFragmentManager().findFragmentByTag("camera_settings");
+                    }
+                    cameraSettingsFragment.setCameraMode(mode);
+                    if (mode.equals(Camera.Mode.PHOTO) && !cameraSettingsFragment.getIsPhotoInterval()) {
                         Camera.asyncTakePhoto();
                     } else if (mode.equals(Camera.Mode.VIDEO)) {
                         mediaCapture = (Button) findViewById(R.id.video);
                         if (mediaCapture.getText().equals(getString(R.string.video))) {
                             Camera.asyncStartVideo();
-                            mediaCapture.setText(getString(R.string.stop_video));
                         } else {
                             Camera.asyncStopVideo();
-                            mediaCapture.setText(getString(R.string.video));
                         }
                     } else {
                         mediaCapture = (Button) findViewById(R.id.photo_interval);
                         if (mediaCapture.getText().equals(getString(R.string.photo_interval))) {
                             Camera.asyncStartPhotoInterval(Common.defaultPhotoIntervalInSeconds);
-                            mediaCapture.setText(getString(R.string.stop_photo_interval));
                         } else {
                             Camera.asyncStopPhotoInterval();
-                            mediaCapture.setText(getString(R.string.photo_interval));
                         }
                     }
                 }
