@@ -157,48 +157,46 @@ public class MainActivity
             @Override
             public void run() {
                 Log.d(TAG, result);
-                if(cameraSettingsFragment == null) {
-                    cameraSettingsFragment = (CameraSettingsFragment) getSupportFragmentManager().findFragmentByTag("camera_settings");
+                if (cameraSettingsFragment == null) {
+                    cameraSettingsFragment = (CameraSettingsFragment)
+                                             getSupportFragmentManager().findFragmentByTag("camera_settings");
                 }
                 if (!result.equals("Success")) {
                     Common.makeToast(context, "Error! Please make sure SD card is inserted and try again");
-                    if(cameraSettingsFragment.getCameraMode().equals(Camera.Mode.PHOTO) && cameraSettingsFragment.getIsPhotoInterval()) {
+                    if (cameraSettingsFragment.getCameraMode().equals(Camera.Mode.PHOTO)
+                            && cameraSettingsFragment.getIsPhotoInterval()) {
                         mediaCapture = (Button) findViewById(R.id.photo_interval);
                         if (mediaCapture.getText().equals(getString(R.string.stop_photo_interval))) {
                             mediaCapture.setText(getString(R.string.photo_interval));
                         }
                         cameraSettingsFragment.setIsPhotoInterval(false);
                     }
-                    if(cameraSettingsFragment.getCameraMode().equals(Camera.Mode.VIDEO)) {
+                    if (cameraSettingsFragment.getCameraMode().equals(Camera.Mode.VIDEO)) {
                         mediaCapture = (Button) findViewById(R.id.video);
                         if (mediaCapture.getText().equals(getString(R.string.stop_video))) {
                             mediaCapture.setText(getString(R.string.video));
                         }
                     }
-                }
-                else {
-                    if(cameraSettingsFragment.getCameraMode().equals(Camera.Mode.VIDEO)) {
+                } else {
+                    if (cameraSettingsFragment.getCameraMode().equals(Camera.Mode.VIDEO)) {
                         mediaCapture = (Button) findViewById(R.id.video);
                         if (mediaCapture.getText().equals(getString(R.string.video))) {
                             mediaCapture.setText(getString(R.string.stop_video));
-                        }
-                        else {
+                        } else {
                             mediaCapture.setText(getString(R.string.video));
                         }
 
-                    }
-                    else if(cameraSettingsFragment.getCameraMode().equals(Camera.Mode.PHOTO) && cameraSettingsFragment.getIsPhotoInterval()) {
+                    } else if (cameraSettingsFragment.getCameraMode().equals(Camera.Mode.PHOTO)
+                               && cameraSettingsFragment.getIsPhotoInterval()) {
                         mediaCapture = (Button) findViewById(R.id.photo_interval);
                         if (mediaCapture.getText().equals(getString(R.string.photo_interval))) {
                             mediaCapture.setText(getString(R.string.stop_photo_interval));
-                        }
-                        else {
+                        } else {
                             mediaCapture.setText(getString(R.string.photo_interval));
                             cameraSettingsFragment.setIsPhotoInterval(false);
                         }
 
-                    }
-                    else {
+                    } else {
                         Common.makeToast(context, "Picture Capture Successful");
                     }
                 }
@@ -225,8 +223,9 @@ public class MainActivity
                 if (!result.equals("Success")) {
                     Common.makeToast(context, "Please make sure SD card is inserted and try again");
                 } else {
-                    if(cameraSettingsFragment == null) {
-                        cameraSettingsFragment = (CameraSettingsFragment) getSupportFragmentManager().findFragmentByTag("camera_settings");
+                    if (cameraSettingsFragment == null) {
+                        cameraSettingsFragment = (CameraSettingsFragment)
+                                                 getSupportFragmentManager().findFragmentByTag("camera_settings");
                     }
                     cameraSettingsFragment.setCameraMode(mode);
                     if (mode.equals(Camera.Mode.PHOTO) && !cameraSettingsFragment.getIsPhotoInterval()) {
