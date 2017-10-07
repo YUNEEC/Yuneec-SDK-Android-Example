@@ -31,7 +31,8 @@ import com.yuneec.sdk.MissionItem;
 import java.util.ArrayList;
 
 
-public class MissionFragment extends Fragment implements View.OnClickListener, GoogleMap.OnMapClickListener, OnMapReadyCallback{
+public class MissionFragment extends Fragment implements View.OnClickListener,
+    GoogleMap.OnMapClickListener, OnMapReadyCallback {
 
     View rootView;
 
@@ -119,7 +120,7 @@ public class MissionFragment extends Fragment implements View.OnClickListener, G
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.locate:{
+            case R.id.locate: {
                 updateDroneLocation();
                 break;
             }
@@ -150,7 +151,8 @@ public class MissionFragment extends Fragment implements View.OnClickListener, G
     }
 
     public static boolean checkGpsCoordinates(double latitude, double longitude) {
-        return (latitude > -90 && latitude < 90 && longitude > -180 && longitude < 180) && (latitude != 0f && longitude != 0f);
+        return (latitude > -90 && latitude < 90 && longitude > -180 && longitude < 180) && (latitude != 0f
+                && longitude != 0f);
     }
 
     @Override
@@ -160,7 +162,7 @@ public class MissionFragment extends Fragment implements View.OnClickListener, G
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        if(googleMap == null) {
+        if (googleMap == null) {
             this.googleMap = googleMap;
             setUpMap();
         }

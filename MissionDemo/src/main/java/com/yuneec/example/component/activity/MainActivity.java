@@ -39,7 +39,8 @@ import com.yuneec.sdk.Telemetry;
  * Simple example demonstrating waypoints and mission,  based on the Yuneec SDK for Android
  */
 public class MainActivity
-        extends FragmentActivity implements View.OnClickListener, GoogleMap.OnMapClickListener, OnMapReadyCallback, OnChangeListener {
+    extends FragmentActivity implements View.OnClickListener, GoogleMap.OnMapClickListener,
+    OnMapReadyCallback, OnChangeListener {
 
     private static final String TAG = MainActivity.class.getCanonicalName();
 
@@ -79,7 +80,7 @@ public class MainActivity
         start.setOnClickListener(this);
         stop.setOnClickListener(this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+                                         .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
@@ -200,7 +201,8 @@ public class MainActivity
     }
 
     public static boolean checkGpsCoordinates(double latitude, double longitude) {
-        return (latitude > -90 && latitude < 90 && longitude > -180 && longitude < 180) && (latitude != 0f && longitude != 0f);
+        return (latitude > -90 && latitude < 90 && longitude > -180 && longitude < 180) && (latitude != 0f
+                && longitude != 0f);
     }
 
     @Override
@@ -210,7 +212,7 @@ public class MainActivity
 
     @Override
     public void onMapReady(GoogleMap mGoogleMap) {
-        if(googleMap == null) {
+        if (googleMap == null) {
             googleMap = mGoogleMap;
             setUpMap();
         }
