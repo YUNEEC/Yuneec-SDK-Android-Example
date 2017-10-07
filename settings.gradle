@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':MissionDemo'
 include ':Yuneec-SDK-Android:yuneec_sdk'

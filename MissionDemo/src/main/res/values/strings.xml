@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">YuneecAndroidExample</string>
+    <string name="set_yaw_hint">Enter value in degree starting 0</string>
+    <string name="set_yaw">Set Yaw</string>
+    <string name="set_pitch_hint">Enter value in degree (0 to -90)</string>
+    <string name="set_pitch">Set Pitch</string>
+    <string name="rotate_anticlockwise">Rotate camera anti-clockwise</string>
+    <string name="rotate_to_initial">Bring to Initial Forward Position</string>
+    <string name="connection_status">Connection Status: </string>
+    <string name="battery_status">Battery Percentage: </string>
+    <string name="not_connected_status"> Not connected to the drone </string>
+    <string name="health_status">Health Status: </string>
+    <string name="no_status">Unknown</string>
+    <string name="no_text">Please enter yaw degree, before clicking rotate button</string>
+    <string name="white_balance_mode">White Balance Mode</string>
+    <string name="exposure_mode">Exposure Mode</string>
+    <string name="exposure_compensation">Exposure Compensation</string>
+    <string name="iso_value">ISO Value</string>
+    <string name="shutter_speed">Shutter Speed</string>
+    <string name="color_mode">Color Mode</string>
+    <string name="capture_picture">Capture Picture</string>
+    <string name="video">Start Video</string>
+    <string name="stop_video">Stop Video</string>
+    <string name="photo_interval">Start Capturing Photos</string>
+    <string name="stop_photo_interval">Stop Capturing Photos</string>
+    <string name="take_off_hint">Enter takeoff altitude in meters (Optional) </string>
+</resources>
