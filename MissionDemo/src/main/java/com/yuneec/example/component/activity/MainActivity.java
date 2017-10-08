@@ -119,51 +119,53 @@ public class MainActivity
 
     @Override
     public void onMapClick(LatLng point) {
-        if (isAdd == true){
+        if (isAdd == true) {
             showSettingsDialog(point);
         }
     }
 
-    private void showSettingsDialog(final LatLng point){
-        LinearLayout wayPointSettings = (LinearLayout)getLayoutInflater().inflate(R.layout.waypointconfig_layout, null);
+    private void showSettingsDialog(final LatLng point) {
+        LinearLayout wayPointSettings = (LinearLayout)getLayoutInflater().inflate(
+                                            R.layout.waypointconfig_layout, null);
 
         final TextView altitudeText = (TextView) wayPointSettings.findViewById(R.id.altitude);
         final TextView pitchDegText = (TextView) wayPointSettings.findViewById(R.id.pitch_deg);
         final TextView yawDegText = (TextView) wayPointSettings.findViewById(R.id.yaw_deg);
 
         new AlertDialog.Builder(this)
-                .setTitle("")
-                .setView(wayPointSettings)
-                .setPositiveButton("Okay",new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int id) {
+        .setTitle("")
+        .setView(wayPointSettings)
+        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
 
-                        String altitudeString = altitudeText.getText().toString();
-                        altitude = Integer.parseInt(altitudeString);
-                        String pitchDegString = pitchDegText.getText().toString();
-                        pitchDeg = Integer.parseInt(pitchDegString);
-                        String yawDegString = yawDegText.getText().toString();
-                        yawDeg = Integer.parseInt(yawDegString);
-                        markWaypoint(point);
-                        MissionItem missionItem = makeMissionItem(point.latitude, point.longitude, altitude, MissionItem.CameraAction.TAKE_PHOTO , pitchDeg, yawDeg );
-                        missionItems.add(missionItem);
-                    }
+                String altitudeString = altitudeText.getText().toString();
+                altitude = Integer.parseInt(altitudeString);
+                String pitchDegString = pitchDegText.getText().toString();
+                pitchDeg = Integer.parseInt(pitchDegString);
+                String yawDegString = yawDegText.getText().toString();
+                yawDeg = Integer.parseInt(yawDegString);
+                markWaypoint(point);
+                MissionItem missionItem = makeMissionItem(point.latitude, point.longitude, altitude,
+                                                          MissionItem.CameraAction.TAKE_PHOTO, pitchDeg, yawDeg);
+                missionItems.add(missionItem);
+            }
 
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
+        })
+        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
 
-                })
-                .create()
-                .show();
+        })
+        .create()
+        .show();
     }
 
-    private void setMissionItem () {
+    private void setMissionItem() {
 
     }
 
-    private void markWaypoint(LatLng point){
+    private void markWaypoint(LatLng point) {
         //Create MarkerOptions object
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(point);
@@ -173,9 +175,9 @@ public class MainActivity
     }
 
     private MissionItem makeMissionItem(double latitudeDeg, double longitudeM,
-                                              float relativeAltitudeM,
-                                              MissionItem.CameraAction cameraAction,
-                                              float gimbalPitchDeg, float gimbalYawDeg) {
+                                        float relativeAltitudeM,
+                                        MissionItem.CameraAction cameraAction,
+                                        float gimbalPitchDeg, float gimbalYawDeg) {
 
         MissionItem newItem = new MissionItem();
         newItem.setPosition(latitudeDeg, longitudeM);
@@ -285,7 +287,7 @@ public class MainActivity
                 missionItems.clear();
                 updateDroneLocation();
                 break;
-            case R.id.add:{
+            case R.id.add: {
                 enableDisableAdd();
                 break;
             }
@@ -294,11 +296,11 @@ public class MainActivity
         }
     }
 
-    private void enableDisableAdd(){
+    private void enableDisableAdd() {
         if (isAdd == false) {
             isAdd = true;
             add.setText("Done");
-        }else{
+        } else {
             isAdd = false;
             add.setText("Add");
         }
