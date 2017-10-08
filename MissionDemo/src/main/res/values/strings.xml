@@ -24,4 +24,13 @@
     <string name="photo_interval">Start Capturing Photos</string>
     <string name="stop_photo_interval">Stop Capturing Photos</string>
     <string name="take_off_hint">Enter takeoff altitude in meters (Optional) </string>
+
+    <!-- Mission fragment strings -->
+    <string name="gimbal_pitch_deg">Gimbal Pitch Degree: </string>
+    <string name="default_pitch_deg">0</string>
+    <string name="gimbal_yaw_deg">Gimbal Yaw Degree: </string>
+    <string name="default_yaw_deg">0</string>
+    <string name="altitude">Altitude: </string>
+    <string name="default_altitude">100</string>
+    <string name="camera_action">Camera Action</string>
 </resources>

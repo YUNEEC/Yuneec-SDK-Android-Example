@@ -6,15 +6,15 @@
 
 package com.yuneec.example.component.activity;
 
-import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTabHost;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -29,11 +29,17 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.yuneec.example.R;
 import com.yuneec.example.component.custom_callback.OnChangeListener;
 import com.yuneec.example.component.listeners.ConnectionListener;
+import com.yuneec.example.component.listeners.MissionListener;
 import com.yuneec.example.component.listeners.TelemetryListener;
 import com.yuneec.example.component.utils.Common;
-import com.yuneec.example.view.CustomButton;
 import com.yuneec.sdk.Camera;
+import com.yuneec.sdk.Mission;
+import com.yuneec.sdk.MissionItem;
 import com.yuneec.sdk.Telemetry;
+
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Simple example demonstrating waypoints and mission,  based on the Yuneec SDK for Android
@@ -50,9 +56,23 @@ public class MainActivity
 
     private Button locate, add, clear;
 
-    private Button config, upload, start, stop;
+    private Button upload, start, pause;
 
     private TextView connectionStatusText;
+
+    private boolean isAdd = false;
+
+    private final Map<Integer, Marker> mapMarkers = new ConcurrentHashMap<Integer, Marker>();
+
+    ArrayList<MissionItem> missionItems = new ArrayList<MissionItem>();
+
+    MissionListener missionListener = null;
+
+    private float altitude = 100.0f;
+
+    private float pitchDeg = 90f;
+
+    private float yawDeg = 0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,18 +87,16 @@ public class MainActivity
         locate = (Button) findViewById(R.id.locate);
         add = (Button) findViewById(R.id.add);
         clear = (Button) findViewById(R.id.clear);
-        config = (Button) findViewById(R.id.config);
         upload = (Button) findViewById(R.id.upload);
         start = (Button) findViewById(R.id.start);
-        stop = (Button) findViewById(R.id.stop);
+        pause = (Button) findViewById(R.id.pause);
         connectionStatusText = (TextView) findViewById(R.id.ConnectStatusTextView);
         locate.setOnClickListener(this);
         add.setOnClickListener(this);
         clear.setOnClickListener(this);
-        config.setOnClickListener(this);
         upload.setOnClickListener(this);
         start.setOnClickListener(this);
-        stop.setOnClickListener(this);
+        pause.setOnClickListener(this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                                          .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -99,11 +117,82 @@ public class MainActivity
 
     }
 
-    private void registerListeners() {
+    @Override
+    public void onMapClick(LatLng point) {
+        if (isAdd == true){
+            showSettingsDialog(point);
+        }
+    }
 
+    private void showSettingsDialog(final LatLng point){
+        LinearLayout wayPointSettings = (LinearLayout)getLayoutInflater().inflate(R.layout.waypointconfig_layout, null);
+
+        final TextView altitudeText = (TextView) wayPointSettings.findViewById(R.id.altitude);
+        final TextView pitchDegText = (TextView) wayPointSettings.findViewById(R.id.pitch_deg);
+        final TextView yawDegText = (TextView) wayPointSettings.findViewById(R.id.yaw_deg);
+
+        new AlertDialog.Builder(this)
+                .setTitle("")
+                .setView(wayPointSettings)
+                .setPositiveButton("Okay",new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        String altitudeString = altitudeText.getText().toString();
+                        altitude = Integer.parseInt(altitudeString);
+                        String pitchDegString = pitchDegText.getText().toString();
+                        pitchDeg = Integer.parseInt(pitchDegString);
+                        String yawDegString = yawDegText.getText().toString();
+                        yawDeg = Integer.parseInt(yawDegString);
+                        markWaypoint(point);
+                        MissionItem missionItem = makeMissionItem(point.latitude, point.longitude, altitude, MissionItem.CameraAction.TAKE_PHOTO , pitchDeg, yawDeg );
+                        missionItems.add(missionItem);
+                    }
+
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+
+                })
+                .create()
+                .show();
+    }
+
+    private void setMissionItem () {
+
+    }
+
+    private void markWaypoint(LatLng point){
+        //Create MarkerOptions object
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(point);
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        Marker marker = googleMap.addMarker(markerOptions);
+        mapMarkers.put(mapMarkers.size(), marker);
+    }
+
+    private MissionItem makeMissionItem(double latitudeDeg, double longitudeM,
+                                              float relativeAltitudeM,
+                                              MissionItem.CameraAction cameraAction,
+                                              float gimbalPitchDeg, float gimbalYawDeg) {
+
+        MissionItem newItem = new MissionItem();
+        newItem.setPosition(latitudeDeg, longitudeM);
+        newItem.setRelativeAltitude(relativeAltitudeM);
+        newItem.setCameraAction(cameraAction);
+        newItem.setGimbalPitchAndYaw(gimbalPitchDeg, gimbalYawDeg);
+        return newItem;
+    }
+
+
+    private void registerListeners() {
+        missionListener = new MissionListener();
         ConnectionListener.registerConnectionListener(this);
         TelemetryListener.registerBatteryListener(this);
         TelemetryListener.registerPositionListener(this);
+        missionListener.registerMissionResultListener(this);
+        missionListener.registerMissionProgressListener(this);
     }
 
     private void unRegisterListeners() {
@@ -111,6 +200,9 @@ public class MainActivity
         ConnectionListener.unRegisterConnectionListener();
         TelemetryListener.unRegisterBatteryListener();
         TelemetryListener.unRegisterPositionListener();
+        missionListener.unRegisterMissionProgresListener();
+        missionListener.unRegisterMissionResultListener();
+        missionListener = null;
     }
 
     @Override
@@ -170,12 +262,45 @@ public class MainActivity
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.locate: {
+            case R.id.locate:
                 updateDroneLocation();
+                break;
+            case R.id.upload:
+                Mission.sendMissionAsync(missionItems, missionListener.getMissionResultListener());
+                Mission.subscribeProgress(missionListener.getMissionProgressListener());
+                break;
+            case R.id.start:
+                Mission.startMissionAsync(missionListener.getMissionResultListener());
+                break;
+            case R.id.pause:
+                Mission.pauseMissionAsync(missionListener.getMissionResultListener());
+                break;
+            case R.id.clear:
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        googleMap.clear();
+                    }
+                });
+                missionItems.clear();
+                updateDroneLocation();
+                break;
+            case R.id.add:{
+                enableDisableAdd();
                 break;
             }
             default:
                 break;
+        }
+    }
+
+    private void enableDisableAdd(){
+        if (isAdd == false) {
+            isAdd = true;
+            add.setText("Done");
+        }else{
+            isAdd = false;
+            add.setText("Add");
         }
     }
 
@@ -203,11 +328,6 @@ public class MainActivity
     public static boolean checkGpsCoordinates(double latitude, double longitude) {
         return (latitude > -90 && latitude < 90 && longitude > -180 && longitude < 180) && (latitude != 0f
                 && longitude != 0f);
-    }
-
-    @Override
-    public void onMapClick(LatLng latLng) {
-
     }
 
     @Override

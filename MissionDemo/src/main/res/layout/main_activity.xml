@@ -59,13 +59,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <com.yuneec.example.view.CustomButton
-            android:id="@+id/config"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Config"
-            android:layout_weight="0.9"
-            style="@style/button"/>
-        <com.yuneec.example.view.CustomButton
             android:id="@+id/upload"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -80,10 +73,10 @@
             android:layout_weight="1"
             style="@style/button"/>
         <com.yuneec.example.view.CustomButton
-            android:id="@+id/stop"
+            android:id="@+id/pause"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Stop"
+            android:text="Pause"
             android:layout_weight="1"
             style="@style/button"/>
     </LinearLayout>
