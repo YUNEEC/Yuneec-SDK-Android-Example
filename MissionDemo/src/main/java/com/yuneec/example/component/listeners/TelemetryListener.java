@@ -19,6 +19,8 @@ public class TelemetryListener {
 
     private static Telemetry.PositionListener positionListener = null;
 
+    private static Telemetry.GPSInfoListener gpsInfoListener = null;
+
     private static final String TAG = TelemetryListener.class.getCanonicalName();
 
     private static OnChangeListener onChangeListener;
@@ -101,7 +103,7 @@ public class TelemetryListener {
 
                 @Override
                 public void onPositionCallback(Telemetry.Position position) {
-
+                    Log.d(TAG, position.latitudeDeg + " " + position.longitudeDeg);
                 }
             };
         }
@@ -112,6 +114,28 @@ public class TelemetryListener {
 
         if (positionListener != null) {
             positionListener = null;
+        }
+    }
+
+    public static void registerGPSListener(final Context context) {
+
+        onChangeListener = (OnChangeListener) context;
+        if (gpsInfoListener == null) {
+            Log.d(TAG, "Initialized battery result listener");
+            gpsInfoListener = new Telemetry.GPSInfoListener() {
+                @Override
+                public void onGPSInfoCallback(Telemetry.GPSInfo gpsInfo) {
+                    Log.d(TAG, "GPS info - num of satellites" + gpsInfo.numSatellites );
+                }
+            };
+        }
+        Telemetry.setGPSInfoListener(gpsInfoListener);
+    }
+
+    public static void unRegisterGPSListener() {
+
+        if (gpsInfoListener != null) {
+            gpsInfoListener = null;
         }
     }
 }

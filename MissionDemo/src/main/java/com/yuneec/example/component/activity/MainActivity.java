@@ -193,6 +193,7 @@ public class MainActivity
         ConnectionListener.registerConnectionListener(this);
         TelemetryListener.registerBatteryListener(this);
         TelemetryListener.registerPositionListener(this);
+        TelemetryListener.registerGPSListener(this);
         missionListener.registerMissionResultListener(this);
         missionListener.registerMissionProgressListener(this);
     }
@@ -202,6 +203,7 @@ public class MainActivity
         ConnectionListener.unRegisterConnectionListener();
         TelemetryListener.unRegisterBatteryListener();
         TelemetryListener.unRegisterPositionListener();
+        TelemetryListener.unRegisterGPSListener();
         missionListener.unRegisterMissionProgresListener();
         missionListener.unRegisterMissionResultListener();
         missionListener = null;
