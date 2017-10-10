@@ -58,7 +58,7 @@ public class MissionListener {
         }
     }
 
-    public void unRegisterMissionProgresListener() {
+    public void unRegisterMissionProgressListener() {
 
         if (missionProgressListener != null) {
             missionProgressListener = null;

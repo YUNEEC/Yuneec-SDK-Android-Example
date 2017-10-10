@@ -204,7 +204,7 @@ public class MainActivity
         TelemetryListener.unRegisterBatteryListener();
         TelemetryListener.unRegisterPositionListener();
         TelemetryListener.unRegisterGPSListener();
-        missionListener.unRegisterMissionProgresListener();
+        missionListener.unRegisterMissionProgressListener();
         missionListener.unRegisterMissionResultListener();
         missionListener = null;
     }

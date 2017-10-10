@@ -98,12 +98,14 @@ public class TelemetryListener {
 
         onChangeListener = (OnChangeListener) context;
         if (positionListener == null) {
-            Log.d(TAG, "Initialized battery result listener");
+            Log.d(TAG, "Initialized position listener");
             positionListener = new Telemetry.PositionListener() {
 
                 @Override
                 public void onPositionCallback(Telemetry.Position position) {
                     Log.d(TAG, position.latitudeDeg + " " + position.longitudeDeg);
+                    Common.droneLat = position.latitudeDeg;
+                    Common.droneLong = position.longitudeDeg;
                 }
             };
         }
@@ -121,7 +123,7 @@ public class TelemetryListener {
 
         onChangeListener = (OnChangeListener) context;
         if (gpsInfoListener == null) {
-            Log.d(TAG, "Initialized battery result listener");
+            Log.d(TAG, "Initialized gps info listener");
             gpsInfoListener = new Telemetry.GPSInfoListener() {
                 @Override
                 public void onGPSInfoCallback(Telemetry.GPSInfo gpsInfo) {
