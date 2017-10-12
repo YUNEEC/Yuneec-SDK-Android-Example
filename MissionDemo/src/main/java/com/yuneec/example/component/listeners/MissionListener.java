@@ -32,6 +32,7 @@ public class MissionListener {
                 @Override
                 public void onResultCallback(Mission.Result result) {
                     Log.d(TAG, result.resultStr);
+                    onChangeListener.publishMissionStatus(result.resultStr);
                 }
             };
         }
@@ -53,6 +54,7 @@ public class MissionListener {
                 @Override
                 public void onProgressUpdate(int current, int total) {
                     Log.d(TAG, "Current mission item number is " + current);
+                    onChangeListener.publishMissionStatus("Current mission item number is " + current);
                 }
             };
         }

@@ -104,8 +104,7 @@ public class TelemetryListener {
                 @Override
                 public void onPositionCallback(Telemetry.Position position) {
                     Log.d(TAG, position.latitudeDeg + " " + position.longitudeDeg);
-                    Common.droneLat = position.latitudeDeg;
-                    Common.droneLong = position.longitudeDeg;
+                    onChangeListener.publishPositionStatus(position);
                 }
             };
         }

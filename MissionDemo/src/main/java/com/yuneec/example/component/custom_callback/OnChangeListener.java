@@ -16,4 +16,6 @@ public interface OnChangeListener {
     void publishHealthChangeStatus(String healthStatus);
 
     void publishPositionStatus(Telemetry.Position position);
+
+    void publishMissionStatus(String missionStatus);
 }

@@ -6,6 +6,7 @@
 
 package com.yuneec.example.component.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
@@ -74,10 +75,13 @@ public class MainActivity
 
     private float yawDeg = 0f;
 
+    Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        context = this;
         setContentView(R.layout.main_activity);
         MultiDex.install(this);
         initUI();
@@ -264,6 +268,17 @@ public class MainActivity
     }
 
     @Override
+    public void publishMissionStatus(final String missionStatus) {
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                Common.makeToast(context, missionStatus);
+            }
+        });
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.locate:
@@ -310,7 +325,7 @@ public class MainActivity
 
     public void cameraUpdate() {
         LatLng pos = new LatLng(Common.droneLat, Common.droneLong);
-        float zoomlevel = (float) 18.0;
+        float zoomlevel = (float) 20.0;
         CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(pos, zoomlevel);
         googleMap.moveCamera(cu);
     }
@@ -341,7 +356,6 @@ public class MainActivity
             setUpMap();
         }
         LatLng US = new LatLng(40.71, -74.00);
-        googleMap.addMarker(new MarkerOptions().position(US));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(US));
     }
 
