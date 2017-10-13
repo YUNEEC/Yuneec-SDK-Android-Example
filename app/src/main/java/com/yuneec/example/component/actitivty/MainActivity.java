@@ -8,6 +8,7 @@ package com.yuneec.example.component.actitivty;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.content.ContextCompat;
@@ -23,9 +24,11 @@ import com.yuneec.example.component.fragment.CameraSettingsFragment;
 import com.yuneec.example.component.fragment.ConnectionFragment;
 import com.yuneec.example.component.fragment.GimbalFragment;
 import com.yuneec.example.component.fragment.MediaDownloadFragment;
+import com.yuneec.example.component.fragment.TelemetryFragment;
 import com.yuneec.example.component.listeners.ConnectionListener;
 import com.yuneec.example.component.utils.Common;
 import com.yuneec.sdk.Camera;
+import com.yuneec.sdk.Connection;
 
 /**
  * Simple example based on the Yuneec SDK for Android
@@ -46,9 +49,10 @@ public class MainActivity
 
     private CameraSettingsFragment cameraSettingsFragment = null;
 
+    private Handler handler = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         context = this;
@@ -62,6 +66,8 @@ public class MainActivity
                         .setIndicator("Actions"), ActionFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("gimbal")
                         .setIndicator("Gimbal"), GimbalFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("telemetry")
+                        .setIndicator("Telemetry"), TelemetryFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("media-download")
                         .setIndicator("Media Download"), MediaDownloadFragment.class, null);
 
@@ -221,28 +227,56 @@ public class MainActivity
             @Override
             public void run() {
                 if (!result.equals("Success")) {
-                    Common.makeToast(context, "Please make sure SD card is inserted and try again");
+                    Common.makeToast(context, "Error! Please make sure SD card is inserted and try again");
                 } else {
+                    if (handler == null) {
+                        handler = new Handler();
+                    }
                     if (cameraSettingsFragment == null) {
                         cameraSettingsFragment = (CameraSettingsFragment)
                                                  getSupportFragmentManager().findFragmentByTag("camera_settings");
                     }
                     cameraSettingsFragment.setCameraMode(mode);
                     if (mode.equals(Camera.Mode.PHOTO) && !cameraSettingsFragment.getIsPhotoInterval()) {
-                        Camera.asyncTakePhoto();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Camera.asyncTakePhoto();
+                            }
+                        }, 1000);
                     } else if (mode.equals(Camera.Mode.VIDEO)) {
                         mediaCapture = (Button) findViewById(R.id.video);
                         if (mediaCapture.getText().equals(getString(R.string.video))) {
-                            Camera.asyncStartVideo();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Camera.asyncStartVideo();
+                                }
+                            }, 1000);
                         } else {
-                            Camera.asyncStopVideo();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Camera.asyncStopVideo();
+                                }
+                            }, 1000);
                         }
                     } else {
                         mediaCapture = (Button) findViewById(R.id.photo_interval);
                         if (mediaCapture.getText().equals(getString(R.string.photo_interval))) {
-                            Camera.asyncStartPhotoInterval(Common.defaultPhotoIntervalInSeconds);
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Camera.asyncStartPhotoInterval(Common.defaultPhotoIntervalInSeconds);
+                                }
+                            }, 1000);
                         } else {
-                            Camera.asyncStopPhotoInterval();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Camera.asyncStopPhotoInterval();
+                                }
+                            }, 1000);
                         }
                     }
                 }
