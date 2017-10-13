@@ -67,7 +67,7 @@ public class MainActivity
         mTabHost.addTab(mTabHost.newTabSpec("gimbal")
                         .setIndicator("Gimbal"), GimbalFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("telemetry")
-                .setIndicator("Telemetry"), TelemetryFragment.class, null);
+                        .setIndicator("Telemetry"), TelemetryFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("media-download")
                         .setIndicator("Media Download"), MediaDownloadFragment.class, null);
 
@@ -229,7 +229,7 @@ public class MainActivity
                 if (!result.equals("Success")) {
                     Common.makeToast(context, "Error! Please make sure SD card is inserted and try again");
                 } else {
-                    if(handler == null) {
+                    if (handler == null) {
                         handler = new Handler();
                     }
                     if (cameraSettingsFragment == null) {
