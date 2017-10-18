@@ -23,6 +23,7 @@ import com.yuneec.example.component.fragment.CameraSettingsFragment;
 import com.yuneec.example.component.fragment.ConnectionFragment;
 import com.yuneec.example.component.fragment.GimbalFragment;
 import com.yuneec.example.component.fragment.MediaDownloadFragment;
+import com.yuneec.example.component.fragment.TelemetryFragment;
 import com.yuneec.example.component.listeners.ConnectionListener;
 import com.yuneec.example.component.utils.Common;
 import com.yuneec.sdk.Camera;
@@ -64,6 +65,8 @@ public class MainActivity
                         .setIndicator("Gimbal"), GimbalFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("media-download")
                         .setIndicator("Media Download"), MediaDownloadFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("telemetry")
+                        .setIndicator("Telemetry"), TelemetryFragment.class, null);
 
         for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
             View v = mTabHost.getTabWidget().getChildAt(i);
