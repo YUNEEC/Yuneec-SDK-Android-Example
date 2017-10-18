@@ -355,7 +355,7 @@ public class TelemetryFragment extends Fragment {
                                                                               "deg"));
         list.add(TelemetryIndices.IS_ARMED, new TelemetryEntry("Vehicle Armed", ""));
         list.add(TelemetryIndices.IN_AIR, new TelemetryEntry("In Air", ""));
-        list.add(TelemetryIndices.RC_STATUS, new TelemetryEntry("RC Status", "%"));
+        list.add(TelemetryIndices.RC_STATUS, new TelemetryEntry("RC Signal Strength", "%"));
         return list;
     }
 
