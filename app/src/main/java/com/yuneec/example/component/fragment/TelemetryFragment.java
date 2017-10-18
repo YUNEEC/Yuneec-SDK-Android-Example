@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.yuneec.example.R;
+import com.yuneec.example.component.listeners.TelemetryListener;
 import com.yuneec.sdk.Connection;
 import com.yuneec.sdk.Telemetry;
 
@@ -39,6 +40,12 @@ public class TelemetryFragment extends Fragment {
         public final static int VELOCITY_UP = 9;
         public final static int FLIGHT_MODE = 10;
         public final static int HEALTH = 11;
+        public final static int GPS_NO_OF_SATELLITES = 12;
+        public final static int HOME_POSITION_LATITUDE = 13;
+        public final static int HOME_POSITION_LONGITUDE = 14;
+        public final static int IS_ARMED = 15;
+        public final static int IN_AIR = 16;
+        public final static int RC_STATUS = 17;
     }
 
     ;
@@ -227,6 +234,80 @@ public class TelemetryFragment extends Fragment {
         }
     }
 
+    public class GPSInfoListener implements Telemetry.GPSInfoListener {
+
+        @Override
+        public void onGPSInfoCallback(Telemetry.GPSInfo gpsInfo) {
+            adapter.setItemValue(TelemetryIndices.GPS_NO_OF_SATELLITES, String.valueOf(gpsInfo.numSatellites));
+
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        }
+    }
+
+    public class HomePositionListener implements Telemetry.HomePositionListener {
+
+        @Override
+        public void onHomePositionCallback(Telemetry.Position position) {
+            adapter.setItemValue(TelemetryIndices.HOME_POSITION_LATITUDE, String.valueOf(position.latitudeDeg));
+            adapter.setItemValue(TelemetryIndices.HOME_POSITION_LONGITUDE,
+                                 String.valueOf(position.longitudeDeg));
+
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        }
+    }
+
+    public class ArmedListener implements Telemetry.ArmedListener {
+
+        @Override
+        public void onIsArmedCallback(boolean b) {
+            adapter.setItemValue(TelemetryIndices.IS_ARMED, String.valueOf(b));
+
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        }
+    }
+
+    public class InAirListener implements Telemetry.InAirListener {
+
+        @Override
+        public void onIsInAirCallback(boolean b) {
+            adapter.setItemValue(TelemetryIndices.IN_AIR, String.valueOf(b));
+
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        }
+    }
+
+    public class RCStatusListener implements Telemetry.RCStatusListener {
+
+        @Override
+        public void onRcStatusCallback(Telemetry.RCStatus rcStatus) {
+            adapter.setItemValue(TelemetryIndices.RC_STATUS,  String.format("%d",
+                                                                            (int)(100 * rcStatus.signalStrengthPercent)));
+
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        }
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -267,6 +348,14 @@ public class TelemetryFragment extends Fragment {
         list.add(TelemetryIndices.VELOCITY_UP, new TelemetryEntry("Velocity Up", "m/s"));
         list.add(TelemetryIndices.FLIGHT_MODE, new TelemetryEntry("Flight mode", ""));
         list.add(TelemetryIndices.HEALTH, new TelemetryEntry("Health", ""));
+        list.add(TelemetryIndices.GPS_NO_OF_SATELLITES, new TelemetryEntry("GPS Satellites", ""));
+        list.add(TelemetryIndices.HOME_POSITION_LATITUDE, new TelemetryEntry("Home Position Latitude",
+                                                                             "deg"));
+        list.add(TelemetryIndices.HOME_POSITION_LONGITUDE, new TelemetryEntry("Home Position Longitude",
+                                                                              "deg"));
+        list.add(TelemetryIndices.IS_ARMED, new TelemetryEntry("Vehicle Armed", ""));
+        list.add(TelemetryIndices.IN_AIR, new TelemetryEntry("In Air", ""));
+        list.add(TelemetryIndices.RC_STATUS, new TelemetryEntry("RC Status", "%"));
         return list;
     }
 
@@ -277,6 +366,11 @@ public class TelemetryFragment extends Fragment {
         Telemetry.setBatteryListener(new BatteryListener());
         Telemetry.setFlightModeListener(new FlightModeListener());
         Telemetry.setHealthListener(new HealthListener());
+        Telemetry.setGPSInfoListener(new GPSInfoListener());
+        Telemetry.setHomePostionListener(new HomePositionListener());
+        Telemetry.setArmedListener(new ArmedListener());
+        Telemetry.setInAirListener(new InAirListener());
+        Telemetry.setRCStatusListener(new RCStatusListener());
     }
 
     class YCListener implements Connection.Listener {
