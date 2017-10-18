@@ -10,6 +10,7 @@ package com.yuneec.example.component.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ import java.util.ArrayList;
 
 
 public class TelemetryFragment extends Fragment {
+
+    private static final String TAG = TelemetryFragment.class.getCanonicalName();
 
     class TelemetryIndices {
         public final static int LATITUDE = 0;
@@ -44,7 +47,7 @@ public class TelemetryFragment extends Fragment {
         public final static int HOME_POSITION_LATITUDE = 13;
         public final static int HOME_POSITION_LONGITUDE = 14;
         public final static int IS_ARMED = 15;
-        public final static int IN_AIR = 16;
+        public final static int VEHICLE_POSITION = 16;
         public final static int RC_STATUS = 17;
     }
 
@@ -282,7 +285,15 @@ public class TelemetryFragment extends Fragment {
 
         @Override
         public void onIsInAirCallback(boolean b) {
-            adapter.setItemValue(TelemetryIndices.IN_AIR, String.valueOf(b));
+            if(b == true) {
+                adapter.setItemValue(TelemetryIndices.VEHICLE_POSITION, "In Air");
+            }
+            else if(b == false) {
+                adapter.setItemValue(TelemetryIndices.VEHICLE_POSITION, "On Ground");
+            }
+            else {
+                Log.d(TAG, "Vehicle position" + b);
+            }
 
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
@@ -354,7 +365,7 @@ public class TelemetryFragment extends Fragment {
         list.add(TelemetryIndices.HOME_POSITION_LONGITUDE, new TelemetryEntry("Home Position Longitude",
                                                                               "deg"));
         list.add(TelemetryIndices.IS_ARMED, new TelemetryEntry("Vehicle Armed", ""));
-        list.add(TelemetryIndices.IN_AIR, new TelemetryEntry("In Air", ""));
+        list.add(TelemetryIndices.VEHICLE_POSITION, new TelemetryEntry("Vehicle Position", ""));
         list.add(TelemetryIndices.RC_STATUS, new TelemetryEntry("RC Signal Strength", "%"));
         return list;
     }
