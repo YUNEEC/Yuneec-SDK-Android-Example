@@ -285,13 +285,11 @@ public class TelemetryFragment extends Fragment {
 
         @Override
         public void onIsInAirCallback(boolean b) {
-            if(b == true) {
+            if (b == true) {
                 adapter.setItemValue(TelemetryIndices.VEHICLE_POSITION, "In Air");
-            }
-            else if(b == false) {
+            } else if (b == false) {
                 adapter.setItemValue(TelemetryIndices.VEHICLE_POSITION, "On Ground");
-            }
-            else {
+            } else {
                 Log.d(TAG, "Vehicle position" + b);
             }
 
