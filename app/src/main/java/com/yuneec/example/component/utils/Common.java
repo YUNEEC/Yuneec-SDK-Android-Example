@@ -34,12 +34,13 @@ public class Common {
 
     public static int defaultPhotoIntervalInSeconds = 4;
 
-    public static void makeToast(Context context, String message) {
+    public static Toast makeToast(Context context, String message) {
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
         TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
         v.setBackgroundColor(ContextCompat.getColor(context, R.color.greyDark));
         v.setTextColor(ContextCompat.getColor(context, R.color.white));
         toast.show();
+        return toast;
     }
 
     public static float currentYaw = 0.0f;
