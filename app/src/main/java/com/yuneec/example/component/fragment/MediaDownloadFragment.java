@@ -270,9 +270,12 @@ public class MediaDownloadFragment extends Fragment implements
     }
 
     private void updateToast(String text) {
-        if (toast != null) {
-            toast.cancel();
+        if (toast == null) {
+            toast = Common.makeToast(getActivity(), text);
+        } else {
+            toast.setText(text);
+            toast.show();
         }
-        Common.makeToast(getActivity(), text);
+
     }
 }
