@@ -306,7 +306,7 @@ public class TelemetryFragment extends Fragment {
         @Override
         public void onRCStatusCallback(Telemetry.RCStatus rcStatus) {
             adapter.setItemValue(TelemetryIndices.RC_STATUS,  String.format("%d",
-                                                                            (int)(100 * rcStatus.signalStrengthPercent)));
+                                                                            (int)(rcStatus.signalStrengthPercent)));
 
             getActivity().runOnUiThread(new Runnable() {
                 public void run() {
