@@ -224,22 +224,19 @@ public class CameraSettingsFragment extends DialogFragment implements View.OnCli
         List<Camera.WhiteBalance> wbList =
             new ArrayList<>(EnumSet.allOf(Camera.WhiteBalance.class));
         ArrayAdapter<Camera.WhiteBalance> wbAdapter = new ArrayAdapter<>(getActivity(),
-                                                                         R.layout.custom_spinner_item, wbList);
-        wbAdapter.setDropDownViewResource(R.layout.spinner_item);
+                                                                         R.layout.spinner_item, wbList);
         wb_spinner.setAdapter(wbAdapter);
 
         List<Camera.ColorMode> colorModeList =
             new ArrayList<>(EnumSet.allOf(Camera.ColorMode.class));
         ArrayAdapter<Camera.ColorMode> colorModeAdapter = new ArrayAdapter<>(getActivity(),
-                                                                             R.layout.custom_spinner_item, colorModeList);
-        colorModeAdapter.setDropDownViewResource(R.layout.spinner_item);
+                                                                             R.layout.spinner_item, colorModeList);
         color_mode_spinner.setAdapter(colorModeAdapter);
 
         List<Camera.ExposureMode> exposureModeList =
             new ArrayList<>(EnumSet.allOf(Camera.ExposureMode.class));
         ArrayAdapter<Camera.ExposureMode> exposureModeAdapter = new ArrayAdapter<>(getActivity(),
-                                                                                   R.layout.custom_spinner_item, exposureModeList);
-        exposureModeAdapter.setDropDownViewResource(R.layout.spinner_item);
+                                                                                   R.layout.spinner_item, exposureModeList);
         exposure_spinner.setAdapter(exposureModeAdapter);
 
         List<Float> exposureComList = new ArrayList<>();
@@ -254,8 +251,7 @@ public class CameraSettingsFragment extends DialogFragment implements View.OnCli
         exposureComList.add(2.0f);
 
         ArrayAdapter<Float> exposureComAdapter = new ArrayAdapter<>(getActivity(),
-                                                                    R.layout.custom_spinner_item, exposureComList);
-        exposureModeAdapter.setDropDownViewResource(R.layout.spinner_item);
+                                                                    R.layout.spinner_item, exposureComList);
         ex_com_spinner.setAdapter(exposureComAdapter);
 
         List<Integer> isoValLIst = new ArrayList<>();
@@ -271,8 +267,7 @@ public class CameraSettingsFragment extends DialogFragment implements View.OnCli
         isoValLIst.add(3200);
 
         ArrayAdapter<Integer> isoAdapter = new ArrayAdapter<>(getActivity(),
-                                                              R.layout.custom_spinner_item, isoValLIst);
-        isoAdapter.setDropDownViewResource(R.layout.spinner_item);
+                                                              R.layout.spinner_item, isoValLIst);
         iso_spinner.setAdapter(isoAdapter);
 
 
@@ -294,46 +289,38 @@ public class CameraSettingsFragment extends DialogFragment implements View.OnCli
 
 
         ArrayAdapter<String> shutterSpeedAdapter = new ArrayAdapter<>(getActivity(),
-                                                                      R.layout.custom_spinner_item, shutterSpeedList);
-        shutterSpeedAdapter.setDropDownViewResource(R.layout.spinner_item);
+                                                                      R.layout.spinner_item, shutterSpeedList);
         shutter_speed_spinner.setAdapter(shutterSpeedAdapter);
 
         List<Camera.PhotoQuality> photoQualityList =
             new ArrayList<>(EnumSet.allOf(Camera.PhotoQuality.class));
         ArrayAdapter<Camera.PhotoQuality> photoQualityArrayAdapter = new ArrayAdapter<>(getActivity(),
-                                                                                        R.layout.custom_spinner_item, photoQualityList);
-        photoQualityArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+                                                                                        R.layout.spinner_item, photoQualityList);
         photo_quality_spinner.setAdapter(photoQualityArrayAdapter);
 
         List<Camera.PhotoFormat> photoFormatList =
             new ArrayList<>(EnumSet.allOf(Camera.PhotoFormat.class));
         ArrayAdapter<Camera.PhotoFormat> photoFormatArrayAdapter = new ArrayAdapter<>(getActivity(),
-                                                                                      R.layout.custom_spinner_item, photoFormatList);
-        photoFormatArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+                                                                                      R.layout.spinner_item, photoFormatList);
         photo_format_spinner.setAdapter(photoFormatArrayAdapter);
 
         List<Camera.VideoFormat> videoFormatList =
             new ArrayList<>(EnumSet.allOf(Camera.VideoFormat.class));
         ArrayAdapter<Camera.VideoFormat> videoFormatArrayAdapter = new ArrayAdapter<>(getActivity(),
-                                                                                      R.layout.custom_spinner_item, videoFormatList);
-        videoFormatArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+                                                                                      R.layout.spinner_item, videoFormatList);
         video_format_spinner.setAdapter(videoFormatArrayAdapter);
 
         List<Camera.VideoResolution> videoResolutionList =
             new ArrayList<>(EnumSet.allOf(Camera.VideoResolution.class));
         ArrayAdapter<Camera.VideoResolution> videoResolutionArrayAdapter = new ArrayAdapter<>(getActivity(),
-                R.layout.support_simple_spinner_dropdown_item, videoResolutionList);
-        videoResolutionArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+                R.layout.spinner_item, videoResolutionList);
         video_resolution_spinner.setAdapter(videoResolutionArrayAdapter);
 
         List<Camera.Metering.Mode> meteringList =
             new ArrayList<>(EnumSet.allOf(Camera.Metering.Mode.class));
         ArrayAdapter<Camera.Metering.Mode> meteringArrayAdapter = new ArrayAdapter<>(getActivity(),
-                                                                                     R.layout.custom_spinner_item, meteringList);
-        meteringArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+                                                                                     R.layout.spinner_item, meteringList);
         metering_spinner.setAdapter(meteringArrayAdapter);
-
-
     }
 
 
