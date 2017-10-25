@@ -8,6 +8,7 @@
 package com.yuneec.example.component.fragment;
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -25,13 +27,16 @@ import com.yuneec.example.component.listeners.CameraModeListener;
 import com.yuneec.example.component.listeners.CameraSettingsListener;
 import com.yuneec.example.component.utils.Common;
 import com.yuneec.example.component.utils.Media;
+import com.yuneec.example.view.CustomButton;
+import com.yuneec.example.view.CustomEditTextView;
+import com.yuneec.example.view.CustomTextView;
 import com.yuneec.sdk.Camera;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-public class CameraSettingsFragment extends Fragment implements View.OnClickListener,
+public class CameraSettingsFragment extends DialogFragment implements View.OnClickListener,
     AdapterView.OnItemSelectedListener {
 
     View rootView;
@@ -56,39 +61,49 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
 
     Camera.ShutterSpeedS shutterSpeedS = new Camera.ShutterSpeedS();
 
-    Button capturePicture;
+    Spinner photo_format_spinner;
 
-    Button video;
+    Spinner photo_quality_spinner;
 
-    Button photoInterval;
+    Spinner video_format_spinner;
 
-    private boolean isPhotoInterval = false;
+    Spinner video_resolution_spinner;
 
-    private Camera.Mode cameraMode = Camera.Mode.UNKNOWN;
+    Spinner metering_spinner;
+
+    CustomTextView photo_format_text;
+
+    CustomTextView photo_quality_text;
+
+    CustomTextView video_format_text;
+
+    CustomTextView video_resolution_text;
+
+    CustomTextView metering_text;
+
+    CustomTextView resolution_text;
+
+    CustomButton photo_format;
+
+    CustomButton photo_quality;
+
+    CustomButton video_format;
+
+    CustomButton video_resolution;
+
+    CustomButton metering;
+
+    CustomButton resolution;
 
     private static final String TAG = CameraSettingsListener.class.getCanonicalName();
 
-    public Camera.Mode getCameraMode() {
-        return cameraMode;
-    }
-
-    public void setCameraMode(Camera.Mode cameraMode) {
-        this.cameraMode = cameraMode;
-    }
-
-    public boolean getIsPhotoInterval() {
-        return isPhotoInterval;
-    }
-
-    public void setIsPhotoInterval(boolean photoInterval) {
-        isPhotoInterval = photoInterval;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        getDialog().setTitle("Camera Settings");
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         initViews(inflater, container, savedInstanceState);
         return rootView;
@@ -96,9 +111,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onStart() {
-
         super.onStart();
-        CameraModeListener.registerCameraModeListener(getActivity());
         CameraSettingsListener.registerSettingsListener();
         addOnClickListeners();
     }
@@ -107,7 +120,6 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
     public void onStop() {
 
         super.onStop();
-        CameraModeListener.unRegisterCameraModeListener();
         CameraSettingsListener.unRegisterCameraSettingsListeners();
     }
 
@@ -150,9 +162,25 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                 shutter_speed_spinner.setSelection(savedInstanceState.getInt("shutterSpeedSpinner"));
             }
         }
-        capturePicture = (Button) rootView.findViewById(R.id.capturePicture);
-        video = (Button) rootView.findViewById(R.id.video);
-        photoInterval = (Button) rootView.findViewById(R.id.photo_interval);
+        photo_format_spinner = (Spinner) rootView.findViewById(R.id.photo_format_dropdown);
+        photo_quality_spinner = (Spinner) rootView.findViewById(R.id.photo_quality_dropdown);
+        video_format_spinner = (Spinner) rootView.findViewById(R.id.video_format_dropdown);
+        video_resolution_spinner = (Spinner) rootView.findViewById(R.id.video_resolution_dropdown);
+        metering_spinner = (Spinner) rootView.findViewById(R.id.metering_dropdown);
+
+        photo_format_text = (CustomTextView) rootView.findViewById(R.id.photo_format_text);
+        photo_quality_text = (CustomTextView) rootView.findViewById(R.id.photo_quality_text);
+        video_format_text = (CustomTextView) rootView.findViewById(R.id.video_format_text);
+        video_resolution_text = (CustomTextView) rootView.findViewById(R.id.video_resolution_text);
+        resolution_text = (CustomTextView) rootView.findViewById(R.id.resolution_text);
+        metering_text = (CustomTextView) rootView.findViewById(R.id.metering_text);
+
+        photo_format = (CustomButton) rootView.findViewById(R.id.get_photo_format);
+        photo_quality = (CustomButton) rootView.findViewById(R.id.get_photo_quality);
+        video_format = (CustomButton) rootView.findViewById(R.id.get_video_format);
+        video_resolution = (CustomButton) rootView.findViewById(R.id.get_video_resolution);
+        resolution = (CustomButton) rootView.findViewById(R.id.get_resolution);
+        metering = (CustomButton) rootView.findViewById(R.id.get_metering);
     }
 
     private void addOnClickListeners() {
@@ -165,9 +193,17 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
         ex_com_spinner.setOnItemSelectedListener(this);
         shutter_speed_spinner.setOnItemSelectedListener(this);
         iso_spinner.setOnItemSelectedListener(this);
-        capturePicture.setOnClickListener(this);
-        video.setOnClickListener(this);
-        photoInterval.setOnClickListener(this);
+        photo_format_spinner.setOnItemSelectedListener(this);
+        photo_quality_spinner.setOnItemSelectedListener(this);
+        video_format_spinner.setOnItemSelectedListener(this);
+        video_resolution_spinner.setOnItemSelectedListener(this);
+        metering_spinner.setOnItemSelectedListener(this);
+        photo_format.setOnClickListener(this);
+        photo_quality.setOnClickListener(this);
+        video_format.setOnClickListener(this);
+        video_resolution.setOnClickListener(this);
+        resolution.setOnClickListener(this);
+        metering.setOnClickListener(this);
     }
 
     private void setSelection() {
@@ -177,27 +213,32 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
         ex_com_spinner.setSelection(0, false);
         shutter_speed_spinner.setSelection(0, false);
         iso_spinner.setSelection(0, false);
+        photo_format_spinner.setSelection(0, false);
+        photo_quality_spinner.setSelection(0, false);
+        video_format_spinner.setSelection(0, false);
+        video_resolution_spinner.setSelection(0, false);
+        metering_spinner.setSelection(0, false);
     }
 
     public void addItemsOnSpinner() {
         List<Camera.WhiteBalance> wbList =
             new ArrayList<>(EnumSet.allOf(Camera.WhiteBalance.class));
         ArrayAdapter<Camera.WhiteBalance> wbAdapter = new ArrayAdapter<>(getActivity(),
-                                                                         R.layout.support_simple_spinner_dropdown_item, wbList);
+                                                                         R.layout.custom_spinner_item, wbList);
         wbAdapter.setDropDownViewResource(R.layout.spinner_item);
         wb_spinner.setAdapter(wbAdapter);
 
         List<Camera.ColorMode> colorModeList =
             new ArrayList<>(EnumSet.allOf(Camera.ColorMode.class));
         ArrayAdapter<Camera.ColorMode> colorModeAdapter = new ArrayAdapter<>(getActivity(),
-                                                                             R.layout.support_simple_spinner_dropdown_item, colorModeList);
+                                                                             R.layout.custom_spinner_item, colorModeList);
         colorModeAdapter.setDropDownViewResource(R.layout.spinner_item);
         color_mode_spinner.setAdapter(colorModeAdapter);
 
         List<Camera.ExposureMode> exposureModeList =
             new ArrayList<>(EnumSet.allOf(Camera.ExposureMode.class));
         ArrayAdapter<Camera.ExposureMode> exposureModeAdapter = new ArrayAdapter<>(getActivity(),
-                                                                                   R.layout.support_simple_spinner_dropdown_item, exposureModeList);
+                                                                                   R.layout.custom_spinner_item, exposureModeList);
         exposureModeAdapter.setDropDownViewResource(R.layout.spinner_item);
         exposure_spinner.setAdapter(exposureModeAdapter);
 
@@ -213,7 +254,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
         exposureComList.add(2.0f);
 
         ArrayAdapter<Float> exposureComAdapter = new ArrayAdapter<>(getActivity(),
-                                                                    R.layout.support_simple_spinner_dropdown_item, exposureComList);
+                                                                    R.layout.custom_spinner_item, exposureComList);
         exposureModeAdapter.setDropDownViewResource(R.layout.spinner_item);
         ex_com_spinner.setAdapter(exposureComAdapter);
 
@@ -230,7 +271,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
         isoValLIst.add(3200);
 
         ArrayAdapter<Integer> isoAdapter = new ArrayAdapter<>(getActivity(),
-                                                              R.layout.support_simple_spinner_dropdown_item, isoValLIst);
+                                                              R.layout.custom_spinner_item, isoValLIst);
         isoAdapter.setDropDownViewResource(R.layout.spinner_item);
         iso_spinner.setAdapter(isoAdapter);
 
@@ -253,9 +294,45 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
 
 
         ArrayAdapter<String> shutterSpeedAdapter = new ArrayAdapter<>(getActivity(),
-                                                                      R.layout.support_simple_spinner_dropdown_item, shutterSpeedList);
+                                                                      R.layout.custom_spinner_item, shutterSpeedList);
         shutterSpeedAdapter.setDropDownViewResource(R.layout.spinner_item);
         shutter_speed_spinner.setAdapter(shutterSpeedAdapter);
+
+        List<Camera.PhotoQuality> photoQualityList =
+            new ArrayList<>(EnumSet.allOf(Camera.PhotoQuality.class));
+        ArrayAdapter<Camera.PhotoQuality> photoQualityArrayAdapter = new ArrayAdapter<>(getActivity(),
+                                                                                        R.layout.custom_spinner_item, photoQualityList);
+        photoQualityArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        photo_quality_spinner.setAdapter(photoQualityArrayAdapter);
+
+        List<Camera.PhotoFormat> photoFormatList =
+            new ArrayList<>(EnumSet.allOf(Camera.PhotoFormat.class));
+        ArrayAdapter<Camera.PhotoFormat> photoFormatArrayAdapter = new ArrayAdapter<>(getActivity(),
+                                                                                      R.layout.custom_spinner_item, photoFormatList);
+        photoFormatArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        photo_format_spinner.setAdapter(photoFormatArrayAdapter);
+
+        List<Camera.VideoFormat> videoFormatList =
+            new ArrayList<>(EnumSet.allOf(Camera.VideoFormat.class));
+        ArrayAdapter<Camera.VideoFormat> videoFormatArrayAdapter = new ArrayAdapter<>(getActivity(),
+                                                                                      R.layout.custom_spinner_item, videoFormatList);
+        videoFormatArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        video_format_spinner.setAdapter(videoFormatArrayAdapter);
+
+        List<Camera.VideoResolution> videoResolutionList =
+            new ArrayList<>(EnumSet.allOf(Camera.VideoResolution.class));
+        ArrayAdapter<Camera.VideoResolution> videoResolutionArrayAdapter = new ArrayAdapter<>(getActivity(),
+                R.layout.support_simple_spinner_dropdown_item, videoResolutionList);
+        videoResolutionArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        video_resolution_spinner.setAdapter(videoResolutionArrayAdapter);
+
+        List<Camera.Metering.Mode> meteringList =
+            new ArrayList<>(EnumSet.allOf(Camera.Metering.Mode.class));
+        ArrayAdapter<Camera.Metering.Mode> meteringArrayAdapter = new ArrayAdapter<>(getActivity(),
+                                                                                     R.layout.custom_spinner_item, meteringList);
+        meteringArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
+        metering_spinner.setAdapter(meteringArrayAdapter);
+
 
     }
 
@@ -263,39 +340,36 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (Common.isConnected) {
+            Media.vibrate(getActivity());
             switch (v.getId()) {
-                case R.id.capturePicture:
-                    Media.vibrate(getActivity());
-                    if (!getCameraMode().equals(Camera.Mode.PHOTO)) {
-                        Camera.setMode(Camera.Mode.PHOTO, CameraModeListener.getCameraModeListener());
-                    } else {
-                        Camera.asyncTakePhoto();
-                    }
+                case R.id.get_resolution:
+                    Log.d(TAG, "resolution button clicked");
+                    Camera.getResolution(CameraSettingsListener.getResolutionListener());
                     break;
-                case R.id.video:
-                    Media.vibrate(getActivity());
-                    if (!getCameraMode().equals(Camera.Mode.VIDEO)) {
-                        Camera.setMode(Camera.Mode.VIDEO, CameraModeListener.getCameraModeListener());
-                    } else {
-                        if (video.getText().equals(getString(R.string.video))) {
-                            Camera.asyncStartVideo();
-                        } else {
-                            Camera.asyncStopVideo();
-                        }
-                    }
+
+                case R.id.get_photo_format:
+                    Log.d(TAG, "photo format button clicked");
+                    Camera.getPhotoFormat(CameraSettingsListener.getPhotoFormatListener());
                     break;
-                case R.id.photo_interval:
-                    Media.vibrate(getActivity());
-                    setIsPhotoInterval(true);
-                    if (!getCameraMode().equals(Camera.Mode.PHOTO)) {
-                        Camera.setMode(Camera.Mode.PHOTO, CameraModeListener.getCameraModeListener());
-                    } else {
-                        if (photoInterval.getText().equals(getString(R.string.photo_interval))) {
-                            Camera.asyncStartPhotoInterval(Common.defaultPhotoIntervalInSeconds);
-                        } else {
-                            Camera.asyncStopPhotoInterval();
-                        }
-                    }
+
+                case R.id.get_photo_quality:
+                    Log.d(TAG, "photo quality button clicked");
+                    Camera.getPhotoQuality(CameraSettingsListener.getPhotoQualityListener());
+                    break;
+
+                case R.id.get_video_format:
+                    Log.d(TAG, "video format button clicked");
+                    Camera.getVideoFormat(CameraSettingsListener.getVideoFormatListener());
+                    break;
+
+                case R.id.get_video_resolution:
+                    Log.d(TAG, "video resolution button clicked");
+                    Camera.getVideoResolution(CameraSettingsListener.getVideoResolutionListener());
+                    break;
+
+                case R.id.get_metering:
+                    Log.d(TAG, "metering button clicked");
+                    Camera.getMetering(CameraSettingsListener.getMeteringListener());
                     break;
             }
         } else {
@@ -305,6 +379,7 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        Media.vibrate(getActivity());
         switch (adapterView.getId()) {
             case R.id.wb_dropdown:
                 Log.d(TAG, "wb selected");
@@ -430,11 +505,43 @@ public class CameraSettingsFragment extends Fragment implements View.OnClickList
                         Log.d(TAG, shutterSpeedS.denominator + "");
                         Camera.setShutterSpeed(shutterSpeedS, CameraSettingsListener.getShutterSpeedListener());
                         break;
-
-
-
                 }
                 break;
+            case R.id.photo_format_dropdown:
+                Log.d(TAG, "photo format selected");
+                Camera.PhotoFormat photoFormatSelection = (Camera.PhotoFormat)
+                                                          photo_format_spinner.getSelectedItem();
+                Camera.setPhotoFormat(photoFormatSelection, CameraSettingsListener.getPhotoFormatListener());
+                break;
+
+            case R.id.photo_quality_dropdown:
+                Log.d(TAG, "photo quality selected");
+                Camera.PhotoQuality photoQualitySelection = (Camera.PhotoQuality)
+                                                            photo_quality_spinner.getSelectedItem();
+                Camera.setPhotoQuality(photoQualitySelection, CameraSettingsListener.getPhotoQualityListener());
+                break;
+
+            case R.id.video_format_dropdown:
+                Log.d(TAG, "video format selected");
+                Camera.VideoFormat videoFormatSelection = (Camera.VideoFormat)
+                                                          video_format_spinner.getSelectedItem();
+                Camera.setVideoFormat(videoFormatSelection, CameraSettingsListener.getVideoFormatListener());
+                break;
+
+            case R.id.video_resolution_dropdown:
+                Log.d(TAG, "video resolution selected");
+                Camera.VideoResolution videoResolutionSelection = (Camera.VideoResolution)
+                                                                  video_resolution_spinner.getSelectedItem();
+                Camera.setVideoResolution(videoResolutionSelection,
+                                          CameraSettingsListener.getVideoResolutionListener());
+                break;
+            case R.id.metering_dropdown:
+                Log.d(TAG, "metering selected");
+                Camera.Metering metering = new Camera.Metering();
+                metering.mode = (Camera.Metering.Mode)metering_spinner.getSelectedItem();
+                Camera.setMetering(metering, CameraSettingsListener.getMeteringListener());
+                break;
+
         }
 
     }

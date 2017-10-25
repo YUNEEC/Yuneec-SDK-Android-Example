@@ -1,32 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <SurfaceView
-        android:id="@+id/video_live_stream_view"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_width="400dp"
-        android:layout_height="300dp"
-        android:layout_centerHorizontal="true" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/capturePicture"
+        <com.yuneec.example.view.CustomButton
+            android:id="@+id/capturePicture"
+            style="@style/button"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:text="@string/capture_picture" />
+
+        <com.yuneec.example.view.CustomButton
+            android:id="@+id/video"
+            style="@style/button"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:text="@string/video" />
+
+        <com.yuneec.example.view.CustomButton
+            android:id="@+id/photo_interval"
+            style="@style/button"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:text="@string/photo_interval" />
+
+    </LinearLayout>
+
+    <com.yuneec.example.view.CustomButton
+        android:id="@+id/camera_settings"
         style="@style/button"
-        android:text="Capture Picture"
-        android:layout_below="@+id/video_live_stream_view"
-        android:layout_centerHorizontal="true" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/camera_settings" />
 
-    <Button
-        android:id="@+id/captureVideo"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        style="@style/button"
-        android:text="Start Video"
-        android:layout_below="@+id/capturePicture"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone" />
-
-</RelativeLayout>
+</LinearLayout>

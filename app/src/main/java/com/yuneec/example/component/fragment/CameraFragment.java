@@ -12,6 +12,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.*;
@@ -23,6 +24,9 @@ import android.widget.Toast;
 import com.yuneec.example.R;
 import com.yuneec.example.component.custom_callback.VideoSurfaceHolderCallBack;
 import com.yuneec.example.component.listeners.CameraListener;
+import com.yuneec.example.component.listeners.CameraModeListener;
+import com.yuneec.example.component.utils.Common;
+import com.yuneec.example.component.utils.Media;
 import com.yuneec.sdk.Camera;
 
 
@@ -38,16 +42,32 @@ public class CameraFragment
 
     Button capturePicture;
 
-    Button captureVideo;
+    Button video;
 
-    SurfaceView videoStreamView;
+    Button photoInterval;
 
-    SurfaceHolder surfaceHolder;
+    private Button cameraSettings;
 
-    Surface videoSurface;
+    private Camera.Mode cameraMode = Camera.Mode.UNKNOWN;
 
-    VideoSurfaceHolderCallBack videoSurfaceHolderCallBack;
+    private boolean isPhotoInterval = false;
 
+
+    public Camera.Mode getCameraMode() {
+        return cameraMode;
+    }
+
+    public void setCameraMode(Camera.Mode cameraMode) {
+        this.cameraMode = cameraMode;
+    }
+
+    public boolean getIsPhotoInterval() {
+        return isPhotoInterval;
+    }
+
+    public void setIsPhotoInterval(boolean photoInterval) {
+        isPhotoInterval = photoInterval;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,14 +91,14 @@ public class CameraFragment
     public void onStart() {
 
         super.onStart();
-        registerListener();
+        registerListeners();
     }
 
     @Override
     public void onStop() {
 
         super.onStop();
-        unRegisterListener();
+        unRegisterListeners();
     }
 
     @Override
@@ -99,15 +119,6 @@ public class CameraFragment
     public void onDestroyView() {
 
         super.onDestroyView();
-        deInitPlayer();
-    }
-
-    public void deInitPlayer() {
-
-        // TODO: deinit player
-        if (videoSurfaceHolderCallBack != null) {
-            videoSurfaceHolderCallBack = null;
-        }
     }
 
     private void initViews(LayoutInflater inflater,
@@ -115,51 +126,76 @@ public class CameraFragment
 
         rootView = inflater.inflate(R.layout.camera_layout, container, false);
         capturePicture = (Button) rootView.findViewById(R.id.capturePicture);
-        captureVideo = (Button) rootView.findViewById(R.id.captureVideo);
-        videoStreamView = (SurfaceView) rootView.findViewById(R.id.video_live_stream_view);
-        surfaceHolder = videoStreamView.getHolder();
-        // TODO: initiate player
-        surfaceHolder.addCallback(videoSurfaceHolderCallBack);
+        video = (Button) rootView.findViewById(R.id.video);
+        photoInterval = (Button) rootView.findViewById(R.id.photo_interval);
+        cameraSettings = (Button) rootView.findViewById(R.id.camera_settings);
     }
 
 
-    private void registerListener() {
-
+    private void registerListeners() {
         CameraListener.registerCameraListener(getActivity());
+        CameraModeListener.registerCameraModeListener(getActivity());
     }
 
-    private void unRegisterListener() {
-
+    private void unRegisterListeners() {
+        CameraModeListener.unRegisterCameraModeListener();
         CameraListener.unRegisterCameraListener();
     }
 
 
     private void addOnClickListeners() {
-
         capturePicture.setOnClickListener(this);
-        captureVideo.setOnClickListener(this);
+        video.setOnClickListener(this);
+        photoInterval.setOnClickListener(this);
+        cameraSettings.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-
-        switch (v.getId()) {
-            case R.id.capturePicture:
-                Camera.asyncTakePhoto();
-                Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                Ringtone currentRingtone = RingtoneManager.getRingtone(getActivity(), notificationSound);
-                currentRingtone.play();
-                break;
-            case R.id.captureVideo:
-                if (captureVideo.getText()
-                        .equals("Start Video")) {
-                    Camera.asyncStartVideo();
-                    captureVideo.setText("Stop Video");
-                } else {
-                    Camera.asyncStopVideo();
-                    captureVideo.setText("Start Video");
-                }
+        if (Common.isConnected) {
+            Media.vibrate(getActivity());
+            switch (v.getId()) {
+                case R.id.capturePicture:
+                    if (!getCameraMode().equals(Camera.Mode.PHOTO)) {
+                        Camera.setMode(Camera.Mode.PHOTO, CameraModeListener.getCameraModeListener());
+                    } else {
+                        Camera.asyncTakePhoto();
+                    }
+                    break;
+                case R.id.video:
+                    if (!getCameraMode().equals(Camera.Mode.VIDEO)) {
+                        Camera.setMode(Camera.Mode.VIDEO, CameraModeListener.getCameraModeListener());
+                    } else {
+                        if (video.getText().equals(getString(R.string.video))) {
+                            Camera.asyncStartVideo();
+                        } else {
+                            Camera.asyncStopVideo();
+                        }
+                    }
+                    break;
+                case R.id.photo_interval:
+                    Media.vibrate(getActivity());
+                    setIsPhotoInterval(true);
+                    if (!getCameraMode().equals(Camera.Mode.PHOTO)) {
+                        Camera.setMode(Camera.Mode.PHOTO, CameraModeListener.getCameraModeListener());
+                    } else {
+                        if (photoInterval.getText().equals(getString(R.string.photo_interval))) {
+                            Camera.asyncStartPhotoInterval(Common.defaultPhotoIntervalInSeconds);
+                        } else {
+                            Camera.asyncStopPhotoInterval();
+                        }
+                    }
+                    break;
+                case R.id.camera_settings:
+                    DialogFragment settingsDialogFragment = new CameraSettingsFragment();
+                    settingsDialogFragment.show(getFragmentManager(), "settings");
+                    Media.vibrate(getActivity());
+                    break;
+            }
+        } else {
+            Common.makeToast(getActivity(), "Please Connect To The Drone");
         }
+
 
     }
 }
