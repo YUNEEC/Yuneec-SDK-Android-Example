@@ -12,11 +12,24 @@
     <string name="health_status">Health Status: </string>
     <string name="no_status">Unknown</string>
     <string name="no_text">Please enter yaw degree, before clicking rotate button</string>
+    <!-- Camera Settings -->
     <string name="white_balance_mode">White Balance Mode</string>
     <string name="exposure_mode">Exposure Mode</string>
     <string name="exposure_compensation">Exposure Compensation</string>
     <string name="iso_value">ISO Value</string>
     <string name="shutter_speed">Shutter Speed</string>
+    <string name="get_resolution">Get Resolution</string>
+    <string name="get_photo_quality">Get Photo Quality</string>
+    <string name="set_photo_quality">Photo Quality</string>
+    <string name="get_photo_format">Get Photo Format</string>
+    <string name="set_photo_format">Photo Format</string>
+    <string name="get_video_format">Get Video Format</string>
+    <string name="set_video_format">Video Format</string>
+    <string name="get_video_resolution">Get Video Resolution</string>
+    <string name="set_video_resolution">Video Resolution</string>
+    <string name="get_metering">Get Metering</string>
+    <string name="set_metering">Metering</string>
+
     <string name="color_mode">Color Mode</string>
     <string name="capture_picture">Capture Picture</string>
     <string name="video">Start Video</string>
@@ -24,4 +37,5 @@
     <string name="photo_interval">Start Capturing Photos</string>
     <string name="stop_photo_interval">Stop Capturing Photos</string>
     <string name="take_off_hint">Enter takeoff altitude in meters (Optional) </string>
+    <string name="camera_settings">Edit Camera Settings</string>
 </resources>

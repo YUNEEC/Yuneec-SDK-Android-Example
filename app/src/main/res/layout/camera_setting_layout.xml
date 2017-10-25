@@ -1,153 +1,350 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.yuneec.example.view.CustomButton
-            android:id="@+id/capturePicture"
-            style="@style/button"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:text="@string/capture_picture" />
-
-        <com.yuneec.example.view.CustomButton
-            android:id="@+id/video"
-            style="@style/button"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:text="@string/video" />
-
-        <com.yuneec.example.view.CustomButton
-            android:id="@+id/photo_interval"
-            style="@style/button"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:text="@string/photo_interval" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:orientation="vertical">
 
-            <com.yuneec.example.view.CustomTextView
-                style="@style/textSmall"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin"
-                android:text="@string/white_balance_mode" />
+                android:layout_height="wrap_content">
 
-            <com.yuneec.example.view.CustomTextView
-                android:id="@+id/customTextView"
-                style="@style/textSmall"
+                <com.yuneec.example.view.CustomTextView
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin"
+                    android:text="@string/white_balance_mode" />
+
+                <Spinner
+                    android:id="@+id/wb_dropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    style="@style/textSmall"></Spinner>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin"
-                android:text="@string/color_mode" />
+                android:layout_height="wrap_content">
+                <com.yuneec.example.view.CustomTextView
+                    android:id="@+id/customTextView"
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin"
+                    android:text="@string/color_mode" />
 
-            <com.yuneec.example.view.CustomTextView
-                style="@style/textSmall"
+                <Spinner
+                    android:id="@+id/color_mode_dropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    style="@style/textSmall"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin"
-                android:text="@string/exposure_mode" />
+                android:layout_height="wrap_content">
+                <com.yuneec.example.view.CustomTextView
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin"
+                    android:text="@string/exposure_mode" />
 
-            <com.yuneec.example.view.CustomTextView
-                android:id="@+id/ex_com_text"
-                style="@style/textSmall"
+                <Spinner
+                    android:id="@+id/exposure_mode_dropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    style="@style/textSmall"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin"
-                android:text="@string/exposure_compensation" />
+                android:layout_height="wrap_content">
+                <com.yuneec.example.view.CustomTextView
+                    android:id="@+id/ex_com_text"
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin"
+                    android:text="@string/exposure_compensation" />
 
-            <com.yuneec.example.view.CustomTextView
-                android:id="@+id/iso_val"
-                style="@style/textSmall"
+                <Spinner
+                    android:id="@+id/exposure_com_dropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    style="@style/textSmall"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin"
-                android:text="@string/iso_value"
-                android:visibility="gone" />
+                android:layout_height="wrap_content">
+                <com.yuneec.example.view.CustomTextView
+                    android:id="@+id/iso_val"
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin"
+                    android:text="@string/iso_value"
+                    android:visibility="gone" />
 
+                <Spinner
+                    android:id="@+id/iso_dropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:visibility="gone"
+                    style="@style/textSmall"></Spinner>
+            </LinearLayout>
 
-            <com.yuneec.example.view.CustomTextView
-                android:id="@+id/shutter_speed"
-                style="@style/textSmall"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/margin"
-                android:text="@string/shutter_speed"
-                android:visibility="gone" />
+                android:layout_height="wrap_content">
+                <com.yuneec.example.view.CustomTextView
+                    android:id="@+id/shutter_speed"
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin"
+                    android:text="@string/shutter_speed"
+                    android:visibility="gone" />
 
+                <Spinner
+                    android:id="@+id/shutter_speed_dropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:visibility="gone"
+                    style="@style/textSmall"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.yuneec.example.view.CustomTextView
+                    android:id="@+id/photo_quality"
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin"
+                    android:text="@string/set_photo_quality" />
+
+                <Spinner
+                    android:id="@+id/photo_quality_dropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    style="@style/textSmall"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.yuneec.example.view.CustomTextView
+                    android:id="@+id/photo_format"
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin"
+                    android:text="@string/set_photo_format" />
+
+                <Spinner
+                    android:id="@+id/photo_format_dropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    style="@style/textSmall"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.yuneec.example.view.CustomTextView
+                    android:id="@+id/video_format"
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin"
+                    android:text="@string/set_video_format" />
+
+                <Spinner
+                    android:id="@+id/video_format_dropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    style="@style/textSmall"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.yuneec.example.view.CustomTextView
+                    android:id="@+id/video_resolution"
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin"
+                    android:text="@string/set_video_resolution" />
+
+                <Spinner
+                    android:id="@+id/video_resolution_dropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    style="@style/textSmall"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.yuneec.example.view.CustomTextView
+                    android:id="@+id/metering"
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin"
+                    android:text="@string/set_metering" />
+
+                <Spinner
+                    android:id="@+id/metering_dropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    style="@style/textSmall"></Spinner>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.yuneec.example.view.CustomButton
+                    android:id="@+id/get_resolution"
+                    style="@style/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/get_resolution" />
+
+                <com.yuneec.example.view.CustomTextView
+                    android:id="@+id/resolution_text"
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.yuneec.example.view.CustomButton
+                    android:id="@+id/get_photo_quality"
+                    style="@style/button"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/get_photo_quality" />
+
+                <com.yuneec.example.view.CustomTextView
+                    android:id="@+id/photo_quality_text"
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.yuneec.example.view.CustomButton
+                    android:id="@+id/get_photo_format"
+                    style="@style/button"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/get_photo_format" />
+
+                <com.yuneec.example.view.CustomTextView
+                    android:id="@+id/photo_format_text"
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.yuneec.example.view.CustomButton
+                    android:id="@+id/get_video_format"
+                    style="@style/button"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/get_video_format" />
+
+                <com.yuneec.example.view.CustomTextView
+                    android:id="@+id/video_format_text"
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.yuneec.example.view.CustomButton
+                    android:id="@+id/get_video_resolution"
+                    style="@style/button"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/get_video_resolution" />
+
+                <com.yuneec.example.view.CustomTextView
+                    android:id="@+id/video_resolution_text"
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.yuneec.example.view.CustomButton
+                    android:id="@+id/get_metering"
+                    style="@style/button"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/get_metering" />
+                <com.yuneec.example.view.CustomTextView
+                    android:id="@+id/metering_text"
+                    style="@style/textSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin" />
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <Spinner
-                android:id="@+id/wb_dropdown"
-                android:layout_width="wrap_content"
-                android:layout_height="56dp"
-                style="@style/textSmall"></Spinner>
-
-            <Spinner
-                android:id="@+id/color_mode_dropdown"
-                android:layout_width="wrap_content"
-                android:layout_height="52dp"
-                style="@style/textSmall"></Spinner>
-
-            <Spinner
-                android:id="@+id/exposure_mode_dropdown"
-                android:layout_width="wrap_content"
-                android:layout_height="52dp"
-                style="@style/textSmall"></Spinner>
-
-            <Spinner
-                android:id="@+id/exposure_com_dropdown"
-                android:layout_width="wrap_content"
-                android:layout_height="56dp"
-                style="@style/textSmall"></Spinner>
-
-            <Spinner
-                android:id="@+id/iso_dropdown"
-                android:layout_width="wrap_content"
-                android:layout_height="52dp"
-                android:visibility="gone"
-                style="@style/textSmall"></Spinner>
-
-            <Spinner
-                android:id="@+id/shutter_speed_dropdown"
-                android:layout_width="wrap_content"
-                android:layout_height="52dp"
-                android:visibility="gone"
-                style="@style/textSmall"></Spinner>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>
