@@ -33,4 +33,7 @@
     <string name="altitude">Altitude: </string>
     <string name="default_altitude">100</string>
     <string name="camera_action">Camera Action</string>
+    <string name="speed">Speed(m/s) </string>
+    <string name="default_speed">10</string>
+
 </resources>

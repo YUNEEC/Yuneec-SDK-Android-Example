@@ -27,7 +27,7 @@ public class MissionListener {
 
         onChangeListener = (OnChangeListener) context;
         if (missionResultListener == null) {
-            Log.d(TAG, "Initialized battery result listener");
+            Log.d(TAG, "Initialized Mission result listener");
             missionResultListener = new Mission.ResultListener() {
                 @Override
                 public void onResultCallback(Mission.Result result) {
@@ -49,7 +49,7 @@ public class MissionListener {
 
         onChangeListener = (OnChangeListener) context;
         if (missionProgressListener == null) {
-            Log.d(TAG, "Initialized battery result listener");
+            Log.d(TAG, "Initialized Mission Progress listener");
             missionProgressListener = new Mission.ProgressListener() {
                 @Override
                 public void onProgressUpdate(int current, int total) {

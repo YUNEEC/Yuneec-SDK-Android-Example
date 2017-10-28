@@ -14,8 +14,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -39,6 +41,8 @@ import com.yuneec.sdk.MissionItem;
 import com.yuneec.sdk.Telemetry;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -70,6 +74,8 @@ public class MainActivity
     MissionListener missionListener = null;
 
     private float altitude = 100.0f;
+
+    private float speed = 10f;
 
     private float pitchDeg = 90f;
 
@@ -129,29 +135,40 @@ public class MainActivity
     }
 
     private void showSettingsDialog(final LatLng point) {
-        LinearLayout wayPointSettings = (LinearLayout)getLayoutInflater().inflate(
+        LinearLayout wayPointSettingsLayout = (LinearLayout)getLayoutInflater().inflate(
                                             R.layout.waypointconfig_layout, null);
 
-        final TextView altitudeText = (TextView) wayPointSettings.findViewById(R.id.altitude);
-        final TextView pitchDegText = (TextView) wayPointSettings.findViewById(R.id.pitch_deg);
-        final TextView yawDegText = (TextView) wayPointSettings.findViewById(R.id.yaw_deg);
+        final TextView altitudeText = (TextView) wayPointSettingsLayout.findViewById(R.id.altitude);
+        final TextView speedText = (TextView) wayPointSettingsLayout.findViewById(R.id.speed);
+        final TextView pitchDegText = (TextView) wayPointSettingsLayout.findViewById(R.id.pitch_deg);
+        final TextView yawDegText = (TextView) wayPointSettingsLayout.findViewById(R.id.yaw_deg);
+        final Spinner cameraActionSpinner = (Spinner) wayPointSettingsLayout.findViewById(R.id.camera_action_dropdown);
+
+        List<MissionItem.CameraAction> actionList =
+                new ArrayList<>(EnumSet.allOf(MissionItem.CameraAction.class));
+        ArrayAdapter<MissionItem.CameraAction> actionAdapter = new ArrayAdapter<>(this,
+                R.layout.spinner_item, actionList);
+        cameraActionSpinner.setAdapter(actionAdapter);
 
         new AlertDialog.Builder(this)
         .setTitle("")
-        .setView(wayPointSettings)
+        .setView(wayPointSettingsLayout)
         .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
 
                 String altitudeString = altitudeText.getText().toString();
                 altitude = Integer.parseInt(altitudeString);
+                String speedString = speedText.getText().toString();
+                speed = Integer.parseInt(speedString);
                 String pitchDegString = pitchDegText.getText().toString();
                 pitchDeg = Integer.parseInt(pitchDegString);
                 String yawDegString = yawDegText.getText().toString();
                 yawDeg = Integer.parseInt(yawDegString);
-                markWaypoint(point);
-                MissionItem missionItem = makeMissionItem(point.latitude, point.longitude, altitude,
-                                                          MissionItem.CameraAction.TAKE_PHOTO, pitchDeg, yawDeg);
+                MissionItem.CameraAction cameraAction = (MissionItem.CameraAction) cameraActionSpinner.getSelectedItem();
+                MissionItem missionItem = makeMissionItem(point.latitude, point.longitude, altitude, speed,
+                                                          cameraAction, pitchDeg, yawDeg);
                 missionItems.add(missionItem);
+                markWaypoint(point);
             }
 
         })
@@ -178,14 +195,15 @@ public class MainActivity
         mapMarkers.put(mapMarkers.size(), marker);
     }
 
-    private MissionItem makeMissionItem(double latitudeDeg, double longitudeM,
-                                        float relativeAltitudeM,
+    private MissionItem makeMissionItem(double latitudeDeg, double longitude,
+                                        float relativeAltitude, float speed,
                                         MissionItem.CameraAction cameraAction,
                                         float gimbalPitchDeg, float gimbalYawDeg) {
 
         MissionItem newItem = new MissionItem();
-        newItem.setPosition(latitudeDeg, longitudeM);
-        newItem.setRelativeAltitude(relativeAltitudeM);
+        newItem.setPosition(latitudeDeg, longitude);
+        newItem.setRelativeAltitude(relativeAltitude);
+        newItem.setSpeed(speed);
         newItem.setCameraAction(cameraAction);
         newItem.setGimbalPitchAndYaw(gimbalPitchDeg, gimbalYawDeg);
         return newItem;

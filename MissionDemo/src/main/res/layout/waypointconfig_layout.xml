@@ -38,6 +38,30 @@
             style="@style/text">
         </EditText>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+        <com.yuneec.example.view.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/speed"
+            style="@style/text">
+        </com.yuneec.example.view.CustomTextView>
+        <EditText
+            android:id="@+id/speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/default_speed"
+            style="@style/text">
+        </EditText>
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -82,5 +106,25 @@
             style="@style/text">
         </EditText>
     </LinearLayout>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+        <com.yuneec.example.view.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/camera_action"
+            style="@style/text">
+        </com.yuneec.example.view.CustomTextView>
+        <Spinner
+            android:id="@+id/camera_action_dropdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/textSmall">
+        </Spinner>
+    </LinearLayout>
 </LinearLayout>
