@@ -334,6 +334,7 @@ public class MainActivity
     private void enableDisableAdd() {
         if (isAdd == false) {
             isAdd = true;
+            missionItems.clear();
             add.setText("Done");
         } else {
             isAdd = false;
