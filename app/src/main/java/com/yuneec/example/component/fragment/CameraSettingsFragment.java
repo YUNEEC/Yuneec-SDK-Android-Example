@@ -95,6 +95,8 @@ public class CameraSettingsFragment extends DialogFragment implements View.OnCli
 
     CustomButton resolution;
 
+    CustomButton resetSettings;
+
     private static final String TAG = CameraSettingsListener.class.getCanonicalName();
 
 
@@ -181,6 +183,7 @@ public class CameraSettingsFragment extends DialogFragment implements View.OnCli
         video_resolution = (CustomButton) rootView.findViewById(R.id.get_video_resolution);
         resolution = (CustomButton) rootView.findViewById(R.id.get_resolution);
         metering = (CustomButton) rootView.findViewById(R.id.get_metering);
+        resetSettings = (CustomButton) rootView.findViewById(R.id.reset_settings);
     }
 
     private void addOnClickListeners() {
@@ -204,6 +207,7 @@ public class CameraSettingsFragment extends DialogFragment implements View.OnCli
         video_resolution.setOnClickListener(this);
         resolution.setOnClickListener(this);
         metering.setOnClickListener(this);
+        resetSettings.setOnClickListener(this);
     }
 
     private void setSelection() {
@@ -358,6 +362,9 @@ public class CameraSettingsFragment extends DialogFragment implements View.OnCli
                     Log.d(TAG, "metering button clicked");
                     Camera.getMetering(CameraSettingsListener.getMeteringListener());
                     break;
+                case R.id.reset_settings:
+                    Log.d(TAG, "reset settings clicked");
+                    Camera.asyncReset();
             }
         } else {
             Common.makeToast(getActivity(), "Please Connect To The Drone");

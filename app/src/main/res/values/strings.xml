@@ -29,6 +29,7 @@
     <string name="set_video_resolution">Video Resolution</string>
     <string name="get_metering">Get Metering</string>
     <string name="set_metering">Metering</string>
+    <string name="reset_settings">Reset Camera Settings</string>
 
     <string name="color_mode">Color Mode</string>
     <string name="capture_picture">Capture Picture</string>
