@@ -126,7 +126,7 @@ public class TelemetryListener {
             gpsInfoListener = new Telemetry.GPSInfoListener() {
                 @Override
                 public void onGPSInfoCallback(Telemetry.GPSInfo gpsInfo) {
-                    Log.d(TAG, "GPS info - num of satellites" + gpsInfo.numSatellites );
+                    Log.d(TAG, "GPS info - num of satellites" + gpsInfo.numSatellites);
                 }
             };
         }

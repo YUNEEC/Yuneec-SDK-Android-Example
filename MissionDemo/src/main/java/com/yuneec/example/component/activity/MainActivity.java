@@ -136,18 +136,19 @@ public class MainActivity
 
     private void showSettingsDialog(final LatLng point) {
         LinearLayout wayPointSettingsLayout = (LinearLayout)getLayoutInflater().inflate(
-                                            R.layout.waypointconfig_layout, null);
+                                                  R.layout.waypointconfig_layout, null);
 
         final TextView altitudeText = (TextView) wayPointSettingsLayout.findViewById(R.id.altitude);
         final TextView speedText = (TextView) wayPointSettingsLayout.findViewById(R.id.speed);
         final TextView pitchDegText = (TextView) wayPointSettingsLayout.findViewById(R.id.pitch_deg);
         final TextView yawDegText = (TextView) wayPointSettingsLayout.findViewById(R.id.yaw_deg);
-        final Spinner cameraActionSpinner = (Spinner) wayPointSettingsLayout.findViewById(R.id.camera_action_dropdown);
+        final Spinner cameraActionSpinner = (Spinner) wayPointSettingsLayout.findViewById(
+                                                R.id.camera_action_dropdown);
 
         List<MissionItem.CameraAction> actionList =
-                new ArrayList<>(EnumSet.allOf(MissionItem.CameraAction.class));
+            new ArrayList<>(EnumSet.allOf(MissionItem.CameraAction.class));
         ArrayAdapter<MissionItem.CameraAction> actionAdapter = new ArrayAdapter<>(this,
-                R.layout.spinner_item, actionList);
+                                                                                  R.layout.spinner_item, actionList);
         cameraActionSpinner.setAdapter(actionAdapter);
 
         new AlertDialog.Builder(this)
@@ -164,7 +165,8 @@ public class MainActivity
                 pitchDeg = Integer.parseInt(pitchDegString);
                 String yawDegString = yawDegText.getText().toString();
                 yawDeg = Integer.parseInt(yawDegString);
-                MissionItem.CameraAction cameraAction = (MissionItem.CameraAction) cameraActionSpinner.getSelectedItem();
+                MissionItem.CameraAction cameraAction = (MissionItem.CameraAction)
+                                                        cameraActionSpinner.getSelectedItem();
                 MissionItem missionItem = makeMissionItem(point.latitude, point.longitude, altitude, speed,
                                                           cameraAction, pitchDeg, yawDeg);
                 missionItems.add(missionItem);
@@ -334,7 +336,6 @@ public class MainActivity
     private void enableDisableAdd() {
         if (isAdd == false) {
             isAdd = true;
-            missionItems.clear();
             add.setText("Done");
         } else {
             isAdd = false;
