@@ -75,7 +75,8 @@ public class YuneecSt16Listener {
             yuneecSt16GpsListener = new YuneecSt16.GpsPositionListener() {
                 @Override
                 public void onCallback(YuneecSt16.GpsPosition gpsPosition) {
-                    Log.d(TAG, "ST16: Latitude: " + gpsPosition.latitudeDeg + ", longitude: " + gpsPosition.longitudeDeg);
+                    Log.d(TAG, "ST16: Latitude: " + gpsPosition.latitudeDeg + ", longitude: " +
+                          gpsPosition.longitudeDeg);
                     Log.d(TAG, "ST16: Altitude: " + gpsPosition.absoluteAltitudeM);
                     Log.d(TAG, "ST16: Num satellites: " + gpsPosition.numSatellites);
                     Log.d(TAG, "ST16: PDOP: " + gpsPosition.pdop);
@@ -126,7 +127,8 @@ public class YuneecSt16Listener {
             yuneecSt16GpsListener = new YuneecSt16.GpsPositionListener() {
                 @Override
                 public void onCallback(YuneecSt16.GpsPosition gpsPosition) {
-                    Log.d(TAG, "ST16: Latitude: " + gpsPosition.latitudeDeg + ", longitude: " + gpsPosition.longitudeDeg);
+                    Log.d(TAG, "ST16: Latitude: " + gpsPosition.latitudeDeg + ", longitude: " +
+                          gpsPosition.longitudeDeg);
                 }
             };
         }
