@@ -34,7 +34,7 @@ public class TelemetryListener {
 
                     ((OnChangeListener) context).publishBatteryChangeStatus(
                         String.format("%d", (int)(100 * battery.remainingPercent)));
-                    Log.d(TAG, String.format("%d", (int)(100 * battery.remainingPercent)));
+                    //Log.d(TAG, String.format("%d", (int)(100 * battery.remainingPercent)));
                 }
             };
         }

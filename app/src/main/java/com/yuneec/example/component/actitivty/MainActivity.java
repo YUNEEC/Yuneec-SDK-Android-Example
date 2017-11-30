@@ -128,7 +128,7 @@ public class MainActivity
             @Override
             public void run() {
 
-                Log.d(TAG, batteryStatus);
+                //Log.d(TAG, batteryStatus);
                 ConnectionFragment fragment = (ConnectionFragment) getSupportFragmentManager().findFragmentByTag(
                                                   "connection");
                 fragment.setBatterStateView(batteryStatus);
@@ -145,7 +145,7 @@ public class MainActivity
             @Override
             public void run() {
 
-                Log.d(TAG, healthStatus);
+                //Log.d(TAG, healthStatus);
                 ConnectionFragment fragment = (ConnectionFragment) getSupportFragmentManager().findFragmentByTag(
                                                   "connection");
                 fragment.setDroneHealthView(healthStatus);
