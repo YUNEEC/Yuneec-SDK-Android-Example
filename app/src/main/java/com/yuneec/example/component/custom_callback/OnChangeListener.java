@@ -18,5 +18,7 @@ public interface OnChangeListener {
 
     void publishActionResult(String result);
 
+    void publishYuneecSt16Result(String result);
+
     void publishCameraModeResult(Camera.Mode mode, String result);
 }

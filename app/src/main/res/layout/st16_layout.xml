@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.yuneec.example.view.CustomButton
+            android:id="@+id/pair_button"
+            style="@style/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pair"
+            android:layout_centerHorizontal="true"/>
+
+        <com.yuneec.example.view.CustomButton
+            android:id="@+id/unpair_button"
+            style="@style/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pair_button"
+            android:text="Unpair"
+            android:layout_centerHorizontal="true"/>
+
+        <com.yuneec.example.view.CustomButton
+            android:id="@+id/check_paired_button"
+            style="@style/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/unpair_button"
+            android:layout_centerHorizontal="true"
+            android:text="Check paired" />
+
+    </RelativeLayout>
+</LinearLayout>

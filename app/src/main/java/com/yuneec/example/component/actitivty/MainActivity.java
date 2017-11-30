@@ -7,6 +7,7 @@
 package com.yuneec.example.component.actitivty;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
@@ -24,6 +25,7 @@ import com.yuneec.example.component.fragment.CameraSettingsFragment;
 import com.yuneec.example.component.fragment.ConnectionFragment;
 import com.yuneec.example.component.fragment.GimbalFragment;
 import com.yuneec.example.component.fragment.MediaDownloadFragment;
+import com.yuneec.example.component.fragment.St16Fragment;
 import com.yuneec.example.component.fragment.TelemetryFragment;
 import com.yuneec.example.component.listeners.ConnectionListener;
 import com.yuneec.example.component.utils.Common;
@@ -68,6 +70,10 @@ public class MainActivity
                         .setIndicator("Media Download"), MediaDownloadFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("telemetry")
                         .setIndicator("Telemetry"), TelemetryFragment.class, null);
+        if (isSt16()) {
+            mTabHost.addTab(mTabHost.newTabSpec("st16")
+                            .setIndicator("St16"), St16Fragment.class, null);
+        }
 
         for (int i = 0; i < mTabHost.getTabWidget().getChildCount(); i++) {
             View v = mTabHost.getTabWidget().getChildAt(i);
@@ -220,6 +226,17 @@ public class MainActivity
     }
 
     @Override
+    public void publishYuneecSt16Result(final String result) {
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                Common.makeToast(context, result);
+            }
+        });
+    }
+
+    @Override
     public void publishCameraModeResult(final Camera.Mode mode, final String result) {
         runOnUiThread(new Runnable() {
             @Override
@@ -252,6 +269,10 @@ public class MainActivity
                 }
             }
         });
+    }
+
+    public boolean isSt16() {
+        return Build.MODEL.equals("anzhen4_mrd7_w");
     }
 }
 
