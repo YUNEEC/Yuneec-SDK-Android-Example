@@ -23,119 +23,109 @@ public class YuneecSt16Listener {
 
     private static OnChangeListener onChangeListener;
 
-    public static YuneecSt16.ResultListener getYuneecSt16ResultListener(Context context) {
-        onChangeListener = (OnChangeListener) context;
+    public static YuneecSt16.ResultListener getYuneecSt16ResultListener() {
         if (yuneecSt16ResultListener == null) {
-            Log.d(TAG, "Initialized yuneecSt16 result listener");
-            yuneecSt16ResultListener = new YuneecSt16.ResultListener() {
-                @Override
-                public void onResultCallback(YuneecSt16.Result result) {
-                    Log.d(TAG, result.resultStr);
-                }
-            };
+            registerYuneecSt16ResultListener();
         }
-
         return yuneecSt16ResultListener;
     }
 
-    public static YuneecSt16.ButtonStateListener getYuneecSt16ButtonListener(Context context) {
-        onChangeListener = (OnChangeListener) context;
+    public static YuneecSt16.ButtonStateListener getYuneecSt16ButtonListener() {
         if (yuneecSt16ButtonStateListener == null) {
-            Log.d(TAG, "Initialized yuneecSt16 button state listener");
-            yuneecSt16ButtonStateListener = new YuneecSt16.ButtonStateListener() {
-                @Override
-                public void onChangeCallback(YuneecSt16.ButtonId buttonId, YuneecSt16.ButtonState buttonState) {
-                    Log.d(TAG, "Button " + buttonId.toString() + " changed to " + buttonState.toString());
-                }
-            };
+           registerYuneecSt16ButtonStateListener();
         }
 
         return yuneecSt16ButtonStateListener;
     }
 
-    public static YuneecSt16.SwitchStateListener getYuneecSt16SwitchListener(Context context) {
-        onChangeListener = (OnChangeListener) context;
+    public static YuneecSt16.SwitchStateListener getYuneecSt16SwitchListener() {
         if (yuneecSt16SwitchStateListener == null) {
-            Log.d(TAG, "Initialized yuneecSt16 switch state listener");
-            yuneecSt16SwitchStateListener = new YuneecSt16.SwitchStateListener() {
-                @Override
-                public void onChangeCallback(YuneecSt16.SwitchId switchId, YuneecSt16.SwitchState switchState) {
-                    Log.d(TAG, "Switch " + switchId.toString() + " changed to " + switchState.toString());
-                }
-            };
+           registerYuneecSt16SwitchStateListener();
         }
 
         return yuneecSt16SwitchStateListener;
     }
 
-    public static YuneecSt16.GpsPositionListener getYuneecSt16GpsPositionListener(Context context) {
-        onChangeListener = (OnChangeListener) context;
+    public static YuneecSt16.GpsPositionListener getYuneecSt16GpsPositionListener() {
         if (yuneecSt16GpsListener == null) {
-            Log.d(TAG, "Initialized yuneecSt16 GPS position listener");
-            yuneecSt16GpsListener = new YuneecSt16.GpsPositionListener() {
-                @Override
-                public void onCallback(YuneecSt16.GpsPosition gpsPosition) {
-                    Log.d(TAG, "ST16: Latitude: " + gpsPosition.latitudeDeg + ", longitude: " +
-                          gpsPosition.longitudeDeg);
-                    Log.d(TAG, "ST16: Altitude: " + gpsPosition.absoluteAltitudeM);
-                    Log.d(TAG, "ST16: Num satellites: " + gpsPosition.numSatellites);
-                    Log.d(TAG, "ST16: PDOP: " + gpsPosition.pdop);
-                    Log.d(TAG, "ST16: Speed: " + gpsPosition.speedMs);
-                    Log.d(TAG, "ST16: Heading: " + gpsPosition.headingDeg);
-                }
-            };
+            registerYuneecSt16GpsListener();
         }
 
         return yuneecSt16GpsListener;
     }
 
-    public static void registerYuneecSt16Listener() {
+    public static void registerYuneecSt16Listeners(Context context) {
+        onChangeListener = (OnChangeListener) context;
+        registerYuneecSt16ResultListener();
+        registerYuneecSt16ButtonStateListener();
+        registerYuneecSt16SwitchStateListener();
+        registerYuneecSt16GpsListener();
+    }
 
+    private static void registerYuneecSt16ResultListener() {
         if (yuneecSt16ResultListener == null) {
             Log.d(TAG, "Initialized yuneecSt16 result listener");
             yuneecSt16ResultListener = new YuneecSt16.ResultListener() {
                 @Override
                 public void onResultCallback(YuneecSt16.Result result) {
                     Log.d(TAG, result.resultStr);
+                    onChangeListener.publishYuneecSt16Result(result.resultStr);
                 }
             };
         }
+    }
+
+    private static void registerYuneecSt16ButtonStateListener() {
         if (yuneecSt16ButtonStateListener == null) {
             Log.d(TAG, "Initialized yuneecSt16 button state listener");
             yuneecSt16ButtonStateListener = new YuneecSt16.ButtonStateListener() {
                 @Override
                 public void onChangeCallback(YuneecSt16.ButtonId buttonId, YuneecSt16.ButtonState buttonState) {
                     Log.d(TAG, "Button " + buttonId.toString() + " changed to " + buttonState.toString());
+                    onChangeListener.publishYuneecSt16Result("Button " + buttonId.toString() + " changed to " + buttonState.toString());
                 }
             };
         }
         YuneecSt16.setButtonStateListener(yuneecSt16ButtonStateListener);
+    }
 
+    private static void registerYuneecSt16SwitchStateListener() {
         if (yuneecSt16SwitchStateListener == null) {
             Log.d(TAG, "Initialized yuneecSt16 switch state listener");
             yuneecSt16SwitchStateListener = new YuneecSt16.SwitchStateListener() {
                 @Override
                 public void onChangeCallback(YuneecSt16.SwitchId switchId, YuneecSt16.SwitchState switchState) {
                     Log.d(TAG, "Switch " + switchId.toString() + " changed to " + switchState.toString());
+                    onChangeListener.publishYuneecSt16Result("Switch " + switchId.toString() + " changed to " + switchState.toString());
                 }
             };
         }
         YuneecSt16.setSwitchStateListener(yuneecSt16SwitchStateListener);
+    }
 
+    private static void registerYuneecSt16GpsListener() {
         if (yuneecSt16GpsListener == null) {
             Log.d(TAG, "Initialized yuneecSt16 GPS position listener");
             yuneecSt16GpsListener = new YuneecSt16.GpsPositionListener() {
                 @Override
                 public void onCallback(YuneecSt16.GpsPosition gpsPosition) {
                     Log.d(TAG, "ST16: Latitude: " + gpsPosition.latitudeDeg + ", longitude: " +
-                          gpsPosition.longitudeDeg);
+                            gpsPosition.longitudeDeg);
+                    Log.d(TAG, "ST16: Altitude: " + gpsPosition.absoluteAltitudeM);
+                    Log.d(TAG, "ST16: Num satellites: " + gpsPosition.numSatellites);
+                    Log.d(TAG, "ST16: PDOP: " + gpsPosition.pdop);
+                    Log.d(TAG, "ST16: Speed: " + gpsPosition.speedMs);
+                    Log.d(TAG, "ST16: Heading: " + gpsPosition.headingDeg);
+                    // TODO: Display required Gps data to the user
+                    onChangeListener.publishYuneecSt16Result("ST16: Latitude: " + gpsPosition.latitudeDeg + ", longitude: " +
+                            gpsPosition.longitudeDeg);
                 }
             };
         }
         YuneecSt16.setGpsPositionListener(yuneecSt16GpsListener);
     }
 
-    public static void unRegisterYuneecSt16Listener() {
+    public static void unRegisterYuneecSt16Listeners() {
 
         if (yuneecSt16ResultListener != null) {
             yuneecSt16ResultListener = null;

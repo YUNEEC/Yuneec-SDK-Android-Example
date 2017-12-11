@@ -23,10 +23,7 @@ public class St16Fragment extends Fragment implements View.OnClickListener {
     /**Create view*/
     View mView;
 
-    YuneecSt16.ResultListener listener;
-    YuneecSt16.ButtonStateListener buttonStateListener;
-    YuneecSt16.SwitchStateListener switchStateListener;
-    YuneecSt16.GpsPositionListener gpsPositionListener;
+    YuneecSt16.ResultListener resultListener;
 
     private static final String TAG = St16Fragment.class.getCanonicalName();
 
@@ -42,11 +39,8 @@ public class St16Fragment extends Fragment implements View.OnClickListener {
     public void onStart() {
 
         super.onStart();
-        listener = YuneecSt16Listener.getYuneecSt16ResultListener(getActivity());
-        buttonStateListener = YuneecSt16Listener.getYuneecSt16ButtonListener(getActivity());
-        switchStateListener = YuneecSt16Listener.getYuneecSt16SwitchListener(getActivity());
-        gpsPositionListener = YuneecSt16Listener.getYuneecSt16GpsPositionListener(getActivity());
         registerListener();
+        resultListener = YuneecSt16Listener.getYuneecSt16ResultListener();
     }
 
     @Override
@@ -65,11 +59,11 @@ public class St16Fragment extends Fragment implements View.OnClickListener {
     }
 
     private void registerListener() {
-        YuneecSt16Listener.registerYuneecSt16Listener();
+        YuneecSt16Listener.registerYuneecSt16Listeners(getActivity());
     }
 
     private void unRegisterListener() {
-        YuneecSt16Listener.unRegisterYuneecSt16Listener();
+        YuneecSt16Listener.unRegisterYuneecSt16Listeners();
     }
 
     @Override
@@ -77,13 +71,13 @@ public class St16Fragment extends Fragment implements View.OnClickListener {
         Media.vibrate(getActivity());
         switch (v.getId()) {
             case R.id.pair_button:
-                YuneecSt16.pairAsync(listener);
+                YuneecSt16.pairAsync(resultListener);
                 break;
             case R.id.unpair_button:
-                YuneecSt16.unpairAsync(listener);
+                YuneecSt16.unpairAsync(resultListener);
                 break;
             case R.id.check_paired_button:
-                YuneecSt16.checkPairedAsync(listener);
+                YuneecSt16.checkPairedAsync(resultListener);
                 break;
         }
     }
