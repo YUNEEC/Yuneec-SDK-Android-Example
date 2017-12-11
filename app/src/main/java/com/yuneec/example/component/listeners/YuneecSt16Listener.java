@@ -32,7 +32,7 @@ public class YuneecSt16Listener {
 
     public static YuneecSt16.ButtonStateListener getYuneecSt16ButtonListener() {
         if (yuneecSt16ButtonStateListener == null) {
-           registerYuneecSt16ButtonStateListener();
+            registerYuneecSt16ButtonStateListener();
         }
 
         return yuneecSt16ButtonStateListener;
@@ -40,7 +40,7 @@ public class YuneecSt16Listener {
 
     public static YuneecSt16.SwitchStateListener getYuneecSt16SwitchListener() {
         if (yuneecSt16SwitchStateListener == null) {
-           registerYuneecSt16SwitchStateListener();
+            registerYuneecSt16SwitchStateListener();
         }
 
         return yuneecSt16SwitchStateListener;
@@ -82,7 +82,8 @@ public class YuneecSt16Listener {
                 @Override
                 public void onChangeCallback(YuneecSt16.ButtonId buttonId, YuneecSt16.ButtonState buttonState) {
                     Log.d(TAG, "Button " + buttonId.toString() + " changed to " + buttonState.toString());
-                    onChangeListener.publishYuneecSt16Result("Button " + buttonId.toString() + " changed to " + buttonState.toString());
+                    onChangeListener.publishYuneecSt16Result("Button " + buttonId.toString() + " changed to " +
+                                                             buttonState.toString());
                 }
             };
         }
@@ -96,7 +97,8 @@ public class YuneecSt16Listener {
                 @Override
                 public void onChangeCallback(YuneecSt16.SwitchId switchId, YuneecSt16.SwitchState switchState) {
                     Log.d(TAG, "Switch " + switchId.toString() + " changed to " + switchState.toString());
-                    onChangeListener.publishYuneecSt16Result("Switch " + switchId.toString() + " changed to " + switchState.toString());
+                    onChangeListener.publishYuneecSt16Result("Switch " + switchId.toString() + " changed to " +
+                                                             switchState.toString());
                 }
             };
         }
@@ -110,15 +112,16 @@ public class YuneecSt16Listener {
                 @Override
                 public void onCallback(YuneecSt16.GpsPosition gpsPosition) {
                     Log.d(TAG, "ST16: Latitude: " + gpsPosition.latitudeDeg + ", longitude: " +
-                            gpsPosition.longitudeDeg);
+                          gpsPosition.longitudeDeg);
                     Log.d(TAG, "ST16: Altitude: " + gpsPosition.absoluteAltitudeM);
                     Log.d(TAG, "ST16: Num satellites: " + gpsPosition.numSatellites);
                     Log.d(TAG, "ST16: PDOP: " + gpsPosition.pdop);
                     Log.d(TAG, "ST16: Speed: " + gpsPosition.speedMs);
                     Log.d(TAG, "ST16: Heading: " + gpsPosition.headingDeg);
                     // TODO: Display required Gps data to the user
-                    onChangeListener.publishYuneecSt16Result("ST16: Latitude: " + gpsPosition.latitudeDeg + ", longitude: " +
-                            gpsPosition.longitudeDeg);
+                    onChangeListener.publishYuneecSt16Result("ST16: Latitude: " + gpsPosition.latitudeDeg +
+                                                             ", longitude: " +
+                                                             gpsPosition.longitudeDeg);
                 }
             };
         }
