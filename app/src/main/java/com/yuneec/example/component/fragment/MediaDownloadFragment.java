@@ -140,8 +140,9 @@ public class MediaDownloadFragment extends Fragment implements
 
             private String localPath(String title) {
                 // TODO: should check if there is a SD card inserted.
-                File path = rootView.getContext().getExternalFilesDir(null);
-                //System.out.println("Download to: " + path);
+                //File path = rootView.getContext().getExternalFilesDir(null);
+                File path = new File("/storage/sdcard1");
+                System.out.println("Download to: " + path);
                 // Create dir if not already existing
                 if (path.mkdirs()) {
                     System.out.println("Created: " + path);
