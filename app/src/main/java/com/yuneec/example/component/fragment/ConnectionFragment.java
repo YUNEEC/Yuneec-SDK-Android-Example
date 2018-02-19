@@ -58,7 +58,7 @@ public class ConnectionFragment
     public void onStart() {
 
         super.onStart();
-        registerListener();
+        registerListeners();
 
     }
 
@@ -66,7 +66,7 @@ public class ConnectionFragment
     public void onStop() {
 
         super.onStop();
-        unRegisterListener();
+        unRegisterListeners();
     }
 
     @Override
@@ -87,16 +87,14 @@ public class ConnectionFragment
         super.onResume();
     }
 
-    private void registerListener() {
+    private void registerListeners() {
 
-        CameraListener.registerCameraListener(getActivity());
         TelemetryListener.registerBatteryListener(getActivity());
         TelemetryListener.registerHealthListener(getActivity());
     }
 
-    private void unRegisterListener() {
+    private void unRegisterListeners() {
 
-        CameraListener.unRegisterCameraListener();
         TelemetryListener.unRegisterBatteryListener();
         TelemetryListener.unRegisterHealthListener();
     }
