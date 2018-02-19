@@ -321,9 +321,6 @@ public class TelemetryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        YCListener listener = new YCListener();
-        Connection.addListener(listener);
-
         ArrayList<TelemetryEntry> list = GetInitialTelemetrylist();
 
         adapter = new ListviewTelemetryAdapter(getActivity(), list);
@@ -381,20 +378,4 @@ public class TelemetryFragment extends Fragment {
         Telemetry.setInAirListener(new InAirListener());
         Telemetry.setRCStatusListener(new RCStatusListener());
     }
-
-    class YCListener implements Connection.Listener {
-
-        @Override
-        public void onDiscoverCallback() {
-            // When a new device has connected, we need to subscribe all listeners again.
-            subscribe();
-        }
-
-        @Override
-        public void onTimeoutCallback() {
-            // Do nothing, leave last values.
-        }
-    }
-
-    ;
 }
