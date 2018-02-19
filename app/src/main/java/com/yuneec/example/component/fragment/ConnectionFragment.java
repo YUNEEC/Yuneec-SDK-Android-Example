@@ -66,13 +66,13 @@ public class ConnectionFragment
     public void onStop() {
 
         super.onStop();
+        unRegisterListener();
     }
 
     @Override
     public void onDestroyView() {
 
         super.onDestroyView();
-        unRegisterListener();
     }
 
     @Override
