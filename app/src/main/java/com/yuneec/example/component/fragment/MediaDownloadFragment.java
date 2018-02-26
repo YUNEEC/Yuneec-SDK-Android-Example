@@ -173,12 +173,12 @@ public class MediaDownloadFragment extends Fragment implements
                                         entry.downloaded = true;
                                         adapter.notifyDataSetChanged();
                                     }
+                                    downloadingMedia = false;
                                 } else {
                                     updateToast("Downloaded " + progress + " %");
                                 }
                             }
                         });
-                        downloadingMedia = false;
                     }
 
                 };
