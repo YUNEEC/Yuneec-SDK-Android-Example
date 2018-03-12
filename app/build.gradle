@@ -31,6 +31,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:26.1.0'
     testCompile 'junit:junit:4.12'
-    compile 'com.github.YUNEEC:Yuneec-SDK-Android:v0.12.1-0'
+    compile 'com.github.YUNEEC:Yuneec-SDK-Android:v0.13.2-0'
     compile 'com.github.YUNEEC:Yuneec-RTSP-Player-Android:v0.1'
 }
