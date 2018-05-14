@@ -18,6 +18,7 @@ public class YuneecSt16Listener {
     private static YuneecSt16.ButtonStateListener yuneecSt16ButtonStateListener = null;
     private static YuneecSt16.SwitchStateListener yuneecSt16SwitchStateListener = null;
     private static YuneecSt16.GpsPositionListener yuneecSt16GpsListener = null;
+    private static YuneecSt16.M4VersionListener yuneecSt16VersionListener = null;
 
     private static final String TAG = YuneecSt16Listener.class.getCanonicalName();
 
@@ -54,12 +55,21 @@ public class YuneecSt16Listener {
         return yuneecSt16GpsListener;
     }
 
+    public static YuneecSt16.M4VersionListener getYuneecSt16VersionListener() {
+        if (yuneecSt16VersionListener == null) {
+            registerYuneecSt16VersionListener();
+        }
+
+        return yuneecSt16VersionListener;
+    }
+
     public static void registerYuneecSt16Listeners(Context context) {
         onChangeListener = (OnChangeListener) context;
         registerYuneecSt16ResultListener();
         registerYuneecSt16ButtonStateListener();
         registerYuneecSt16SwitchStateListener();
         registerYuneecSt16GpsListener();
+        registerYuneecSt16VersionListener();
     }
 
     private static void registerYuneecSt16ResultListener() {
@@ -119,9 +129,27 @@ public class YuneecSt16Listener {
                     Log.d(TAG, "ST16: Speed: " + gpsPosition.speedMs);
                     Log.d(TAG, "ST16: Heading: " + gpsPosition.headingDeg);
                     // TODO: Display required Gps data to the user
-                    onChangeListener.publishYuneecSt16Result("ST16: Latitude: " + gpsPosition.latitudeDeg +
-                                                             ", longitude: " +
-                                                             gpsPosition.longitudeDeg);
+                    //onChangeListener.publishYuneecSt16Result("ST16: Latitude: " + gpsPosition.latitudeDeg +
+                    //                                         ", longitude: " +
+                    //                                         gpsPosition.longitudeDeg);
+                }
+            };
+        }
+        YuneecSt16.setGpsPositionListener(yuneecSt16GpsListener);
+    }
+
+    private static void registerYuneecSt16VersionListener() {
+        if (yuneecSt16VersionListener == null) {
+            Log.d(TAG, "Initialized yuneecSt16 GPS position listener");
+            yuneecSt16VersionListener = new YuneecSt16.M4VersionListener() {
+                @Override
+                public void onCallback(YuneecSt16.M4Version version) {
+                    Log.d(TAG, "ST16: Got version callback");
+                    onChangeListener.publishYuneecSt16Result("Version: " + version.major +
+                                                             "." +
+                                                             version.minor +
+                                                             "." +
+                                                             version.build);
                 }
             };
         }
@@ -144,6 +172,10 @@ public class YuneecSt16Listener {
 
         if (yuneecSt16GpsListener != null) {
             yuneecSt16GpsListener = null;
+        }
+
+        if (yuneecSt16VersionListener != null) {
+            yuneecSt16VersionListener = null;
         }
     }
 }
