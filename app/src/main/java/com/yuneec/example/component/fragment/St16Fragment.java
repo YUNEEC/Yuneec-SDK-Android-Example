@@ -24,6 +24,7 @@ public class St16Fragment extends Fragment implements View.OnClickListener {
     View mView;
 
     YuneecSt16.ResultListener resultListener;
+    YuneecSt16.M4VersionListener versionListener;
 
     private static final String TAG = St16Fragment.class.getCanonicalName();
 
@@ -41,6 +42,7 @@ public class St16Fragment extends Fragment implements View.OnClickListener {
         super.onStart();
         registerListener();
         resultListener = YuneecSt16Listener.getYuneecSt16ResultListener();
+        versionListener = YuneecSt16Listener.getYuneecSt16VersionListener();
     }
 
     @Override
@@ -56,6 +58,7 @@ public class St16Fragment extends Fragment implements View.OnClickListener {
         mView.findViewById(R.id.pair_button).setOnClickListener(this);
         mView.findViewById(R.id.unpair_button).setOnClickListener(this);
         mView.findViewById(R.id.check_paired_button).setOnClickListener(this);
+        mView.findViewById(R.id.get_m4_version).setOnClickListener(this);
     }
 
     private void registerListener() {
@@ -78,6 +81,9 @@ public class St16Fragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.check_paired_button:
                 YuneecSt16.checkPairedAsync(resultListener);
+                break;
+            case R.id.get_m4_version:
+                YuneecSt16.getM4VersionAsync(versionListener);
                 break;
         }
     }
