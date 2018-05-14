@@ -37,5 +37,14 @@
             android:layout_centerHorizontal="true"
             android:text="Check paired" />
 
+        <com.yuneec.example.view.CustomButton
+            android:id="@+id/get_m4_version"
+            style="@style/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/check_paired_button"
+            android:layout_centerHorizontal="true"
+            android:text="Get M4 version" />
+
     </RelativeLayout>
 </LinearLayout>
