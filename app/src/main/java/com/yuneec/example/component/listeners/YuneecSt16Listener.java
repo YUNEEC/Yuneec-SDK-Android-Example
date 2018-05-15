@@ -143,13 +143,17 @@ public class YuneecSt16Listener {
             Log.d(TAG, "Initialized yuneecSt16 GPS position listener");
             yuneecSt16VersionListener = new YuneecSt16.M4VersionListener() {
                 @Override
-                public void onCallback(YuneecSt16.M4Version version) {
-                    Log.d(TAG, "ST16: Got version callback");
-                    onChangeListener.publishYuneecSt16Result("Version: " + version.major +
-                                                             "." +
-                                                             version.minor +
-                                                             "." +
-                                                             version.build);
+                public void onCallback(YuneecSt16.Result result, YuneecSt16.M4Version version) {
+                    if (result.resultID == YuneecSt16.Result.ResultID.SUCCESS) {
+                        Log.d(TAG, "ST16: Got version callback");
+                        onChangeListener.publishYuneecSt16Result("Version: " + version.major +
+                                                                 "." +
+                                                                 version.minor +
+                                                                 "." +
+                                                                 version.patch);
+                    } else {
+                        Log.d(TAG, "ST16: could not get version");
+                    }
                 }
             };
         }
