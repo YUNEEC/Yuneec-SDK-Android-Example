@@ -140,7 +140,7 @@ public class YuneecSt16Listener {
 
     private static void registerYuneecSt16VersionListener() {
         if (yuneecSt16VersionListener == null) {
-            Log.d(TAG, "Initialized yuneecSt16 GPS position listener");
+            Log.d(TAG, "Initialized yuneecSt16 version listener");
             yuneecSt16VersionListener = new YuneecSt16.M4VersionListener() {
                 @Override
                 public void onCallback(YuneecSt16.Result result, YuneecSt16.M4Version version) {
